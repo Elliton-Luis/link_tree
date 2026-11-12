@@ -11,8 +11,11 @@ const APPS = [
     title: "Blog Aletheia",
     exe: "aletheia.exe",
     url: "https://blog-aletheia.vercel.app/",
-    description: "Ensaios filosóficos, reflexões e busca pela verdade",
-    tag: "Filosofia & Blog",
+    slogan: "Desperte sua mente e enxergue além das aparências",
+    pitch: "Ensaios filosóficos provocativos e reflexões profundas sobre verdade, sociedade e a condição humana. Para quem recusa respostas fáceis.",
+    badge: "🔥 Destaque Editorial",
+    rating: "5.0 ★★★★★",
+    tag: "Filosofia & Pensamento",
     icon: "🕯️",
     color: "#e63946"
   },
@@ -21,8 +24,11 @@ const APPS = [
     title: "Rex Mundi",
     exe: "rexmundi.exe",
     url: "https://rex-mundi.vercel.app/",
-    description: "Estratégia, RPG & Conquista Mundial",
-    tag: "Jogo / RPG",
+    slogan: "Governe impérios. Reescreva a história do mundo",
+    pitch: "Um jogo de grande estratégia e conquista geopolítica onde cada jogada diplomática, econômica e militar decide o destino de impérios inteiros.",
+    badge: "👑 Épico / Estratégia",
+    rating: "4.9 ★★★★★",
+    tag: "Grande Estratégia & RPG",
     icon: "👑",
     color: "#8338ec"
   },
@@ -31,8 +37,11 @@ const APPS = [
     title: "Eclesia RPG",
     exe: "eclesiarpg.exe",
     url: "https://eclesia-rpg.vercel.app/",
-    description: "Sistema narrativo e campanha imersiva de RPG",
-    tag: "RPG",
+    slogan: "Sua lenda começa aqui. O chamado da aventura",
+    pitch: "Mergulhe em um universo de RPG medieval repleto de combates estratégicos, lore expansivo e escolhas morais de tirar o fôlego.",
+    badge: "⚔️ RPG Imersivo",
+    rating: "5.0 ★★★★★",
+    tag: "RPG & Aventura",
     icon: "⚔️",
     color: "#d90429"
   },
@@ -41,8 +50,11 @@ const APPS = [
     title: "Cátedra Sacra",
     exe: "catedrasacra.exe",
     url: "https://catedra-sacra.vercel.app/",
-    description: "Estudos teológicos, patrística e sabedoria clássica",
-    tag: "Estudos",
+    slogan: "Dois mil anos de sabedoria na palma da sua mão",
+    pitch: "Acesso direto aos grandes clássicos da teologia patrística, tradição e filosofia ocidental. Eleve seu intelecto com as fontes originais.",
+    badge: "🏛️ Sabedoria Nobre",
+    rating: "5.0 ★★★★★",
+    tag: "Teologia & Patrística",
     icon: "🏛️",
     color: "#457b9d"
   },
@@ -51,8 +63,11 @@ const APPS = [
     title: "Anima Puritas",
     exe: "animapuritas.exe",
     url: "https://anima-puritas.vercel.app/",
-    description: "Pureza interior, reflexão e serenidade espiritual",
-    tag: "Espiritualidade",
+    slogan: "Paz mental e renovação espiritual em meio ao caos",
+    pitch: "Seu santuário digital contra a poluição sonora e mental do mundo moderno. Cultive serenidade, foco puro e disciplina interior diária.",
+    badge: "🕊️ Paz & Serenidade",
+    rating: "4.9 ★★★★★",
+    tag: "Espiritualidade & Mente",
     icon: "🕊️",
     color: "#3a86ff"
   },
@@ -61,8 +76,11 @@ const APPS = [
     title: "Leitura Tau",
     exe: "leituratau.exe",
     url: "https://leitura-tau.vercel.app/",
-    description: "Ambiente de leitura profunda, textos e contemplação",
-    tag: "Leitura",
+    slogan: "Menos distração superficial. Mais profundidade",
+    pitch: "Uma experiência de leitura focada e tipografia sob medida, livre dos algoritmos que drenam sua atenção. Retome o prazer de ler de verdade.",
+    badge: "📖 Foco Absoluto",
+    rating: "5.0 ★★★★★",
+    tag: "Leitura Contemplativa",
     icon: "📖",
     color: "#b08968"
   },
@@ -71,8 +89,11 @@ const APPS = [
     title: "Oratio Rosarii",
     exe: "rosarii.exe",
     url: "https://oratio-rosarii.vercel.app/",
-    description: "Guia e meditação diária dos mistérios do Santo Rosário",
-    tag: "Devoção",
+    slogan: "Transforme a oração diária em um hábito inabalável",
+    pitch: "O companheiro definitivo para rezar o Santo Rosário. Meditações ilustradas, mistérios do dia e suporte visual para aprofundar sua devoção.",
+    badge: "📿 Devoção Viva",
+    rating: "5.0 ★★★★★",
+    tag: "Oração & Devoção",
     icon: "📿",
     color: "#6c5ce7"
   },
@@ -81,8 +102,11 @@ const APPS = [
     title: "Epifania Notas",
     exe: "epifania.exe",
     url: "https://epifania-notas.vercel.app/",
-    description: "Captura rápida de ideias, insights e epifanias",
-    tag: "Anotações",
+    slogan: "Nunca mais perca uma ideia genial por falta de velocidade",
+    pitch: "Capture insights, pensamentos relâmpago e epifanias no exato segundo em que surgem. Interface instantânea, minimalista e sem atritos.",
+    badge: "💡 Produtividade Ágil",
+    rating: "4.9 ★★★★★",
+    tag: "Anotações Instantâneas",
     icon: "💡",
     color: "#e9c46a"
   },
@@ -91,8 +115,11 @@ const APPS = [
     title: "Compasso Money",
     exe: "compasso.exe",
     url: "https://compasso-money.vercel.app/",
-    description: "Gestão, orçamento e bússola financeira pessoal",
-    tag: "Finanças",
+    slogan: "Assuma o controle total do seu dinheiro e viva livre",
+    pitch: "A bússola que descomplica sua vida financeira. Saiba exatamente onde cortar custos, visualize metas e construa prosperidade com clareza.",
+    badge: "🧭 Gestão Financeira",
+    rating: "4.9 ★★★★★",
+    tag: "Finanças Pessoais",
     icon: "🧭",
     color: "#2a9d8f"
   },
@@ -101,8 +128,11 @@ const APPS = [
     title: "Momento Vita",
     exe: "momentovita.exe",
     url: "https://momento-vita.vercel.app/",
-    description: "Hábitos diários, Memento Mori e valorização do tempo",
-    tag: "Produtividade",
+    slogan: "Lembre-se de que o tempo passa. Viva com urgência e honra",
+    pitch: "Inspirado no princípio de Memento Mori, transforme sua relação com o tempo. Construa hábitos fortes e pare de adiar o que realmente importa.",
+    badge: "⏳ Memento Mori",
+    rating: "5.0 ★★★★★",
+    tag: "Hábitos & Rotina",
     icon: "⏳",
     color: "#e76f51"
   },
@@ -111,8 +141,11 @@ const APPS = [
     title: "Evo Quest",
     exe: "evoquest.exe",
     url: "https://evo-quest.vercel.app/",
-    description: "Gamificação de metas e evolução pessoal contínua",
-    tag: "Gamificação",
+    slogan: "Transforme suas tarefas diárias em um jogo épico",
+    pitch: "Gamifique sua vida real: cumpra objetivos do dia a dia, suba de nível, derrote a procrastinação e receba recompensas de pura dopamina positiva.",
+    badge: "🎯 Gamificação Pura",
+    rating: "4.8 ★★★★★",
+    tag: "Evolução & Metas",
     icon: "🎯",
     color: "#f72585"
   },
@@ -121,8 +154,11 @@ const APPS = [
     title: "Exercitium",
     exe: "exercitium.exe",
     url: "https://exercitium.vercel.app/",
-    description: "Treino, rotina corporal e disciplina atlética",
-    tag: "Saúde & Foco",
+    slogan: "Corpo forte, mente disciplinada, energia sem limites",
+    pitch: "O guia prático e rigoroso para transformar seu corpo através de rotinas de treino consistentes. Sem desculpas: puro rendimento atlético.",
+    badge: "🛡️ Força & Disciplina",
+    rating: "4.9 ★★★★★",
+    tag: "Treino & Saúde",
     icon: "🛡️",
     color: "#4361ee"
   },
@@ -131,8 +167,11 @@ const APPS = [
     title: "Códice Quiz",
     exe: "codicequiz.exe",
     url: "https://codice-quiz.vercel.app/",
-    description: "Perguntas, testes de sabedoria e desafios intelectuais",
-    tag: "Quiz",
+    slogan: "Teste sua erudição e comprove sua inteligência",
+    pitch: "Perguntas desafiadoras de cultura geral, história, teologia e sabedoria clássica. Um teste intelectual envolvente que separa curiosos de eruditos.",
+    badge: "📜 Desafio Intelectual",
+    rating: "4.8 ★★★★★",
+    tag: "Quiz & Trivia",
     icon: "📜",
     color: "#d4a373"
   },
@@ -141,8 +180,11 @@ const APPS = [
     title: "Estuda Links",
     exe: "estudalinks.exe",
     url: "https://estuda-links.vercel.app/",
-    description: "Curadoria de recursos, links e rotas de aprendizado",
-    tag: "Educação",
+    slogan: "O mapa do tesouro para dominar qualquer matéria",
+    pitch: "A melhor curadoria de links, recursos didáticos e rotas de aprendizagem da internet reunidos em um só lugar. Aprenda mais rápido com o melhor material.",
+    badge: "🔗 Curadoria de Ouro",
+    rating: "5.0 ★★★★★",
+    tag: "Rotas de Aprendizado",
     icon: "🔗",
     color: "#00b4d8"
   }
@@ -437,7 +479,7 @@ function renderDesktopApps() {
     iconEl.className = "desktop-icon";
     iconEl.tabIndex = 0;
     iconEl.dataset.appId = app.id;
-    iconEl.title = `${app.title} (${app.exe})\n${app.description}`;
+    iconEl.title = `${app.title} - ${app.slogan}\n${app.pitch}`;
 
     iconEl.innerHTML = `
       <div class="icon-graphic has-shortcut">
@@ -470,7 +512,7 @@ function renderExplorerProjects() {
   if (!container) return;
 
   container.innerHTML = "";
-  if (countStatus) countStatus.textContent = `${APPS.length} aplicativos instalados`;
+  if (countStatus) countStatus.textContent = `${APPS.length} aplicativos disponíveis`;
 
   APPS.forEach(app => {
     const card = document.createElement("div");
@@ -478,13 +520,22 @@ function renderExplorerProjects() {
     card.tabIndex = 0;
 
     card.innerHTML = `
-      <div class="proj-icon-wrapper">
-        <span class="proj-icon-glyph">${app.icon}</span>
+      <div class="card-top-bar">
+        <span class="card-badge">${app.badge}</span>
+        <span class="card-rating">${app.rating}</span>
       </div>
-      <div class="proj-info">
-        <div class="proj-title">${app.title}</div>
-        <div class="proj-desc">${app.description}</div>
-        <span class="proj-tag">${app.tag}</span>
+      <div class="card-main-content">
+        <div class="proj-icon-wrapper">
+          <span class="proj-icon-glyph">${app.icon}</span>
+        </div>
+        <div class="proj-info">
+          <div class="proj-title">${app.title}</div>
+          <div class="proj-slogan">${app.slogan}</div>
+          <div class="proj-pitch">${app.pitch}</div>
+        </div>
+      </div>
+      <div class="card-footer-cta">
+        <button class="card-cta-btn">Experimentar App ►</button>
       </div>
     `;
 
@@ -492,9 +543,14 @@ function renderExplorerProjects() {
       playRetroSound("click");
       if (hoverInfo) {
         hoverInfo.innerHTML = `
-          <strong>${app.title} (${app.exe})</strong><br>
-          <em>${app.description}</em><br>
-          <span style="color:#0055ea;">URL: ${app.url}</span>
+          <div class="sidebar-showcase">
+            <div class="sidebar-showcase-icon">${app.icon}</div>
+            <div class="sidebar-showcase-title">${app.title}</div>
+            <div class="sidebar-showcase-slogan">"${app.slogan}"</div>
+            <div class="sidebar-showcase-pitch">${app.pitch}</div>
+            <div style="font-size:9px; color:#2e7d32; font-weight:bold; margin-top:2px;">★ ${app.rating} (${app.tag})</div>
+            <a href="${app.url}" target="_blank" rel="noopener" class="sidebar-launch-cta" style="margin-top:6px;">Executar no Navegador ↗</a>
+          </div>
         `;
       }
     });
@@ -582,8 +638,8 @@ function launchApp(app) {
   if (urlLabel) urlLabel.textContent = app.url;
   if (extLink) extLink.href = app.url;
 
-  if (fallbackTitle) fallbackTitle.textContent = app.title;
-  if (fallbackDesc) fallbackDesc.textContent = `${app.description} (${app.tag})`;
+  if (fallbackTitle) fallbackTitle.textContent = `${app.title} - ${app.slogan}`;
+  if (fallbackDesc) fallbackDesc.textContent = `${app.pitch} [${app.tag} • ${app.rating}]`;
   if (fallbackIcon) fallbackIcon.textContent = app.icon;
   if (fallbackBtn) fallbackBtn.href = app.url;
 
@@ -1070,20 +1126,70 @@ function initNotepad() {
   const menuLimpar = document.getElementById("notepad-menu-limpar");
   if (!textarea) return;
 
-  const DEFAULT_NOTE = `==============================================
-AETHEL OS - NOTAS & MANIFESTO
-==============================================
-Bem-vindo ao Aethel OS (Edição Minimalista Retrô).
+  const DEFAULT_NOTE = `=====================================================
+AETHEL OS - VITRINE DOS APLICATIVOS (GUIA OFICIAL)
+=====================================================
+Bem-vindo ao ecossistema Aethel. Cada ferramenta abaixo foi
+artesanalmente projetada para resolver um desafio real:
 
-Aqui você tem acesso a todos os meus 14 projetos,
-um tocador de som 8-bit, terminal Linux e ferramentas
-táteis inspiradas na era de ouro dos desktops.
+[01] 🕯️ BLOG ALETHEIA
+     "Desperte sua mente e enxergue além das aparências."
+     Ensaios filosóficos e reflexões para mentes profundas.
 
-Você pode editar este texto livremente. Suas anotações
-são salvas automaticamente no armazenamento local.
+[02] 👑 REX MUNDI
+     "Governe impérios. Reescreva a história do mundo."
+     Grande estratégia e conquista geopolítica em tempo real.
 
-Ass: Aethel (Elliton Luis)
-github.com/Elliton-Luis`;
+[03] ⚔️ ECLESIA RPG
+     "Sua lenda começa aqui. O chamado da aventura."
+     Universo imersivo de RPG com escolhas morais épicas.
+
+[04] 🏛️ CÁTEDRA SACRA
+     "Dois mil anos de sabedoria na palma da sua mão."
+     O acervo definitivo de teologia patrística e filosofia.
+
+[05] 🕊️ ANIMA PURITAS
+     "Paz mental e renovação espiritual em meio ao caos."
+     Seu santuário diário de clareza, serenidade e foco.
+
+[06] 📖 LEITURA TAU
+     "Menos distração superficial. Mais profundidade."
+     Ambiente de leitura imersivo, limpo e contemplativo.
+
+[07] 📿 ORATIO ROSARII
+     "Transforme a oração diária em um hábito inabalável."
+     O guia meditativo e intuitivo para o Santo Rosário.
+
+[08] 💡 EPIFANIA NOTAS
+     "Nunca mais perca uma ideia genial por falta de velocidade."
+     Captura ultrarrápida de pensamentos e insights raros.
+
+[09] 🧭 COMPASSO MONEY
+     "Assuma o controle total do seu dinheiro e viva livre."
+     A bússola que descomplica finanças e gera prosperidade.
+
+[10] ⏳ MOMENTO VITA
+     "Lembre-se de que o tempo passa. Viva com urgência e honra."
+     Memento Mori na prática: construa hábitos que perduram.
+
+[11] 🎯 EVO QUEST
+     "Transforme suas tarefas diárias em um jogo épico."
+     Gamificação de metas para vencer a procrastinação.
+
+[12] 🛡️ EXERCITIUM
+     "Corpo forte, mente disciplinada, energia sem limites."
+     Rotinas de treino consistentes para alta performance.
+
+[13] 📜 CÓDICE QUIZ
+     "Teste sua erudição e comprove sua inteligência."
+     Desafios intelectuais de história, cultura e sabedoria.
+
+[14] 🔗 ESTUDA LINKS
+     "O mapa do tesouro para dominar qualquer matéria."
+     A melhor curadoria de links de aprendizado da internet.
+-----------------------------------------------------
+Criado por Aethel (Elliton Luis) • github.com/Elliton-Luis
+(Você pode editar e salvar suas anotações neste bloco!)`;
 
   const saved = localStorage.getItem("aethel_note_content");
   textarea.value = saved !== null ? saved : DEFAULT_NOTE;
