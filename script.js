@@ -647,6 +647,18 @@ function initWindowsManager() {
       });
     }
 
+    // Suporte ao clique duplo na barra de título para Maximizar/Restaurar (Estilo Windows XP)
+    if (titlebar) {
+      titlebar.addEventListener("dblclick", (e) => {
+        if (e.target.closest(".titlebar-controls")) return;
+        playRetroSound("click");
+        win.classList.toggle("maximized");
+      });
+    }
+
+    // Adiciona os 8 handles de redimensionamento e o grip clássico de canto
+    addResizeSupport(win);
+
     if (titlebar) {
       let isDragging = false;
       let startX, startY, initialLeft, initialTop;
@@ -687,6 +699,108 @@ function initWindowsManager() {
         function onMouseUp() {
           isDragging = false;
           win.style.transform = "";
+          window.removeEventListener("mousemove", onMouseMove);
+          window.removeEventListener("mouseup", onMouseUp);
+        }
+
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseup", onMouseUp);
+      });
+    }
+  }
+
+  // Função que instala os 8 handles de redimensionamento e o grip clássico do XP
+  function addResizeSupport(win) {
+    if (win.querySelector(".resize-handle")) return;
+
+    const directions = ["n", "s", "e", "w", "nw", "ne", "sw", "se"];
+    directions.forEach(dir => {
+      const handle = document.createElement("div");
+      handle.className = `resize-handle rh-${dir}`;
+      handle.dataset.dir = dir;
+      win.appendChild(handle);
+      setupHandle(handle, dir);
+    });
+
+    // Grip pontilhado clássico de redimensionamento no canto da barra de status
+    const statusbar = win.querySelector(".window-statusbar");
+    if (statusbar && !statusbar.querySelector(".xp-statusbar-grip")) {
+      const grip = document.createElement("div");
+      grip.className = "xp-statusbar-grip";
+      grip.title = "Arrastar para redimensionar";
+      statusbar.appendChild(grip);
+      setupHandle(grip, "se");
+    }
+
+    function setupHandle(el, dir) {
+      el.addEventListener("mousedown", (e) => {
+        if (win.classList.contains("maximized")) return;
+        e.preventDefault();
+        e.stopPropagation();
+
+        focusWindow(win);
+        playRetroSound("click");
+
+        const startX = e.clientX;
+        const startY = e.clientY;
+        const startWidth = win.offsetWidth;
+        const startHeight = win.offsetHeight;
+        const startLeft = win.offsetLeft;
+        const startTop = win.offsetTop;
+
+        const minW = 240;
+        const minH = 140;
+
+        const desktopEl = document.getElementById("desktop");
+        if (desktopEl) desktopEl.classList.add("resizing-active");
+
+        function onMouseMove(moveEvent) {
+          const deltaX = moveEvent.clientX - startX;
+          const deltaY = moveEvent.clientY - startY;
+
+          let newW = startWidth;
+          let newH = startHeight;
+          let newLeft = startLeft;
+          let newTop = startTop;
+
+          // Horizontal
+          if (dir.includes("e")) {
+            newW = Math.max(minW, startWidth + deltaX);
+          }
+          if (dir.includes("w")) {
+            const calcW = startWidth - deltaX;
+            if (calcW >= minW) {
+              newW = calcW;
+              newLeft = startLeft + deltaX;
+            } else {
+              newW = minW;
+              newLeft = startLeft + (startWidth - minW);
+            }
+          }
+
+          // Vertical
+          if (dir.includes("s")) {
+            newH = Math.max(minH, startHeight + deltaY);
+          }
+          if (dir.includes("n")) {
+            const calcH = startHeight - deltaY;
+            if (calcH >= minH) {
+              newH = calcH;
+              newTop = startTop + deltaY;
+            } else {
+              newH = minH;
+              newTop = startTop + (startHeight - minH);
+            }
+          }
+
+          win.style.width = `${newW}px`;
+          win.style.height = `${newH}px`;
+          win.style.left = `${newLeft}px`;
+          win.style.top = `${Math.max(0, newTop)}px`;
+        }
+
+        function onMouseUp() {
+          if (desktopEl) desktopEl.classList.remove("resizing-active");
           window.removeEventListener("mousemove", onMouseMove);
           window.removeEventListener("mouseup", onMouseUp);
         }

@@ -449,6 +449,113 @@ html, body {
   border-width: 0;
 }
 
+/* --------------------------------------------------------------------------
+   Windows XP 8-Direction Resize Handles
+   -------------------------------------------------------------------------- */
+.resize-handle {
+  position: absolute;
+  z-index: 60;
+  pointer-events: auto;
+}
+
+.resize-handle.rh-n {
+  top: -5px;
+  left: 8px;
+  right: 8px;
+  height: 9px;
+  cursor: ns-resize;
+}
+
+.resize-handle.rh-s {
+  bottom: -5px;
+  left: 8px;
+  right: 8px;
+  height: 9px;
+  cursor: ns-resize;
+}
+
+.resize-handle.rh-w {
+  left: -5px;
+  top: 8px;
+  bottom: 8px;
+  width: 9px;
+  cursor: ew-resize;
+}
+
+.resize-handle.rh-e {
+  right: -5px;
+  top: 8px;
+  bottom: 8px;
+  width: 9px;
+  cursor: ew-resize;
+}
+
+.resize-handle.rh-nw {
+  top: -5px;
+  left: -5px;
+  width: 13px;
+  height: 13px;
+  cursor: nwse-resize;
+}
+
+.resize-handle.rh-ne {
+  top: -5px;
+  right: -5px;
+  width: 13px;
+  height: 13px;
+  cursor: nesw-resize;
+}
+
+.resize-handle.rh-sw {
+  bottom: -5px;
+  left: -5px;
+  width: 13px;
+  height: 13px;
+  cursor: nesw-resize;
+}
+
+.resize-handle.rh-se {
+  bottom: -5px;
+  right: -5px;
+  width: 16px;
+  height: 16px;
+  cursor: nwse-resize;
+}
+
+/* XP Resize Gripper no canto inferior direito da barra de status */
+.xp-statusbar-grip {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 14px;
+  height: 14px;
+  cursor: nwse-resize;
+  pointer-events: auto;
+  z-index: 65;
+  background-image: 
+    radial-gradient(#555 1.2px, transparent 1.2px), 
+    radial-gradient(#ffffff 1px, transparent 1px);
+  background-size: 4px 4px;
+  background-position: 0 0, 1px 1px;
+  opacity: 0.8;
+  border-radius: 0 0 2px 0;
+}
+
+.window.maximized .resize-handle,
+.window.maximized .xp-statusbar-grip {
+  display: none !important;
+}
+
+/* Desativa captura de iframes durante redimensionamento */
+.desktop.resizing-active iframe {
+  pointer-events: none !important;
+}
+
+.desktop.resizing-active * {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
 /* Window Titlebar */
 .window-titlebar {
   height: 29px;
@@ -677,7 +784,8 @@ html, body {
 
 .explorer-body {
   display: flex;
-  height: 380px;
+  flex: 1;
+  min-height: 220px;
   background-color: #ffffff;
 }
 
@@ -1475,7 +1583,8 @@ html, body {
   font-family: var(--font-mono);
   font-size: 11px;
   padding: 12px;
-  height: 280px;
+  flex: 1;
+  min-height: 180px;
   overflow-y: auto;
   line-height: 1.5;
 }
