@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Aethel OS - Windows XP & Linux Retro 3D Desktop Experience
+   Aethel OS - Minimalist Retro 3D Desktop Experience (XP & Linux Fusion)
    ========================================================================== */
 
 :root {
@@ -32,6 +32,23 @@
   --font-mono: "Fira Code", "Courier New", monospace;
 }
 
+/* Theme: Silver */
+body.theme-silver {
+  --xp-title-gradient: linear-gradient(to bottom, #9ea8b6 0%, #c4cbd5 8%, #adb7c4 12%, #8e99a8 60%, #768291 100%);
+  --xp-taskbar-bg: linear-gradient(to bottom, #9ea8b6 0%, #bdc6d2 9%, #9ea8b6 18%, #8e99a8 92%, #697483 100%);
+  --xp-tray-bg: linear-gradient(to bottom, #747f8e 0%, #8793a3 15%, #929eaec 50%, #677180 100%);
+  --xp-window-frame: #768291;
+}
+
+/* Theme: Noir Linux */
+body.theme-noir {
+  --xp-title-gradient: linear-gradient(to bottom, #2b2d42 0%, #4a4e69 8%, #393d56 12%, #22223b 60%, #15161e 100%);
+  --xp-taskbar-bg: linear-gradient(to bottom, #1f2029 0%, #2e303d 9%, #1f2029 18%, #16171f 92%, #0e0f14 100%);
+  --xp-tray-bg: linear-gradient(to bottom, #121318 0%, #1a1b22 15%, #22232d 50%, #101115 100%);
+  --xp-window-bg: #e5e5ea;
+  --xp-window-frame: #393d56;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -51,7 +68,7 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   Desktop & Wallpaper (Bliss + 3D Linux Horizon)
+   Desktop & Wallpaper (Bliss + Watermark Logo)
    -------------------------------------------------------------------------- */
 .desktop {
   position: relative;
@@ -69,10 +86,9 @@ html, body {
   z-index: 0;
   overflow: hidden;
   background: linear-gradient(to bottom, #1072e2 0%, #4ba3ff 35%, #8ec5fc 60%, #c1dfc4 75%, #4caf50 82%, #2e7d32 100%);
-  pointer-events: none;
+  pointer-events: auto;
 }
 
-/* Rolling Hills */
 .hills {
   position: absolute;
   bottom: 30px;
@@ -114,13 +130,13 @@ html, body {
   box-shadow: inset 0 15px 60px rgba(255, 255, 255, 0.45);
 }
 
-/* Fluffy Sky Clouds */
 .sky {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 55%;
+  pointer-events: none;
 }
 
 .cloud {
@@ -210,6 +226,64 @@ html, body {
   pointer-events: none;
 }
 
+/* Marca d'água oficial da Logo no Desktop */
+.desktop-watermark {
+  position: absolute;
+  right: 28px;
+  bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.55;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+  transition: opacity 0.3s;
+}
+
+.desktop-watermark.hidden-wm {
+  display: none;
+}
+
+.watermark-logo {
+  animation: floatLogo 6s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.watermark-text {
+  margin-top: 4px;
+  text-align: center;
+}
+
+.wm-title {
+  display: block;
+  font-family: var(--font-xp);
+  font-weight: bold;
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.wm-sub {
+  font-size: 10px;
+  color: #e0f2fe;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Selection Marquee Box */
+.selection-box {
+  position: absolute;
+  border: 1px dotted #316ac5;
+  background-color: rgba(49, 106, 197, 0.25);
+  pointer-events: none;
+  z-index: 15;
+  display: none;
+}
+
 /* --------------------------------------------------------------------------
    Desktop Icons Layout (Classic Windows XP Column Flow)
    -------------------------------------------------------------------------- */
@@ -294,7 +368,6 @@ html, body {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-/* XP App Badge Icons */
 .app-badge-icon {
   width: 40px;
   height: 40px;
@@ -339,19 +412,19 @@ html, body {
   pointer-events: auto;
   background-color: var(--xp-window-bg);
   border-radius: 8px 8px 3px 3px;
-  border: 3px solid #0055ea;
+  border: 3px solid var(--xp-window-frame);
   border-top-width: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  min-width: 300px;
-  min-height: 200px;
+  min-width: 250px;
+  min-height: 180px;
   transition: transform 0.15s ease-out, opacity 0.2s ease, box-shadow 0.2s;
   transform-origin: center bottom;
 }
 
 .window.active-win {
-  border-color: #0055ea;
+  border-color: var(--xp-window-frame);
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.3);
   z-index: 100;
 }
@@ -415,8 +488,7 @@ html, body {
 }
 
 .titlebar-icon {
-  font-size: 15px;
-  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+  font-size: 14px;
 }
 
 .titlebar-title {
@@ -428,6 +500,11 @@ html, body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.window:not(.active-win) .titlebar-title {
+  color: #d8e5f5;
+  text-shadow: 1px 1px 1px #33507d;
 }
 
 .titlebar-controls {
@@ -451,12 +528,6 @@ html, body {
   color: #ffffff;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.3);
-  transition: filter 0.1s;
-}
-
-.win-btn:active {
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
-  transform: translateY(1px);
 }
 
 .win-btn-min, .win-btn-max {
@@ -494,7 +565,7 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   Explorer Window (Meus Programas & Projetos)
+   Explorer Window
    -------------------------------------------------------------------------- */
 .explorer-menubar {
   background: linear-gradient(to bottom, #f6f5ec 0%, #ece9d8 100%);
@@ -506,8 +577,8 @@ html, body {
 }
 
 .explorer-menubar span {
-  cursor: default;
-  padding: 1px 4px;
+  cursor: pointer;
+  padding: 1px 5px;
   border-radius: 2px;
 }
 
@@ -667,15 +738,14 @@ html, body {
 
 .explorer-main {
   flex: 1;
-  padding: 14px;
+  padding: 12px;
   overflow-y: auto;
   background: #ffffff;
 }
 
-/* Projects Grid (Link Tree 3D cards) */
 .projects-list-retro {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 10px;
 }
 
@@ -713,7 +783,6 @@ html, body {
   border: 1px solid #a6c4e8;
   border-radius: 6px;
   box-shadow: inset 0 1px 1px #fff;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
 }
 
 .proj-icon-glyph {
@@ -757,7 +826,376 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   App Runner Window (Dedicated XP Application Host)
+   AethelAmp Media Player (Música 8-bit com visualizador e controles táteis)
+   -------------------------------------------------------------------------- */
+.win-amp {
+  background: #23252e;
+  border: 2px solid #555c6d;
+}
+
+.amp-titlebar {
+  background: linear-gradient(to bottom, #4a4f5c 0%, #2f333e 100%);
+  height: 22px;
+}
+
+.amp-body {
+  background: #191b22;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.amp-display {
+  background: #090a0d;
+  border: 2px solid;
+  border-color: #000 #444 #444 #000;
+  border-radius: 3px;
+  padding: 6px;
+  color: #00ff88;
+  font-family: var(--font-mono);
+  position: relative;
+  overflow: hidden;
+}
+
+.amp-lcd-title {
+  font-size: 9px;
+  white-space: nowrap;
+  animation: scrollText 10s linear infinite;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.amp-time {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px #00ff88;
+  margin: 2px 0;
+}
+
+.amp-status-chip {
+  font-size: 9px;
+  color: #00e5ff;
+  letter-spacing: 0.05em;
+}
+
+.amp-visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 22px;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px dashed rgba(0, 255, 136, 0.3);
+}
+
+.v-bar {
+  flex: 1;
+  background: linear-gradient(to top, #00ff88 0%, #ffff00 70%, #ff0055 100%);
+  height: 3px;
+  transition: height 0.1s ease;
+}
+
+.amp-controls {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.amp-btn {
+  background: linear-gradient(to bottom, #4f535f 0%, #2c2f37 100%);
+  border: 1px solid;
+  border-color: #6a7182 #1b1d22 #1b1d22 #6a7182;
+  color: #d1d5db;
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+.amp-btn.primary {
+  color: #00ff88;
+  border-color: #00ff88;
+  font-weight: bold;
+}
+
+.amp-btn:hover {
+  background: linear-gradient(to bottom, #5f6473 0%, #3c404b 100%);
+}
+
+.amp-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.amp-label {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  color: #8892a0;
+}
+
+.amp-slider {
+  flex: 1;
+  height: 4px;
+  accent-color: #00ff88;
+}
+
+/* --------------------------------------------------------------------------
+   Bloco de Notas (Notepad XP)
+   -------------------------------------------------------------------------- */
+.notepad-textarea {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  background: #ffffff;
+  color: #000000;
+}
+
+/* --------------------------------------------------------------------------
+   Calculadora XP
+   -------------------------------------------------------------------------- */
+.calc-body {
+  padding: 10px;
+  background: #ece9d8;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calc-display {
+  width: 100%;
+  height: 32px;
+  background: #ffffff;
+  border: 1px solid;
+  border-color: #7f9db9 #b0aba0 #b0aba0 #7f9db9;
+  text-align: right;
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: #000000;
+  outline: none;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.calc-btn {
+  height: 28px;
+  font-family: var(--font-xp);
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #003c74;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, #ffffff 0%, #ece9d8 100%);
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 #fff;
+}
+
+.calc-btn:hover {
+  background: linear-gradient(to bottom, #fff6e0 0%, #fed88b 100%);
+  border-color: #e5a000;
+}
+
+.calc-btn:active {
+  background: #dbd6c4;
+  transform: translateY(1px);
+}
+
+.calc-btn.op { color: #003399; }
+.calc-btn.clear { color: #cc0000; }
+.calc-btn.equals {
+  background: linear-gradient(to bottom, #90e0ef 0%, #0096c7 100%);
+  color: #ffffff;
+  border-color: #023e8a;
+}
+
+/* --------------------------------------------------------------------------
+   Painel de Controle
+   -------------------------------------------------------------------------- */
+.settings-theme-selector, .settings-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+}
+
+/* --------------------------------------------------------------------------
+   Context Menu (Botão Direito na Área de Trabalho)
+   -------------------------------------------------------------------------- */
+.context-menu {
+  position: absolute;
+  width: 180px;
+  background-color: #ffffff;
+  border: 1px solid #716f64;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.35);
+  padding: 2px;
+  z-index: 9999;
+  font-size: 11px;
+}
+
+.context-menu.hidden {
+  display: none;
+}
+
+.context-item {
+  padding: 4px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 2px;
+}
+
+.context-item:hover {
+  background-color: #316ac5;
+  color: #ffffff;
+}
+
+.context-divider {
+  height: 1px;
+  background: #dcdcdc;
+  margin: 3px 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Popup de Relógio / Calendário XP
+   -------------------------------------------------------------------------- */
+.calendar-popup {
+  position: absolute;
+  bottom: 35px;
+  right: 6px;
+  width: 220px;
+  background-color: #ffffff;
+  border: 1px solid #0055ea;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  z-index: 1001;
+  padding: 8px;
+}
+
+.calendar-popup.hidden {
+  display: none;
+}
+
+.cal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  color: #003399;
+  border-bottom: 1px solid #dcdcdc;
+  padding-bottom: 4px;
+}
+
+.cal-mini-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 11px;
+}
+
+.cal-clock-display {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: bold;
+  color: #0055ea;
+  padding: 6px 0;
+}
+
+.cal-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.cal-day {
+  padding: 3px;
+  border-radius: 2px;
+}
+
+.cal-day.today {
+  background-color: #316ac5;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   Balão de Notificação XP (Balloon Tooltip)
+   -------------------------------------------------------------------------- */
+.xp-balloon {
+  position: absolute;
+  bottom: 36px;
+  right: 120px;
+  width: 250px;
+  background: #ffffe1;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  z-index: 1002;
+  padding: 8px;
+  animation: popBalloon 0.3s ease-out;
+}
+
+.xp-balloon.hidden {
+  display: none;
+}
+
+@keyframes popBalloon {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.balloon-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.balloon-title {
+  font-weight: bold;
+  font-size: 11px;
+  color: #000;
+}
+
+.balloon-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: #666;
+}
+
+.balloon-body p {
+  font-size: 10px;
+  color: #333;
+  line-height: 1.35;
+}
+
+/* --------------------------------------------------------------------------
+   App Viewer Window
    -------------------------------------------------------------------------- */
 .app-viewer-titlebar {
   background: linear-gradient(to bottom, #1d6fe6 0%, #0050d0 100%);
@@ -803,10 +1241,6 @@ html, body {
   justify-content: center;
   background: #f7f9fc;
   padding: 20px;
-}
-
-.app-iframe-fallback.visible {
-  display: flex;
 }
 
 .fallback-box {
@@ -903,12 +1337,6 @@ html, body {
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-}
-
-.avatar-badge {
-  font-size: 26px;
-  color: #ffffff;
-  text-shadow: 0 0 10px #00ffff;
 }
 
 .profile-details-retro .sys-name {
@@ -1105,122 +1533,7 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   AethelAmp Media Player
-   -------------------------------------------------------------------------- */
-.win-amp {
-  background: #23252e;
-  border: 2px solid #555c6d;
-}
-
-.amp-titlebar {
-  background: linear-gradient(to bottom, #4a4f5c 0%, #2f333e 100%);
-  height: 22px;
-}
-
-.amp-body {
-  background: #191b22;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.amp-display {
-  background: #090a0d;
-  border: 2px solid;
-  border-color: #000 #444 #444 #000;
-  border-radius: 3px;
-  padding: 6px;
-  color: #00ff88;
-  font-family: var(--font-mono);
-  position: relative;
-  overflow: hidden;
-}
-
-.amp-lcd-title {
-  font-size: 9px;
-  white-space: nowrap;
-  animation: scrollText 8s linear infinite;
-}
-
-@keyframes scrollText {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-
-.amp-time {
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  text-shadow: 0 0 6px #00ff88;
-  margin: 2px 0;
-}
-
-.amp-kbps {
-  font-size: 9px;
-  color: #00a859;
-}
-
-.amp-visualizer {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 20px;
-  margin-top: 4px;
-  padding-top: 4px;
-  border-top: 1px dashed rgba(0, 255, 136, 0.3);
-}
-
-.v-bar {
-  flex: 1;
-  background: linear-gradient(to top, #00ff88 0%, #ffff00 70%, #ff0055 100%);
-  height: 3px;
-  transition: height 0.1s ease;
-}
-
-.amp-controls {
-  display: flex;
-  gap: 4px;
-  justify-content: center;
-}
-
-.amp-btn {
-  background: linear-gradient(to bottom, #4f535f 0%, #2c2f37 100%);
-  border: 1px solid;
-  border-color: #6a7182 #1b1d22 #1b1d22 #6a7182;
-  color: #d1d5db;
-  font-size: 11px;
-  padding: 3px 7px;
-  cursor: pointer;
-  border-radius: 2px;
-}
-
-.amp-btn:hover {
-  background: linear-gradient(to bottom, #5f6473 0%, #3c404b 100%);
-  color: #00ff88;
-}
-
-.amp-slider-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 4px;
-}
-
-.amp-label {
-  font-size: 9px;
-  font-family: var(--font-mono);
-  color: #8892a0;
-}
-
-.amp-slider {
-  flex: 1;
-  height: 4px;
-  accent-color: #00ff88;
-}
-
-/* --------------------------------------------------------------------------
-   Start Menu (XP Two-Tone Style with Cascading All Programs Submenu)
+   Start Menu (XP Two-Tone Style com Logo)
    -------------------------------------------------------------------------- */
 .start-menu {
   position: absolute;
@@ -1230,7 +1543,7 @@ html, body {
   background-color: #ffffff;
   border-radius: 6px 6px 0 0;
   box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
-  border: 1px solid #0055ea;
+  border: 1px solid var(--xp-window-frame);
   z-index: 999;
   display: flex;
   flex-direction: column;
@@ -1249,18 +1562,13 @@ html, body {
   box-shadow: inset 0 1px 1px #fff;
 }
 
-.start-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 4px;
-  background: #ffaa00;
-  border: 2px solid #ffffff;
+.start-logo-box {
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
 .start-user-info {
@@ -1357,7 +1665,6 @@ html, body {
   color: #ffffff;
 }
 
-/* Cascading Submenu */
 .all-programs-menu {
   position: absolute;
   left: 100%;
@@ -1366,7 +1673,7 @@ html, body {
   max-height: 360px;
   overflow-y: auto;
   background: #ffffff;
-  border: 1px solid #0055ea;
+  border: 1px solid var(--xp-window-frame);
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.4);
   padding: 4px;
   display: flex;
@@ -1547,6 +1854,54 @@ html, body {
   font-weight: bold;
 }
 
+/* Quick Music Chip on Taskbar */
+.taskbar-music-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(to bottom, #102a43 0%, #0b1a2a 100%);
+  border: 1px solid #1a365d;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-right: 6px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+  transition: all 0.15s;
+}
+
+.taskbar-music-chip:hover {
+  background: linear-gradient(to bottom, #1b3d63 0%, #12283e 100%);
+  border-color: #00f5d4;
+}
+
+.music-note-icon {
+  font-size: 12px;
+  animation: notePulse 1.2s infinite ease-in-out;
+}
+
+@keyframes notePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.music-label {
+  font-size: 10px;
+  color: #00f5d4;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+
+.music-chip-toggle {
+  background: #00f5d4;
+  border: none;
+  border-radius: 2px;
+  color: #090a0f;
+  font-size: 9px;
+  font-weight: 900;
+  padding: 1px 4px;
+  cursor: pointer;
+}
+
 .system-tray {
   height: 30px;
   background: var(--xp-tray-bg);
@@ -1573,6 +1928,13 @@ html, body {
   letter-spacing: 0.05em;
   font-weight: 500;
   text-shadow: 1px 1px 1px #063973;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+.tray-clock:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* --------------------------------------------------------------------------
@@ -1609,5 +1971,11 @@ html, body {
     left: 0;
     bottom: 100%;
     width: 100%;
+  }
+  .desktop-watermark {
+    display: none;
+  }
+  .taskbar-music-chip .music-label {
+    display: none;
   }
 }
