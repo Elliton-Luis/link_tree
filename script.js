@@ -152,7 +152,7 @@ const PROFILE = {
   name: "Aethel",
   title: "Desenvolvedor & Criador de Sistemas",
   bio: "Projetos, ensaios & criações focadas em interfaces autônomas, exploração cognitiva e computação artesanal.",
-  github: "https://github.com/chocotonilitz"
+  github: "https://github.com/Elliton-Luis"
 };
 
 // Estado global do sistema
