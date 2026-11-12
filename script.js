@@ -3,7 +3,7 @@
  * Edite os dados abaixo para personalizar seu perfil e projetos.
  */
 const PROFILE_DATA = {
-  name: "Seu Nome",
+  name: "Aethel",
   bio: "Projetos, ensaios & criações",
   avatarUrl: "avatar.jpg",
   projects: [
