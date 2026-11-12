@@ -474,46 +474,85 @@
         </div>
       </div>
 
-      <!-- WINDOW: APP RUNNER (Dedicated Windows XP App Viewer) -->
-      <div class="window minimized" id="win-app-viewer" style="top: 60px; left: 240px; width: 700px; height: 500px;" data-title="Executador de Aplicativos XP">
+      <!-- WINDOW: APP LAUNCHER DIALOG (Caixinha Abrir Link ou Testar Agora) -->
+      <div class="window minimized" id="win-app-viewer" style="top: 80px; left: 280px; width: 520px;" data-title="Executar Aplicativo">
         <div class="window-titlebar app-viewer-titlebar">
           <div class="titlebar-left">
             <span class="titlebar-icon" id="app-viewer-icon">⚡</span>
-            <span class="titlebar-title" id="app-viewer-title">Aplicativo</span>
+            <span class="titlebar-title" id="app-viewer-title">Executar Aplicativo</span>
           </div>
           <div class="titlebar-controls">
             <button class="win-btn win-btn-min" aria-label="Minimizar">_</button>
-            <button class="win-btn win-btn-max" aria-label="Maximizar">□</button>
+            <button class="win-btn win-btn-max" id="app-viewer-btn-max" aria-label="Maximizar">□</button>
             <button class="win-btn win-btn-close" aria-label="Fechar">✕</button>
           </div>
         </div>
 
-        <div class="explorer-toolbar app-viewer-toolbar">
-          <a href="#" class="tool-btn xp-action-launch" id="app-viewer-ext-link" target="_blank" rel="noopener">
-            <span>🌐</span> Abrir em Nova Aba ↗
-          </a>
-          <button class="tool-btn" id="app-viewer-reload">
-            <span>⟳</span> Recarregar
-          </button>
-          <div class="tool-separator"></div>
-          <span class="app-viewer-url-label" id="app-viewer-url-label">https://...</span>
-        </div>
+        <div class="window-content xp-dialog app-launcher-dialog" id="app-launcher-panel">
+          <!-- Visão 1: A Caixinha Oficial de Execução (Abrir Link ou Testar Agora) -->
+          <div id="launcher-box-view">
+            <div class="launcher-header-row">
+              <div class="launcher-icon-badge" id="launcher-icon-badge">👑</div>
+              <div class="launcher-meta">
+                <h2 class="launcher-app-name" id="launcher-app-name">Rex Mundi</h2>
+                <div class="launcher-slogan" id="launcher-slogan">"Governe impérios. Reescreva a história do mundo"</div>
+                <div class="launcher-badges">
+                  <span class="card-badge" id="launcher-badge">👑 Épico / Estratégia</span>
+                  <span class="card-rating" id="launcher-rating">★★★★★</span>
+                </div>
+              </div>
+            </div>
 
-        <div class="window-content app-viewer-content">
-          <iframe id="app-viewer-iframe" class="app-iframe" title="Visualizador de App" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
-          <div class="app-iframe-fallback" id="app-iframe-fallback">
-            <div class="fallback-box">
-              <div class="fallback-icon" id="fallback-icon">📱</div>
-              <h3 id="fallback-title">Carregando Aplicativo...</h3>
-              <p id="fallback-desc">Se a política de segurança do navegador restringir iframe, clique abaixo para abrir diretamente:</p>
-              <a href="#" id="fallback-btn" target="_blank" rel="noopener" class="xp-btn primary fallback-cta">Executar Aplicativo em Tela Cheia ↗</a>
+            <fieldset class="retro-groupbox">
+              <legend>Sobre este Aplicativo</legend>
+              <p class="launcher-pitch-text" id="launcher-pitch">
+                Um jogo de grande estratégia e conquista geopolítica onde cada decisão diplomática e militar decide o destino de impérios inteiros.
+              </p>
+              <div class="launcher-url-row">
+                <strong>Endereço Web:</strong>
+                <a href="#" target="_blank" rel="noopener" id="launcher-url-link" class="launcher-url-link">https://rex-mundi.vercel.app/</a>
+              </div>
+            </fieldset>
+
+            <div class="launcher-choice-box">
+              <p class="launcher-tip-note">
+                💡 <em>Dica: Para jogos e apps que usam o mouse livremente (como <strong>Rex Mundi</strong>), clique em <strong>"Abrir o Link"</strong> para jogar em tela cheia com mouse 100% liberado!</em>
+              </p>
+
+              <div class="launcher-actions-row">
+                <!-- Botão 1: Abrir o link (Recomendado) -->
+                <a href="#" target="_blank" rel="noopener" id="btn-open-link-ext" class="xp-btn primary launcher-main-btn">
+                  🚀 Abrir o Link (Nova Aba ↗)
+                </a>
+
+                <!-- Botão 2: Testar agora (embutido) -->
+                <button type="button" id="btn-test-embedded" class="xp-btn launcher-test-btn">
+                  👁️ Testar Agora (Embutido)
+                </button>
+
+                <button type="button" class="xp-btn" id="btn-launcher-cancel">Cancelar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visão 2: Modo Embutido (ativado apenas se o usuário clicar em "Testar Agora") -->
+          <div id="launcher-embedded-view" class="hidden">
+            <div class="embedded-banner">
+              <span id="embedded-banner-name">Testando aplicativo embutido</span>
+              <div class="embedded-banner-btns">
+                <a href="#" target="_blank" rel="noopener" id="embedded-banner-open-ext" class="tool-btn xp-action-launch">🚀 Abrir em Nova Aba ↗</a>
+                <button type="button" id="embedded-banner-back" class="tool-btn">◄ Voltar para a Caixinha</button>
+              </div>
+            </div>
+            <div class="embedded-iframe-container">
+              <iframe id="app-viewer-iframe" class="app-iframe" title="Teste de Aplicativo" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
             </div>
           </div>
         </div>
 
         <div class="window-statusbar">
-          <span id="app-viewer-status">Status: Conectado</span>
-          <span>128-bit SSL Seguro</span>
+          <span id="app-viewer-status">Pronto para execução</span>
+          <span id="app-viewer-sec-status">128-bit SSL Seguro</span>
         </div>
       </div>
 

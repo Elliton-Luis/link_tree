@@ -535,9 +535,27 @@ function renderExplorerProjects() {
         </div>
       </div>
       <div class="card-footer-cta">
-        <button class="card-cta-btn">Experimentar App ►</button>
+        <a href="${app.url}" target="_blank" rel="noopener" class="card-link-btn" title="Abrir em Nova Aba com controle total">🚀 Abrir Link ↗</a>
+        <button type="button" class="card-cta-btn" title="Abrir Caixinha de Opções">Opções / Testar ►</button>
       </div>
     `;
+
+    // Botão direto para nova aba não dispara a caixinha
+    const linkBtn = card.querySelector(".card-link-btn");
+    if (linkBtn) {
+      linkBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        playRetroSound("click");
+      });
+    }
+
+    const ctaBtn = card.querySelector(".card-cta-btn");
+    if (ctaBtn) {
+      ctaBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        launchApp(app);
+      });
+    }
 
     card.addEventListener("mouseenter", () => {
       playRetroSound("click");
@@ -549,9 +567,17 @@ function renderExplorerProjects() {
             <div class="sidebar-showcase-slogan">"${app.slogan}"</div>
             <div class="sidebar-showcase-pitch">${app.pitch}</div>
             <div style="font-size:9px; color:#2e7d32; font-weight:bold; margin-top:2px;">★ ${app.rating} (${app.tag})</div>
-            <a href="${app.url}" target="_blank" rel="noopener" class="sidebar-launch-cta" style="margin-top:6px;">Executar no Navegador ↗</a>
+            <div style="display:flex; gap:4px; margin-top:8px;">
+              <a href="${app.url}" target="_blank" rel="noopener" class="card-link-btn" style="flex:1; justify-content:center; padding:5px 4px;">🚀 Abrir Link ↗</a>
+              <button type="button" class="sidebar-dialog-btn xp-btn" style="flex:1; padding:4px;">👁️ Opções</button>
+            </div>
           </div>
         `;
+
+        const sideBtn = hoverInfo.querySelector(".sidebar-dialog-btn");
+        if (sideBtn) {
+          sideBtn.addEventListener("click", () => launchApp(app));
+        }
       }
     });
 
@@ -610,45 +636,98 @@ function renderStartMenuPrograms() {
 }
 
 // --------------------------------------------------------------------------
-// 6. Executador de Aplicativos (App Runner XP)
+// 6. Caixinha de Execução (Abrir Link ou Testar Agora)
 // --------------------------------------------------------------------------
 function launchApp(app) {
   playRetroSound("open");
 
   const win = document.getElementById("win-app-viewer");
-  const titleEl = document.getElementById("app-viewer-title");
-  const iconEl = document.getElementById("app-viewer-icon");
-  const urlLabel = document.getElementById("app-viewer-url-label");
-  const extLink = document.getElementById("app-viewer-ext-link");
-  const iframe = document.getElementById("app-viewer-iframe");
-  const fallbackTitle = document.getElementById("fallback-title");
-  const fallbackDesc = document.getElementById("fallback-desc");
-  const fallbackIcon = document.getElementById("fallback-icon");
-  const fallbackBtn = document.getElementById("fallback-btn");
-  const reloadBtn = document.getElementById("app-viewer-reload");
-
   if (!win) {
     window.open(app.url, "_blank");
     return;
   }
 
-  win.dataset.title = `${app.title} - Aethel OS`;
-  if (titleEl) titleEl.textContent = `${app.title} [Executando - ${app.exe}]`;
+  // Atualiza metadados da caixinha
+  win.dataset.title = `Executar: ${app.title}`;
+  const titleEl = document.getElementById("app-viewer-title");
+  const iconEl = document.getElementById("app-viewer-icon");
+  const badgeIcon = document.getElementById("launcher-icon-badge");
+  const appNameEl = document.getElementById("launcher-app-name");
+  const sloganEl = document.getElementById("launcher-slogan");
+  const badgeEl = document.getElementById("launcher-badge");
+  const ratingEl = document.getElementById("launcher-rating");
+  const pitchEl = document.getElementById("launcher-pitch");
+  const urlLinkEl = document.getElementById("launcher-url-link");
+  const btnOpenExt = document.getElementById("btn-open-link-ext");
+  const boxView = document.getElementById("launcher-box-view");
+  const embeddedView = document.getElementById("launcher-embedded-view");
+  const iframe = document.getElementById("app-viewer-iframe");
+  const btnTest = document.getElementById("btn-test-embedded");
+  const btnCancel = document.getElementById("btn-launcher-cancel");
+  const bannerExt = document.getElementById("embedded-banner-open-ext");
+  const bannerBack = document.getElementById("embedded-banner-back");
+  const bannerName = document.getElementById("embedded-banner-name");
+
+  if (titleEl) titleEl.textContent = `Executar: ${app.title} (${app.exe})`;
   if (iconEl) iconEl.textContent = app.icon;
-  if (urlLabel) urlLabel.textContent = app.url;
-  if (extLink) extLink.href = app.url;
+  if (badgeIcon) badgeIcon.textContent = app.icon;
+  if (appNameEl) appNameEl.textContent = app.title;
+  if (sloganEl) sloganEl.textContent = `"${app.slogan}"`;
+  if (badgeEl) badgeEl.textContent = app.badge;
+  if (ratingEl) ratingEl.textContent = app.rating;
+  if (pitchEl) pitchEl.textContent = app.pitch;
 
-  if (fallbackTitle) fallbackTitle.textContent = `${app.title} - ${app.slogan}`;
-  if (fallbackDesc) fallbackDesc.textContent = `${app.pitch} [${app.tag} • ${app.rating}]`;
-  if (fallbackIcon) fallbackIcon.textContent = app.icon;
-  if (fallbackBtn) fallbackBtn.href = app.url;
+  if (urlLinkEl) {
+    urlLinkEl.textContent = app.url;
+    urlLinkEl.href = app.url;
+  }
 
-  if (iframe) iframe.src = app.url;
-
-  if (reloadBtn) {
-    reloadBtn.onclick = () => {
+  // Botão Principal: Abrir o link (Sem iframe, controle de mouse 100% perfeito)
+  if (btnOpenExt) {
+    btnOpenExt.href = app.url;
+    btnOpenExt.onclick = () => {
       playRetroSound("click");
+    };
+  }
+
+  // Garante que a janela abre na visão da Caixinha (não carrega o iframe direto!)
+  if (boxView) boxView.classList.remove("hidden");
+  if (embeddedView) embeddedView.classList.add("hidden");
+  if (iframe) iframe.src = "about:blank"; // Não captura eventos de mouse em background
+  win.style.width = "520px";
+  win.style.height = "auto";
+
+  // Botão 2: Testar agora (embutido)
+  if (btnTest) {
+    btnTest.onclick = () => {
+      playRetroSound("click");
+      if (boxView) boxView.classList.add("hidden");
+      if (embeddedView) embeddedView.classList.remove("hidden");
       if (iframe) iframe.src = app.url;
+      if (bannerName) bannerName.textContent = `Visualizando: ${app.title}`;
+      if (bannerExt) bannerExt.href = app.url;
+      win.style.width = "720px";
+      win.style.height = "520px";
+    };
+  }
+
+  // Botão Voltar para a Caixinha
+  if (bannerBack) {
+    bannerBack.onclick = () => {
+      playRetroSound("click");
+      if (boxView) boxView.classList.remove("hidden");
+      if (embeddedView) embeddedView.classList.add("hidden");
+      if (iframe) iframe.src = "about:blank";
+      win.style.width = "520px";
+      win.style.height = "auto";
+    };
+  }
+
+  // Botão Cancelar
+  if (btnCancel) {
+    btnCancel.onclick = () => {
+      playRetroSound("close");
+      win.classList.add("minimized");
     };
   }
 
