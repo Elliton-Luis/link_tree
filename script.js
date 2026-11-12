@@ -135,6 +135,16 @@ const APPS = [
     tag: "Educação",
     icon: "🔗",
     color: "#00b4d8"
+  },
+  {
+    id: "blog-aletheia",
+    title: "Blog Aletheia",
+    exe: "aletheia.exe",
+    url: "https://blog-aletheia.vercel.app/",
+    description: "Ensaios filosóficos, reflexões e busca pela verdade",
+    tag: "Filosofia & Blog",
+    icon: "🕯️",
+    color: "#e63946"
   }
 ];
 
