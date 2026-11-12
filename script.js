@@ -7,6 +7,16 @@
 // 1. Catálogo Completo dos 14 Aplicativos
 const APPS = [
   {
+    id: "blog-aletheia",
+    title: "Blog Aletheia",
+    exe: "aletheia.exe",
+    url: "https://blog-aletheia.vercel.app/",
+    description: "Ensaios filosóficos, reflexões e busca pela verdade",
+    tag: "Filosofia & Blog",
+    icon: "🕯️",
+    color: "#e63946"
+  },
+  {
     id: "rex-mundi",
     title: "Rex Mundi",
     exe: "rexmundi.exe",
@@ -15,6 +25,26 @@ const APPS = [
     tag: "Jogo / RPG",
     icon: "👑",
     color: "#8338ec"
+  },
+  {
+    id: "eclesia-rpg",
+    title: "Eclesia RPG",
+    exe: "eclesiarpg.exe",
+    url: "https://eclesia-rpg.vercel.app/",
+    description: "Sistema narrativo e campanha imersiva de RPG",
+    tag: "RPG",
+    icon: "⚔️",
+    color: "#d90429"
+  },
+  {
+    id: "catedra-sacra",
+    title: "Cátedra Sacra",
+    exe: "catedrasacra.exe",
+    url: "https://catedra-sacra.vercel.app/",
+    description: "Estudos teológicos, patrística e sabedoria clássica",
+    tag: "Estudos",
+    icon: "🏛️",
+    color: "#457b9d"
   },
   {
     id: "anima-puritas",
@@ -27,14 +57,34 @@ const APPS = [
     color: "#3a86ff"
   },
   {
-    id: "eclesia-rpg",
-    title: "Eclesia RPG",
-    exe: "eclesiarpg.exe",
-    url: "https://eclesia-rpg.vercel.app/",
-    description: "Sistema narrativo e campanha imersiva de RPG",
-    tag: "RPG",
-    icon: "⚔️",
-    color: "#d90429"
+    id: "leitura-tau",
+    title: "Leitura Tau",
+    exe: "leituratau.exe",
+    url: "https://leitura-tau.vercel.app/",
+    description: "Ambiente de leitura profunda, textos e contemplação",
+    tag: "Leitura",
+    icon: "📖",
+    color: "#b08968"
+  },
+  {
+    id: "oratio-rosarii",
+    title: "Oratio Rosarii",
+    exe: "rosarii.exe",
+    url: "https://oratio-rosarii.vercel.app/",
+    description: "Guia e meditação diária dos mistérios do Santo Rosário",
+    tag: "Devoção",
+    icon: "📿",
+    color: "#6c5ce7"
+  },
+  {
+    id: "epifania-notas",
+    title: "Epifania Notas",
+    exe: "epifania.exe",
+    url: "https://epifania-notas.vercel.app/",
+    description: "Captura rápida de ideias, insights e epifanias",
+    tag: "Anotações",
+    icon: "💡",
+    color: "#e9c46a"
   },
   {
     id: "compasso-money",
@@ -57,26 +107,6 @@ const APPS = [
     color: "#e76f51"
   },
   {
-    id: "epifania-notas",
-    title: "Epifania Notas",
-    exe: "epifania.exe",
-    url: "https://epifania-notas.vercel.app/",
-    description: "Captura rápida de ideias, insights e epifanias",
-    tag: "Anotações",
-    icon: "💡",
-    color: "#e9c46a"
-  },
-  {
-    id: "exercitium",
-    title: "Exercitium",
-    exe: "exercitium.exe",
-    url: "https://exercitium.vercel.app/",
-    description: "Treino, rotina corporal e disciplina atlética",
-    tag: "Saúde & Foco",
-    icon: "🛡️",
-    color: "#4361ee"
-  },
-  {
     id: "evo-quest",
     title: "Evo Quest",
     exe: "evoquest.exe",
@@ -87,34 +117,14 @@ const APPS = [
     color: "#f72585"
   },
   {
-    id: "catedra-sacra",
-    title: "Cátedra Sacra",
-    exe: "catedrasacra.exe",
-    url: "https://catedra-sacra.vercel.app/",
-    description: "Estudos teológicos, patrística e sabedoria clássica",
-    tag: "Estudos",
-    icon: "🏛️",
-    color: "#457b9d"
-  },
-  {
-    id: "oratio-rosarii",
-    title: "Oratio Rosarii",
-    exe: "rosarii.exe",
-    url: "https://oratio-rosarii.vercel.app/",
-    description: "Guia e meditação diária dos mistérios do Santo Rosário",
-    tag: "Devoção",
-    icon: "📿",
-    color: "#6c5ce7"
-  },
-  {
-    id: "leitura-tau",
-    title: "Leitura Tau",
-    exe: "leituratau.exe",
-    url: "https://leitura-tau.vercel.app/",
-    description: "Ambiente de leitura profunda, textos e contemplação",
-    tag: "Leitura",
-    icon: "📖",
-    color: "#b08968"
+    id: "exercitium",
+    title: "Exercitium",
+    exe: "exercitium.exe",
+    url: "https://exercitium.vercel.app/",
+    description: "Treino, rotina corporal e disciplina atlética",
+    tag: "Saúde & Foco",
+    icon: "🛡️",
+    color: "#4361ee"
   },
   {
     id: "codice-quiz",
@@ -135,16 +145,6 @@ const APPS = [
     tag: "Educação",
     icon: "🔗",
     color: "#00b4d8"
-  },
-  {
-    id: "blog-aletheia",
-    title: "Blog Aletheia",
-    exe: "aletheia.exe",
-    url: "https://blog-aletheia.vercel.app/",
-    description: "Ensaios filosóficos, reflexões e busca pela verdade",
-    tag: "Filosofia & Blog",
-    icon: "🕯️",
-    color: "#e63946"
   }
 ];
 
