@@ -1,0 +1,196 @@
+/* ==========================================================================
+   Design Tokens & Variáveis (Estética Sacra & Tons Pastéis)
+   ========================================================================== */
+:root {
+  --color-bg: #f8f6f0;
+  --color-surface: #fffdf9;
+  --color-surface-hover: #faf6ee;
+  --color-text-main: #2d2926;
+  --color-text-muted: #857f75;
+  --color-border: #ede6da;
+  --color-border-hover: #dfd4bf;
+  --color-gold: #bfa36f;
+  --color-shadow: rgba(85, 75, 60, 0.04);
+  
+  --font-serif: "Baskerville", "Georgia", "Garamond", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  --radius-pill: 9999px;
+  --radius-card: 16px;
+  --transition-smooth: all 0.25s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Reset & Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+  background-image: radial-gradient(circle at 50% 20%, #ffffff 0%, var(--color-bg) 75%);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  padding: 3rem 1.25rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Container Principal
+   ========================================================================== */
+.tree-container {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Perfil
+   ========================================================================== */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.avatar-frame {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: 0 4px 20px var(--color-shadow);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  display: block;
+}
+
+.avatar-img.is-hidden {
+  display: none;
+}
+
+.avatar-fallback {
+  display: none;
+  font-size: 1.75rem;
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+.avatar-fallback.is-visible {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--color-surface);
+}
+
+.profile-name {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text-main);
+  margin-bottom: 0.35rem;
+}
+
+.profile-bio {
+  font-size: 0.925rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  max-width: 300px;
+}
+
+/* ==========================================================================
+   Links de Projetos
+   ========================================================================== */
+.links-nav {
+  width: 100%;
+}
+
+.links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  width: 100%;
+}
+
+.link-card {
+  display: block;
+  text-decoration: none;
+  color: var(--color-text-main);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.1rem 1.25rem;
+  box-shadow: 0 2px 12px var(--color-shadow);
+  transition: var(--transition-smooth);
+}
+
+.link-card:hover,
+.link-card:focus-visible {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(85, 75, 60, 0.07);
+  outline: none;
+}
+
+.link-title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.2rem;
+}
+
+.link-description {
+  display: block;
+  font-size: 0.825rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.tree-footer {
+  margin-top: 3rem;
+  color: var(--color-gold);
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.footer-glyph {
+  letter-spacing: 0.2em;
+}
