@@ -1,110 +1,149 @@
 /**
  * ==========================================================================
- * Aethel OS - Retro Linux & Windows XP 3D Fusion Experience
+ * Aethel OS - Windows XP & Linux Retro 3D Desktop Experience
  * ==========================================================================
  */
 
-// 1. Dados de Perfil e Projetos Oficiais
+// 1. Catálogo Completo dos 13 Aplicativos Windows XP
+const APPS = [
+  {
+    id: "rex-mundi",
+    title: "Rex Mundi",
+    exe: "rexmundi.exe",
+    url: "https://rex-mundi.vercel.app/",
+    description: "Estratégia, RPG & Conquista Mundial",
+    tag: "Jogo / RPG",
+    icon: "👑",
+    color: "#8338ec"
+  },
+  {
+    id: "anima-puritas",
+    title: "Anima Puritas",
+    exe: "animapuritas.exe",
+    url: "https://anima-puritas.vercel.app/",
+    description: "Pureza interior, reflexão e serenidade espiritual",
+    tag: "Espiritualidade",
+    icon: "🕊️",
+    color: "#3a86ff"
+  },
+  {
+    id: "eclesia-rpg",
+    title: "Eclesia RPG",
+    exe: "eclesiarpg.exe",
+    url: "https://eclesia-rpg.vercel.app/",
+    description: "Sistema narrativo e campanha imersiva de RPG",
+    tag: "RPG",
+    icon: "⚔️",
+    color: "#d90429"
+  },
+  {
+    id: "compasso-money",
+    title: "Compasso Money",
+    exe: "compasso.exe",
+    url: "https://compasso-money.vercel.app/",
+    description: "Gestão, orçamento e bússola financeira pessoal",
+    tag: "Finanças",
+    icon: "🧭",
+    color: "#2a9d8f"
+  },
+  {
+    id: "momento-vita",
+    title: "Momento Vita",
+    exe: "momentovita.exe",
+    url: "https://momento-vita.vercel.app/",
+    description: "Hábitos diários, Memento Mori e valorização do tempo",
+    tag: "Produtividade",
+    icon: "⏳",
+    color: "#e76f51"
+  },
+  {
+    id: "epifania-notas",
+    title: "Epifania Notas",
+    exe: "epifania.exe",
+    url: "https://epifania-notas.vercel.app/",
+    description: "Captura rápida de ideias, insights e epifanias",
+    tag: "Anotações",
+    icon: "💡",
+    color: "#e9c46a"
+  },
+  {
+    id: "exercitium",
+    title: "Exercitium",
+    exe: "exercitium.exe",
+    url: "https://exercitium.vercel.app/",
+    description: "Treino, rotina corporal e disciplina atlética",
+    tag: "Saúde & Foco",
+    icon: "🛡️",
+    color: "#4361ee"
+  },
+  {
+    id: "evo-quest",
+    title: "Evo Quest",
+    exe: "evoquest.exe",
+    url: "https://evo-quest.vercel.app/",
+    description: "Gamificação de metas e evolução pessoal contínua",
+    tag: "Gamificação",
+    icon: "🎯",
+    color: "#f72585"
+  },
+  {
+    id: "catedra-sacra",
+    title: "Cátedra Sacra",
+    exe: "catedrasacra.exe",
+    url: "https://catedra-sacra.vercel.app/",
+    description: "Estudos teológicos, patrística e sabedoria clássica",
+    tag: "Estudos",
+    icon: "🏛️",
+    color: "#457b9d"
+  },
+  {
+    id: "oratio-rosarii",
+    title: "Oratio Rosarii",
+    exe: "rosarii.exe",
+    url: "https://oratio-rosarii.vercel.app/",
+    description: "Guia e meditação diária dos mistérios do Santo Rosário",
+    tag: "Devoção",
+    icon: "📿",
+    color: "#6c5ce7"
+  },
+  {
+    id: "leitura-tau",
+    title: "Leitura Tau",
+    exe: "leituratau.exe",
+    url: "https://leitura-tau.vercel.app/",
+    description: "Ambiente de leitura profunda, textos e contemplação",
+    tag: "Leitura",
+    icon: "📖",
+    color: "#b08968"
+  },
+  {
+    id: "codice-quiz",
+    title: "Códice Quiz",
+    exe: "codicequiz.exe",
+    url: "https://codice-quiz.vercel.app/",
+    description: "Perguntas, testes de sabedoria e desafios intelectuais",
+    tag: "Quiz",
+    icon: "📜",
+    color: "#d4a373"
+  },
+  {
+    id: "estuda-links",
+    title: "Estuda Links",
+    exe: "estudalinks.exe",
+    url: "https://estuda-links.vercel.app/",
+    description: "Curadoria de recursos, links e rotas de aprendizado",
+    tag: "Educação",
+    icon: "🔗",
+    color: "#00b4d8"
+  }
+];
+
 const PROFILE = {
   name: "Aethel",
   title: "Desenvolvedor & Criador de Sistemas",
   bio: "Projetos, ensaios & criações focadas em interfaces autônomas, exploração cognitiva e computação artesanal.",
   github: "https://github.com/chocotonilitz"
 };
-
-const PROJECTS = [
-  {
-    title: "Rex Mundi",
-    url: "https://rex-mundi.vercel.app/",
-    description: "Estratégia, RPG & Conquista Mundial",
-    tag: "Jogo / RPG",
-    icon: "👑"
-  },
-  {
-    title: "Anima Puritas",
-    url: "https://anima-puritas.vercel.app/",
-    description: "Pureza interior, reflexão e serenidade espiritual",
-    tag: "Espiritualidade",
-    icon: "🕊️"
-  },
-  {
-    title: "Eclesia RPG",
-    url: "https://eclesia-rpg.vercel.app/",
-    description: "Sistema narrativo e campanha imersiva de RPG",
-    tag: "RPG",
-    icon: "⚔️"
-  },
-  {
-    title: "Compasso Money",
-    url: "https://compasso-money.vercel.app/",
-    description: "Gestão, orçamento e bússola financeira pessoal",
-    tag: "Finanças",
-    icon: "🧭"
-  },
-  {
-    title: "Momento Vita",
-    url: "https://momento-vita.vercel.app/",
-    description: "Hábitos diários, Memento Mori e valorização do tempo",
-    tag: "Produtividade",
-    icon: "⏳"
-  },
-  {
-    title: "Epifania Notas",
-    url: "https://epifania-notas.vercel.app/",
-    description: "Captura rápida de ideias, insights e epifanias",
-    tag: "Anotações",
-    icon: "💡"
-  },
-  {
-    title: "Exercitium",
-    url: "https://exercitium.vercel.app/",
-    description: "Treino, rotina corporal e disciplina atlética",
-    tag: "Saúde & Foco",
-    icon: "🛡️"
-  },
-  {
-    title: "Evo Quest",
-    url: "https://evo-quest.vercel.app/",
-    description: "Gamificação de metas e evolução pessoal contínua",
-    tag: "Gamificação",
-    icon: "🎯"
-  },
-  {
-    title: "Cátedra Sacra",
-    url: "https://catedra-sacra.vercel.app/",
-    description: "Estudos teológicos, patróstica e sabedoria filosófica",
-    tag: "Estudos",
-    icon: "🏛️"
-  },
-  {
-    title: "Oratio Rosarii",
-    url: "https://oratio-rosarii.vercel.app/",
-    description: "Guia e meditação diária dos mistérios do Rosário",
-    tag: "Devoção",
-    icon: "📿"
-  },
-  {
-    title: "Leitura Tau",
-    url: "https://leitura-tau.vercel.app/",
-    description: "Ambiente de leitura profunda, textos e contemplação",
-    tag: "Leitura",
-    icon: "📖"
-  },
-  {
-    title: "Códice Quiz",
-    url: "https://codice-quiz.vercel.app/",
-    description: "Perguntas, testes de sabedoria e desafios intelectuais",
-    tag: "Quiz",
-    icon: "📜"
-  },
-  {
-    title: "Estuda Links",
-    url: "https://estuda-links.vercel.app/",
-    description: "Curadoria de recursos, bibliotecas e rotas de aprendizado",
-    tag: "Educação",
-    icon: "🔗"
-  }
-];
 
 // Estado global do sistema
 const SystemState = {
@@ -145,11 +184,11 @@ function playRetroSound(type) {
     if (type === "click") {
       osc.type = "sine";
       osc.frequency.setValueAtTime(800, now);
-      osc.frequency.exponentialRampToValueAtTime(400, now + 0.04);
+      osc.frequency.exponentialRampToValueAtTime(450, now + 0.035);
       gain.gain.setValueAtTime(0.08, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
       osc.start(now);
-      osc.stop(now + 0.04);
+      osc.stop(now + 0.035);
     } else if (type === "open") {
       osc.type = "triangle";
       osc.frequency.setValueAtTime(440, now);
@@ -177,7 +216,9 @@ function playRetroSound(type) {
 // Inicialização do Sistema
 // --------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
-  renderProjectsList();
+  renderDesktopApps();
+  renderExplorerProjects();
+  renderStartMenuPrograms();
   initWindowsManager();
   initDesktopIcons();
   initStartMenu();
@@ -189,63 +230,218 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // --------------------------------------------------------------------------
-// Renderização dos Projetos (Explorer Grid)
+// 1. Renderização dos Apps na Área de Trabalho (Ícones com Atalho XP)
 // --------------------------------------------------------------------------
-function renderProjectsList() {
+function renderDesktopApps() {
+  const container = document.getElementById("desktop-apps-container");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  APPS.forEach(app => {
+    const iconEl = document.createElement("div");
+    iconEl.className = "desktop-icon";
+    iconEl.tabIndex = 0;
+    iconEl.dataset.appId = app.id;
+    iconEl.title = `${app.title} (${app.exe})\n${app.description}`;
+
+    iconEl.innerHTML = `
+      <div class="icon-graphic has-shortcut">
+        <div class="app-badge-icon">
+          <span>${app.icon}</span>
+        </div>
+      </div>
+      <span class="icon-label">${app.title}</span>
+    `;
+
+    // Seleção com clique simples
+    iconEl.addEventListener("click", () => {
+      document.querySelectorAll(".desktop-icon").forEach(i => i.classList.remove("selected"));
+      iconEl.classList.add("selected");
+      playRetroSound("click");
+    });
+
+    // Execução do aplicativo com duplo clique
+    iconEl.addEventListener("dblclick", () => {
+      launchApp(app);
+    });
+
+    // Suporte ao teclado (Enter)
+    iconEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        launchApp(app);
+      }
+    });
+
+    container.appendChild(iconEl);
+  });
+}
+
+// --------------------------------------------------------------------------
+// 2. Renderização no Gerenciador de Arquivos (Meus Programas)
+// --------------------------------------------------------------------------
+function renderExplorerProjects() {
   const container = document.getElementById("projects-list-retro");
   const countStatus = document.getElementById("projects-count-status");
   const hoverInfo = document.getElementById("project-hover-info");
   if (!container) return;
 
   container.innerHTML = "";
-  if (countStatus) countStatus.textContent = `${PROJECTS.length} objetos (Projetos Ativos)`;
+  if (countStatus) countStatus.textContent = `${APPS.length} aplicativos instalados`;
 
-  PROJECTS.forEach(proj => {
-    const card = document.createElement("a");
+  APPS.forEach(app => {
+    const card = document.createElement("div");
     card.className = "project-card-retro";
-    card.href = proj.url;
-    card.target = "_blank";
-    card.rel = "noopener noreferrer";
+    card.tabIndex = 0;
 
     card.innerHTML = `
       <div class="proj-icon-wrapper">
-        <span class="proj-icon-glyph">${proj.icon}</span>
+        <span class="proj-icon-glyph">${app.icon}</span>
       </div>
       <div class="proj-info">
         <div class="proj-title">
-          <span>${proj.title}</span>
+          <span>${app.title}</span>
         </div>
-        <div class="proj-desc">${proj.description}</div>
-        <span class="proj-tag">${proj.tag}</span>
+        <div class="proj-desc">${app.description}</div>
+        <span class="proj-tag">${app.tag}</span>
       </div>
     `;
 
-    // 3D Card Hover & Sound
     card.addEventListener("mouseenter", () => {
       playRetroSound("click");
       if (hoverInfo) {
-        hoverInfo.innerHTML = `<strong>${proj.title}</strong><br>${proj.description}<br><em style="color:#0055ea;">${proj.url}</em>`;
+        hoverInfo.innerHTML = `
+          <strong>${app.title} (${app.exe})</strong><br>
+          <em>${app.description}</em><br>
+          <span style="color:#0055ea;">URL: ${app.url}</span>
+        `;
       }
     });
 
-    // 3D interactive tilt on card
+    // 3D Tilt interativo
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-      card.style.transform = `perspective(600px) rotateY(${x * 0.08}deg) rotateX(${-y * 0.08}deg) translateY(-4px)`;
+      card.style.transform = `perspective(600px) rotateY(${x * 0.08}deg) rotateX(${-y * 0.08}deg) translateY(-3px)`;
     });
 
     card.addEventListener("mouseleave", () => {
       card.style.transform = "";
     });
 
+    // Executa ao clicar
+    card.addEventListener("click", () => {
+      launchApp(app);
+    });
+
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") launchApp(app);
+    });
+
     container.appendChild(card);
+  });
+
+  const filterAllBtn = document.getElementById("filter-all-btn");
+  if (filterAllBtn) {
+    filterAllBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      renderExplorerProjects();
+      playRetroSound("click");
+    });
+  }
+}
+
+// --------------------------------------------------------------------------
+// 3. Renderização no Menu Iniciar -> "Todos os Programas"
+// --------------------------------------------------------------------------
+function renderStartMenuPrograms() {
+  const submenu = document.getElementById("all-programs-menu");
+  const trigger = document.getElementById("all-programs-trigger");
+  if (!submenu || !trigger) return;
+
+  submenu.innerHTML = "";
+
+  APPS.forEach(app => {
+    const item = document.createElement("div");
+    item.className = "sub-prog-item";
+    item.innerHTML = `
+      <span>${app.icon}</span>
+      <span>${app.title}</span>
+    `;
+
+    item.addEventListener("click", () => {
+      launchApp(app);
+      document.getElementById("start-menu")?.classList.add("hidden");
+      submenu.classList.add("hidden");
+    });
+
+    submenu.appendChild(item);
+  });
+
+  // Toggle do submenu de programas
+  trigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    playRetroSound("click");
+    submenu.classList.toggle("hidden");
   });
 }
 
 // --------------------------------------------------------------------------
-// Gerenciador de Janelas (Drag, Focus, Minimize, Maximize, Close)
+// 4. Executador de Aplicativos (App Runner Window Host)
+// --------------------------------------------------------------------------
+function launchApp(app) {
+  playRetroSound("open");
+
+  const win = document.getElementById("win-app-viewer");
+  const titleEl = document.getElementById("app-viewer-title");
+  const iconEl = document.getElementById("app-viewer-icon");
+  const urlLabel = document.getElementById("app-viewer-url-label");
+  const extLink = document.getElementById("app-viewer-ext-link");
+  const iframe = document.getElementById("app-viewer-iframe");
+  const fallback = document.getElementById("app-iframe-fallback");
+  const fallbackTitle = document.getElementById("fallback-title");
+  const fallbackDesc = document.getElementById("fallback-desc");
+  const fallbackIcon = document.getElementById("fallback-icon");
+  const fallbackBtn = document.getElementById("fallback-btn");
+  const reloadBtn = document.getElementById("app-viewer-reload");
+
+  if (!win) {
+    window.open(app.url, "_blank");
+    return;
+  }
+
+  // Atualiza metadados da janela
+  win.dataset.title = `${app.title} - Aethel OS`;
+  if (titleEl) titleEl.textContent = `${app.title} [Executando - ${app.exe}]`;
+  if (iconEl) iconEl.textContent = app.icon;
+  if (urlLabel) urlLabel.textContent = app.url;
+  if (extLink) extLink.href = app.url;
+
+  if (fallbackTitle) fallbackTitle.textContent = app.title;
+  if (fallbackDesc) fallbackDesc.textContent = `${app.description} (${app.tag})`;
+  if (fallbackIcon) fallbackIcon.textContent = app.icon;
+  if (fallbackBtn) fallbackBtn.href = app.url;
+
+  // Carrega no iframe
+  if (iframe) {
+    iframe.src = app.url;
+  }
+
+  if (reloadBtn) {
+    reloadBtn.onclick = () => {
+      playRetroSound("click");
+      if (iframe) iframe.src = app.url;
+    };
+  }
+
+  // Exibe a janela
+  win.classList.remove("minimized");
+  window.focusWindow(win);
+}
+
+// --------------------------------------------------------------------------
+// 5. Gerenciador de Janelas (Drag, Focus, Minimize, Maximize, Close)
 // --------------------------------------------------------------------------
 function initWindowsManager() {
   const windows = document.querySelectorAll(".window");
@@ -263,12 +459,10 @@ function initWindowsManager() {
     const btnMax = win.querySelector(".win-btn-max");
     const btnClose = win.querySelector(".win-btn-close");
 
-    // Foco ao clicar na janela
     win.addEventListener("mousedown", () => {
       focusWindow(win);
     });
 
-    // Fechar
     if (btnClose) {
       btnClose.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -278,7 +472,6 @@ function initWindowsManager() {
       });
     }
 
-    // Minimizar
     if (btnMin) {
       btnMin.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -288,7 +481,6 @@ function initWindowsManager() {
       });
     }
 
-    // Maximizar / Restaurar
     if (btnMax) {
       btnMax.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -317,8 +509,6 @@ function initWindowsManager() {
         initialTop = win.offsetTop;
         lastMoveX = e.clientX;
 
-        win.classList.add("wobbly");
-
         function onMouseMove(moveEvent) {
           if (!isDragging) return;
           const deltaX = moveEvent.clientX - startX;
@@ -327,20 +517,19 @@ function initWindowsManager() {
           const speedX = moveEvent.clientX - lastMoveX;
           lastMoveX = moveEvent.clientX;
 
-          const tiltAngle = Math.max(-10, Math.min(10, speedX * 0.4));
+          const tiltAngle = Math.max(-8, Math.min(8, speedX * 0.35));
 
           win.style.left = `${initialLeft + deltaX}px`;
           win.style.top = `${Math.max(0, initialTop + deltaY)}px`;
 
           if (SystemState.isCompiz3d) {
-            win.style.transform = `perspective(1000px) rotateZ(${tiltAngle}deg) rotateY(${tiltAngle * 0.8}deg)`;
+            win.style.transform = `perspective(1000px) rotateZ(${tiltAngle}deg) rotateY(${tiltAngle * 0.7}deg)`;
           }
         }
 
         function onMouseUp() {
           isDragging = false;
           win.style.transform = "";
-          win.classList.remove("wobbly");
           window.removeEventListener("mousemove", onMouseMove);
           window.removeEventListener("mouseup", onMouseUp);
         }
@@ -351,7 +540,6 @@ function initWindowsManager() {
     }
   }
 
-  // Foca a janela e a coloca na frente
   window.focusWindow = function(win) {
     if (!win) return;
     SystemState.highestZIndex += 1;
@@ -362,7 +550,6 @@ function initWindowsManager() {
     updateTaskbar();
   };
 
-  // Abre ou restaura uma janela
   window.openWindow = function(winId) {
     const win = document.getElementById(winId);
     if (!win) return;
@@ -407,37 +594,40 @@ function initWindowsManager() {
 }
 
 // --------------------------------------------------------------------------
-// Ícones do Desktop
+// 6. Ícones do Desktop (Sistema)
 // --------------------------------------------------------------------------
 function initDesktopIcons() {
-  const icons = document.querySelectorAll(".desktop-icon");
+  const icons = document.querySelectorAll("#system-icons-group .desktop-icon");
   icons.forEach(icon => {
     icon.addEventListener("click", () => {
-      icons.forEach(i => i.classList.remove("selected"));
+      document.querySelectorAll(".desktop-icon").forEach(i => i.classList.remove("selected"));
       icon.classList.add("selected");
       playRetroSound("click");
-      const targetWin = icon.dataset.window;
-      if (targetWin) {
-        window.openWindow(targetWin);
-      }
     });
 
     icon.addEventListener("dblclick", () => {
       const targetWin = icon.dataset.window;
       if (targetWin) window.openWindow(targetWin);
     });
+
+    icon.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const targetWin = icon.dataset.window;
+        if (targetWin) window.openWindow(targetWin);
+      }
+    });
   });
 
   const ghIcon = document.getElementById("link-github-external");
   if (ghIcon) {
-    ghIcon.addEventListener("click", () => {
+    ghIcon.addEventListener("dblclick", () => {
       window.open(PROFILE.github, "_blank");
     });
   }
 }
 
 // --------------------------------------------------------------------------
-// Menu Iniciar & Relógio
+// 7. Menu Iniciar & Relógio
 // --------------------------------------------------------------------------
 function initStartMenu() {
   const startBtn = document.getElementById("start-button");
@@ -460,12 +650,12 @@ function initStartMenu() {
     document.addEventListener("click", (e) => {
       if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
         startMenu.classList.add("hidden");
+        document.getElementById("all-programs-menu")?.classList.add("hidden");
         startBtn.setAttribute("aria-expanded", "false");
       }
     });
   }
 
-  // Ações do Start Menu
   document.querySelectorAll(".start-item, .start-sub-item").forEach(item => {
     item.addEventListener("click", () => {
       const target = item.dataset.target;
@@ -496,7 +686,7 @@ function initStartMenu() {
   if (compizBtn) {
     compizBtn.addEventListener("click", () => {
       SystemState.isCompiz3d = !SystemState.isCompiz3d;
-      compizBtn.innerHTML = `<span>Compiz 3D: ${SystemState.isCompiz3d ? "ON" : "OFF"}</span>`;
+      compizBtn.innerHTML = `<span>🧊 Compiz 3D: ${SystemState.isCompiz3d ? "ON" : "OFF"}</span>`;
       playRetroSound("click");
     });
   }
@@ -510,7 +700,6 @@ function initStartMenu() {
     });
   }
 
-  // Botões de dentro da janela Perfil
   const btnProj = document.getElementById("btn-open-projects");
   const btnTerm = document.getElementById("btn-open-terminal");
   if (btnProj) btnProj.addEventListener("click", () => window.openWindow("win-projects"));
@@ -530,7 +719,7 @@ function initSystemClock() {
 }
 
 // --------------------------------------------------------------------------
-// Tabs no Estilo XP
+// 8. Tabs Estilo XP
 // --------------------------------------------------------------------------
 function initTabs() {
   const tabButtons = document.querySelectorAll(".tab-button");
@@ -551,7 +740,7 @@ function initTabs() {
 }
 
 // --------------------------------------------------------------------------
-// Terminal Linux Interativo
+// 9. Terminal Linux Bash Interativo
 // --------------------------------------------------------------------------
 function initTerminal() {
   const input = document.getElementById("terminal-input");
@@ -562,19 +751,18 @@ function initTerminal() {
   const COMMANDS = {
     help: () => `Comandos disponíveis:
   <span class="term-highlight">help</span>       - Exibe esta mensagem de ajuda
-  <span class="term-highlight">ls</span>         - Lista projetos e diretórios
-  <span class="term-highlight">projects</span>   - Lista todos os 13 links com IDs
-  <span class="term-highlight">open &lt;id&gt;</span>   - Abre um projeto pelo número (ex: open 1)
+  <span class="term-highlight">ls</span>         - Lista todos os 13 executáveis
+  <span class="term-highlight">projects</span>   - Lista os apps com links diretos
+  <span class="term-highlight">open &lt;id&gt;</span>   - Executa app pelo ID (ex: open 1 ou open rex)
   <span class="term-highlight">neofetch</span>   - Informações do sistema com arte ASCII
   <span class="term-highlight">cat bio.txt</span>- Exibe biografia de Aethel
   <span class="term-highlight">clear</span>      - Limpa a tela do terminal
-  <span class="term-highlight">matrix</span>     - Modo ciberespaço
   <span class="term-highlight">date</span>       - Data e hora atual do sistema`,
 
-    ls: () => PROJECTS.map((p, idx) => `[${idx + 1}] ${p.title}.app`).join("   "),
+    ls: () => APPS.map(a => `<span style="color:#00ffaa;">${a.exe}</span>`).join("   "),
 
-    projects: () => PROJECTS.map((p, idx) => 
-      `<span style="color:#00ffaa;">[${idx + 1}]</span> <strong>${p.title}</strong> (${p.tag}) -> <a href="${p.url}" target="_blank" style="color:#8be9fd;">${p.url}</a>`
+    projects: () => APPS.map((a, idx) => 
+      `<span style="color:#00ffaa;">[${idx + 1}]</span> <strong>${a.title}</strong> (${a.tag}) -> <a href="${a.url}" target="_blank" style="color:#8be9fd;">${a.url}</a>`
     ).join("<br>"),
 
     neofetch: () => `
@@ -587,7 +775,7 @@ function initTerminal() {
 /'\\_   _/\\'    <span style="color:#8be9fd;">Shell:</span> bash 5.2.15
 \\___)=(___/     <span style="color:#8be9fd;">WM:</span> Compiz 3D Fusion
                 <span style="color:#8be9fd;">Theme:</span> Windows XP Luna Blue
-                <span style="color:#8be9fd;">Projetos:</span> ${PROJECTS.length} links ativos
+                <span style="color:#8be9fd;">Aplicativos:</span> ${APPS.length} apps instalados
 </div>`,
 
     "cat bio.txt": () => `${PROFILE.name} - ${PROFILE.title}<br>${PROFILE.bio}`,
@@ -597,9 +785,7 @@ function initTerminal() {
     clear: () => {
       history.innerHTML = "";
       return "";
-    },
-
-    matrix: () => `<span style="color:#00ff00;">Wake up, Neo... O ciberespaço está pronto.</span>`
+    }
   };
 
   input.addEventListener("keydown", (e) => {
@@ -615,19 +801,25 @@ function initTerminal() {
 
       const parts = rawCmd.split(" ");
       const cmd = parts[0].toLowerCase();
-      const arg = parts.slice(1).join(" ");
+      const arg = parts.slice(1).join(" ").toLowerCase();
 
       let output = "";
       if (cmd === "clear") {
         history.innerHTML = "";
       } else if (cmd === "open") {
         const num = parseInt(arg, 10);
-        if (num >= 1 && num <= PROJECTS.length) {
-          const targetProj = PROJECTS[num - 1];
-          output = `Abrindo ${targetProj.title} (${targetProj.url})...`;
-          window.open(targetProj.url, "_blank");
+        let targetApp = null;
+        if (!isNaN(num) && num >= 1 && num <= APPS.length) {
+          targetApp = APPS[num - 1];
         } else {
-          output = `<span style="color:#ff5555;">Erro: Projeto '${arg}' inválido. Digite 'projects' para consultar os números.</span>`;
+          targetApp = APPS.find(a => a.id.includes(arg) || a.title.toLowerCase().includes(arg));
+        }
+
+        if (targetApp) {
+          output = `Executando ${targetApp.title} (${targetApp.url})...`;
+          launchApp(targetApp);
+        } else {
+          output = `<span style="color:#ff5555;">Erro: Aplicativo '${arg}' não encontrado. Digite 'projects' para listar.</span>`;
         }
       } else if (COMMANDS[rawCmd.toLowerCase()]) {
         output = COMMANDS[rawCmd.toLowerCase()]();
@@ -657,7 +849,7 @@ function initTerminal() {
 }
 
 // --------------------------------------------------------------------------
-// AethelAmp (Mini Player Retrô com Sintetizador Chiptune)
+// 10. AethelAmp (Sintetizador Chiptune Retrô)
 // --------------------------------------------------------------------------
 function initAethelAmp() {
   const btnPlay = document.getElementById("amp-play");
@@ -670,7 +862,6 @@ function initAethelAmp() {
   let synthInterval = null;
   let seconds = 0;
 
-  // Escala chiptune retrô (notas em Hz)
   const NOTES = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25];
 
   function startChiptune() {
@@ -688,18 +879,17 @@ function initAethelAmp() {
       osc.type = Math.random() > 0.5 ? "square" : "sawtooth";
       osc.frequency.setValueAtTime(note, ctx.currentTime);
 
-      gain.gain.setValueAtTime(0.03, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+      gain.gain.setValueAtTime(0.025, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.16);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
 
       osc.start();
-      osc.stop(ctx.currentTime + 0.18);
+      osc.stop(ctx.currentTime + 0.16);
 
-      // Atualiza visualizador
       vizBars.forEach(bar => {
-        const h = Math.floor(Math.random() * 20) + 4;
+        const h = Math.floor(Math.random() * 18) + 3;
         bar.style.height = `${h}px`;
       });
 
@@ -714,7 +904,7 @@ function initAethelAmp() {
   function stopChiptune() {
     isPlaying = false;
     if (synthInterval) clearInterval(synthInterval);
-    vizBars.forEach(bar => (bar.style.height = "4px"));
+    vizBars.forEach(bar => (bar.style.height = "3px"));
   }
 
   if (btnPlay) {
@@ -742,7 +932,7 @@ function initAethelAmp() {
 }
 
 // --------------------------------------------------------------------------
-// Efeito de Parallax 3D Suave no Fundo
+// 11. Parallax 3D Suave no Fundo
 // --------------------------------------------------------------------------
 function init3DParallax() {
   const desktop = document.getElementById("desktop");
@@ -750,8 +940,8 @@ function init3DParallax() {
   if (!desktop || !hills) return;
 
   desktop.addEventListener("mousemove", (e) => {
-    const xPct = (e.clientX / window.innerWidth - 0.5) * 15;
-    const yPct = (e.clientY / window.innerHeight - 0.5) * 8;
+    const xPct = (e.clientX / window.innerWidth - 0.5) * 12;
+    const yPct = (e.clientY / window.innerHeight - 0.5) * 6;
     hills.style.transform = `translateX(${xPct}px) translateY(${yPct * 0.5}px)`;
   });
 }
