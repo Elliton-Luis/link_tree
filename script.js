@@ -581,17 +581,6 @@ function renderExplorerProjects() {
       }
     });
 
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      card.style.transform = `perspective(600px) rotateY(${x * 0.08}deg) rotateX(${-y * 0.08}deg) translateY(-3px)`;
-    });
-
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "";
-    });
-
     card.addEventListener("click", () => launchApp(app));
     card.addEventListener("keydown", (e) => {
       if (e.key === "Enter") launchApp(app);
@@ -811,29 +800,18 @@ function initWindowsManager() {
         startY = e.clientY;
         initialLeft = win.offsetLeft;
         initialTop = win.offsetTop;
-        lastMoveX = e.clientX;
 
         function onMouseMove(moveEvent) {
           if (!isDragging) return;
           const deltaX = moveEvent.clientX - startX;
           const deltaY = moveEvent.clientY - startY;
 
-          const speedX = moveEvent.clientX - lastMoveX;
-          lastMoveX = moveEvent.clientX;
-
-          const tiltAngle = Math.max(-8, Math.min(8, speedX * 0.35));
-
           win.style.left = `${initialLeft + deltaX}px`;
           win.style.top = `${Math.max(0, initialTop + deltaY)}px`;
-
-          if (SystemState.isCompiz3d) {
-            win.style.transform = `perspective(1000px) rotateZ(${tiltAngle}deg) rotateY(${tiltAngle * 0.7}deg)`;
-          }
         }
 
         function onMouseUp() {
           isDragging = false;
-          win.style.transform = "";
           window.removeEventListener("mousemove", onMouseMove);
           window.removeEventListener("mouseup", onMouseUp);
         }
@@ -1696,18 +1674,10 @@ function initTerminal() {
 }
 
 // --------------------------------------------------------------------------
-// 18. Parallax 3D Suave no Fundo
+// 18. Fundo Estático Autêntico do Windows XP
 // --------------------------------------------------------------------------
 function init3DParallax() {
-  const desktop = document.getElementById("desktop");
-  const hills = document.querySelector(".hills");
-  if (!desktop || !hills) return;
-
-  desktop.addEventListener("mousemove", (e) => {
-    const xPct = (e.clientX / window.innerWidth - 0.5) * 12;
-    const yPct = (e.clientY / window.innerHeight - 0.5) * 6;
-    hills.style.transform = `translateX(${xPct}px) translateY(${yPct * 0.5}px)`;
-  });
+  // Papel de parede estático e clássico, sem distorção ou parallax
 }
 
 function initTabs() {
