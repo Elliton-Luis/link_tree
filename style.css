@@ -1,196 +1,1420 @@
 /* ==========================================================================
-   Design Tokens & Variáveis (Estética Sacra & Tons Pastéis)
+   Aethel OS - Retro Linux & Windows XP 3D Fusion Theme
    ========================================================================== */
+
 :root {
-  --color-bg: #f8f6f0;
-  --color-surface: #fffdf9;
-  --color-surface-hover: #faf6ee;
-  --color-text-main: #2d2926;
-  --color-text-muted: #857f75;
-  --color-border: #ede6da;
-  --color-border-hover: #dfd4bf;
-  --color-gold: #bfa36f;
-  --color-shadow: rgba(85, 75, 60, 0.04);
+  /* XP Luna Palette */
+  --xp-blue-dark: #0045c7;
+  --xp-blue-main: #0058ee;
+  --xp-blue-light: #288eff;
+  --xp-blue-highlight: #3593ff;
+  --xp-blue-active: #1565c0;
+  --xp-title-gradient: linear-gradient(to bottom, #0058ee 0%, #3593ff 8%, #288eff 12%, #0257e5 60%, #0045c7 100%);
+  --xp-title-inactive: linear-gradient(to bottom, #7697c6 0%, #8faed9 8%, #7899c7 12%, #6385b6 60%, #4f73a6 100%);
   
-  --font-serif: "Baskerville", "Georgia", "Garamond", serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --xp-taskbar-bg: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #1941a5 100%);
+  --xp-tray-bg: linear-gradient(to bottom, #0c59b2 0%, #0e67cc 15%, #1072e2 50%, #0b58b0 100%);
+  --xp-start-green: linear-gradient(to bottom, #388e3c 0%, #43a047 10%, #2e7d32 45%, #1b5e20 100%);
+  --xp-start-hover: linear-gradient(to bottom, #4caf50 0%, #66bb6a 10%, #388e3c 45%, #2e7d32 100%);
   
-  --radius-pill: 9999px;
-  --radius-card: 16px;
-  --transition-smooth: all 0.25s cubic-bezier(0.2, 0, 0.2, 1);
+  /* Windows & Dialogs */
+  --xp-window-bg: #ece9d8;
+  --xp-window-frame: #0055ea;
+  --xp-border-light: #ffffff;
+  --xp-border-dark: #808080;
+  --xp-border-shadow: #404040;
+  --xp-selection: #316ac5;
+  --xp-text: #000000;
+  --xp-text-muted: #555555;
+  
+  /* Fonts */
+  --font-xp: "Tahoma", "Segoe UI", -apple-system, sans-serif;
+  --font-mono: "Fira Code", "Courier New", monospace;
 }
 
-/* ==========================================================================
-   Reset & Base
-   ========================================================================== */
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-bg);
-  background-image: radial-gradient(circle at 50% 20%, #ffffff 0%, var(--color-bg) 75%);
-  color: var(--color-text-main);
-  font-family: var(--font-sans);
-  padding: 3rem 1.25rem;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ==========================================================================
-   Container Principal
-   ========================================================================== */
-.tree-container {
+html, body {
   width: 100%;
-  max-width: 440px;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-xp);
+  font-size: 12px;
+  color: var(--xp-text);
+  background-color: #004e98;
+}
+
+/* --------------------------------------------------------------------------
+   Desktop & Wallpaper (Bliss + 3D Linux Grid)
+   -------------------------------------------------------------------------- */
+.desktop {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  perspective: 1200px;
+}
+
+.wallpaper-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #1072e2 0%, #4ba3ff 35%, #8ec5fc 60%, #c1dfc4 75%, #4caf50 82%, #2e7d32 100%);
+  pointer-events: none;
+}
+
+/* Rolling Hills */
+.hills {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  height: 48%;
+  pointer-events: none;
+}
+
+.hill {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.hill-back {
+  bottom: -40%;
+  left: -15%;
+  width: 90%;
+  height: 120%;
+  background: radial-gradient(ellipse at 50% 20%, #68b82e 0%, #468e1a 70%, #2f690f 100%);
+  box-shadow: inset 0 10px 40px rgba(255, 255, 255, 0.3);
+}
+
+.hill-mid {
+  bottom: -55%;
+  right: -20%;
+  width: 110%;
+  height: 130%;
+  background: radial-gradient(ellipse at 40% 15%, #76c934 0%, #4ea31c 65%, #2b610c 100%);
+  box-shadow: inset 0 15px 50px rgba(255, 255, 255, 0.4);
+}
+
+.hill-front {
+  bottom: -70%;
+  left: 10%;
+  width: 100%;
+  height: 120%;
+  background: radial-gradient(ellipse at 50% 10%, #82d83b 0%, #59b521 60%, #357713 100%);
+  box-shadow: inset 0 15px 60px rgba(255, 255, 255, 0.45);
+}
+
+/* Fluffy Sky Clouds */
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+}
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 100px;
+  filter: blur(4px);
+  animation: floatCloud linear infinite;
+}
+
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.cloud-1 {
+  top: 15%;
+  left: 10%;
+  width: 180px;
+  height: 45px;
+  animation-duration: 90s;
+}
+.cloud-1::before {
+  width: 70px;
+  height: 70px;
+  top: -30px;
+  left: 30px;
+}
+.cloud-1::after {
+  width: 90px;
+  height: 90px;
+  top: -45px;
+  left: 70px;
+}
+
+.cloud-2 {
+  top: 30%;
+  left: 60%;
+  width: 240px;
+  height: 55px;
+  animation-duration: 130s;
+}
+.cloud-2::before {
+  width: 85px;
+  height: 85px;
+  top: -40px;
+  left: 40px;
+}
+.cloud-2::after {
+  width: 110px;
+  height: 110px;
+  top: -55px;
+  left: 95px;
+}
+
+.cloud-3 {
+  top: 8%;
+  left: 80%;
+  width: 140px;
+  height: 35px;
+  opacity: 0.6;
+  animation-duration: 160s;
+}
+
+@keyframes floatCloud {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(60px); }
+  100% { transform: translateX(0); }
+}
+
+/* Retro 3D Horizon Grid Overlay */
+.retro-grid-overlay {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 19px,
+    rgba(255, 255, 255, 0.08) 20px
+  );
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Desktop Icons
+   -------------------------------------------------------------------------- */
+.desktop-icons {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 10;
+  width: 80px;
+}
+
+.desktop-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-}
-
-/* ==========================================================================
-   Perfil
-   ========================================================================== */
-.profile-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2.5rem;
-}
-
-.avatar-frame {
-  position: relative;
-  width: 96px;
-  height: 96px;
-  border-radius: var(--radius-pill);
-  padding: 4px;
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  box-shadow: 0 4px 20px var(--color-shadow);
-  margin-bottom: 1.25rem;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.avatar-img {
-  width: 100%;
-  height: 100%;
-  border-radius: var(--radius-pill);
-  object-fit: cover;
-  display: block;
-}
-
-.avatar-img.is-hidden {
-  display: none;
-}
-
-.avatar-fallback {
-  display: none;
-  font-size: 1.75rem;
-  color: var(--color-gold);
-  line-height: 1;
-}
-
-.avatar-fallback.is-visible {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: var(--color-surface);
-}
-
-.profile-name {
-  font-family: var(--font-serif);
-  font-size: 1.75rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  color: var(--color-text-main);
-  margin-bottom: 0.35rem;
-}
-
-.profile-bio {
-  font-size: 0.925rem;
-  color: var(--color-text-muted);
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  max-width: 300px;
-}
-
-/* ==========================================================================
-   Links de Projetos
-   ========================================================================== */
-.links-nav {
-  width: 100%;
-}
-
-.links-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.875rem;
-  width: 100%;
-}
-
-.link-card {
-  display: block;
-  text-decoration: none;
-  color: var(--color-text-main);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  padding: 1.1rem 1.25rem;
-  box-shadow: 0 2px 12px var(--color-shadow);
-  transition: var(--transition-smooth);
-}
-
-.link-card:hover,
-.link-card:focus-visible {
-  background-color: var(--color-surface-hover);
-  border-color: var(--color-border-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(85, 75, 60, 0.07);
+  cursor: pointer;
+  padding: 6px 4px;
+  border-radius: 3px;
+  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.15s;
   outline: none;
 }
 
-.link-title {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: 1.05rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  margin-bottom: 0.2rem;
+.desktop-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px) scale(1.05);
 }
 
-.link-description {
+.desktop-icon:focus, .desktop-icon.selected {
+  background-color: rgba(49, 106, 197, 0.55);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.icon-graphic {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
+  transition: transform 0.2s ease;
+}
+
+.desktop-icon:hover .icon-graphic {
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6));
+  transform: scale(1.08);
+}
+
+.icon-label {
+  margin-top: 5px;
+  font-size: 11px;
+  color: #ffffff;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px #000000, -1px -1px 2px #000000, 1px -1px 2px #000000, -1px 1px 2px #000000;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+   Windows System (Luna 3D Bevels & Skeuomorphism)
+   -------------------------------------------------------------------------- */
+.windows-container {
+  position: absolute;
+  inset: 0;
+  bottom: 30px; /* Above taskbar */
+  z-index: 20;
+  pointer-events: none;
+}
+
+.window {
+  position: absolute;
+  pointer-events: auto;
+  background-color: var(--xp-window-bg);
+  border-radius: 8px 8px 3px 3px;
+  border: 3px solid #0055ea;
+  border-top-width: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  min-height: 200px;
+  transition: transform 0.15s ease-out, opacity 0.2s ease, box-shadow 0.2s;
+  transform-origin: center bottom;
+}
+
+.window.active-win {
+  border-color: #0055ea;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.3);
+  z-index: 100;
+}
+
+.window:not(.active-win) {
+  border-color: #7697c6;
+  opacity: 0.94;
+}
+
+.window.minimized {
+  opacity: 0;
+  transform: translateY(200px) scale(0.6);
+  pointer-events: none;
+}
+
+.window.maximized {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: calc(100vh - 30px) !important;
+  border-radius: 0;
+  border-width: 0;
+}
+
+/* Compiz Wobble Effect on Drag */
+.window.wobbly {
+  transition: transform 0.08s ease-out;
+}
+
+/* Window Titlebar */
+.window-titlebar {
+  height: 29px;
+  background: var(--xp-title-gradient);
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px 0 8px;
+  cursor: move;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+.window:not(.active-win) .window-titlebar {
+  background: var(--xp-title-inactive);
+}
+
+/* Gloss Reflection on Titlebar */
+.window-titlebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.05));
+  pointer-events: none;
+}
+
+.titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.titlebar-icon {
+  font-size: 15px;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.titlebar-title {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  text-shadow: 1px 1px 2px #001f5c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.window:not(.active-win) .titlebar-title {
+  color: #d8e5f5;
+  text-shadow: 1px 1px 1px #33507d;
+}
+
+/* Window Controls (Minimize, Maximize, Close) */
+.titlebar-controls {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  z-index: 2;
+}
+
+.win-btn {
+  width: 21px;
+  height: 21px;
+  border-radius: 3px;
+  border: 1px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 11px;
+  color: #ffffff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.3);
+  transition: filter 0.1s;
+}
+
+.win-btn:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+  transform: translateY(1px);
+}
+
+.win-btn-min, .win-btn-max {
+  background: linear-gradient(to bottom, #4ba3ff 0%, #2071dc 45%, #185ec2 55%, #1b63cc 100%);
+}
+
+.win-btn-close {
+  background: linear-gradient(to bottom, #f37764 0%, #e8371b 45%, #cc2408 55%, #e6371a 100%);
+  margin-left: 2px;
+  font-size: 12px;
+}
+
+.win-btn:hover {
+  filter: brightness(1.2);
+}
+
+/* Window Content */
+.window-content {
+  flex: 1;
+  background-color: var(--xp-window-bg);
+  overflow: auto;
+  position: relative;
+}
+
+/* Window Statusbar */
+.window-statusbar {
+  height: 22px;
+  background: #ebe7d6;
+  border-top: 1px solid #d0ccb9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 11px;
+  color: #444444;
+  box-shadow: inset 0 1px 0 #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Dialog & Tab Styles (XP System Properties)
+   -------------------------------------------------------------------------- */
+.xp-dialog {
+  padding: 12px 14px;
+}
+
+.tab-strip {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid #919b9c;
+  margin-bottom: 12px;
+}
+
+.tab-button {
+  background: linear-gradient(to bottom, #fafafa 0%, #ece9d8 100%);
+  border: 1px solid #919b9c;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  color: #000;
+  position: relative;
+  top: 1px;
+}
+
+.tab-button.active {
+  background: #ece9d8;
+  font-weight: bold;
+  border-color: #919b9c;
+  border-bottom: 2px solid #ece9d8;
+  top: 1px;
+  box-shadow: inset 0 2px 0 #ff8000;
+}
+
+.tab-content.hidden {
+  display: none;
+}
+
+.profile-header-retro {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.avatar-box-3d {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #3a6ea5 0%, #004e98 100%);
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-badge {
+  font-size: 28px;
+  color: #ffffff;
+  text-shadow: 0 0 10px #00ffff, 1px 1px 3px rgba(0, 0, 0, 0.5);
+  animation: pulseGlyph 3s infinite ease-in-out;
+}
+
+@keyframes pulseGlyph {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.12); filter: brightness(1.3); }
+}
+
+.profile-details-retro .sys-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #003399;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.sys-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #2e7d32;
+  margin-bottom: 4px;
+}
+
+.sys-meta {
+  font-size: 10px;
+  color: #555;
+  line-height: 1.35;
+}
+
+/* Groupbox */
+.retro-groupbox {
+  border: 1px solid #d0ccb9;
+  border-radius: 4px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.retro-groupbox legend {
+  padding: 0 6px;
+  font-weight: bold;
+  color: #003399;
+  font-size: 11px;
+}
+
+.retro-desc {
+  font-size: 11px;
+  line-height: 1.45;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.retro-status-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #1b5e20;
+  font-weight: 500;
+}
+
+.status-indicator {
+  color: #00c853;
+  animation: blinkStatus 1.5s infinite;
+}
+
+@keyframes blinkStatus {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.retro-contact-list {
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.retro-contact-list a {
+  color: #0055ea;
+  text-decoration: underline;
+}
+
+.specs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.spec-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* XP 3D Buttons */
+.xp-btn {
+  min-width: 80px;
+  padding: 4px 14px;
+  font-family: var(--font-xp);
+  font-size: 11px;
+  border: 1px solid;
+  border-color: #003c74;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #ffffff 0%, #ece9d8 20%, #e3dfcd 50%, #d8d3bf 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.1s;
+}
+
+.xp-btn:hover {
+  background: linear-gradient(to bottom, #ffffff 0%, #fff6e0 20%, #ffe9b5 50%, #fed88b 100%);
+  border-color: #e5a000;
+  box-shadow: inset 0 1px 0 #ffffff, 0 0 4px rgba(254, 216, 139, 0.8);
+}
+
+.xp-btn:active {
+  background: linear-gradient(to bottom, #dbd6c4 0%, #e5e1cf 100%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+  transform: translateY(1px);
+}
+
+.xp-btn.primary {
+  border-color: #0055ea;
+  font-weight: bold;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 0 0 1px #288eff;
+}
+
+/* --------------------------------------------------------------------------
+   Windows Explorer (Projects & Links Window)
+   -------------------------------------------------------------------------- */
+.explorer-menubar {
+  background: linear-gradient(to bottom, #f6f5ec 0%, #ece9d8 100%);
+  border-bottom: 1px solid #d0ccb9;
+  display: flex;
+  gap: 12px;
+  padding: 3px 10px;
+  font-size: 11px;
+}
+
+.explorer-menubar span {
+  cursor: default;
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+.explorer-menubar span:hover {
+  background-color: #316ac5;
+  color: #fff;
+}
+
+.explorer-toolbar {
+  background: linear-gradient(to bottom, #ece9d8 0%, #ded9c3 100%);
+  border-bottom: 1px solid #99937f;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: inset 0 1px 0 #ffffff;
+}
+
+.nav-arrows {
+  display: flex;
+  gap: 2px;
+}
+
+.tool-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: var(--font-xp);
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tool-btn:not(:disabled):hover {
+  border: 1px solid;
+  border-color: #fff #808080 #808080 #fff;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.tool-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.tool-separator {
+  width: 1px;
+  height: 20px;
+  background: #b0aba0;
+  border-right: 1px solid #ffffff;
+}
+
+.address-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.addr-label {
+  font-size: 11px;
+  color: #444;
+}
+
+.addr-input-box {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid;
+  border-color: #7f9db9 #b0aba0 #b0aba0 #7f9db9;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  gap: 6px;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.addr-text {
+  font-size: 11px;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.go-btn {
+  background: linear-gradient(to bottom, #dff0d8 0%, #c8e5bc 100%);
+  border: 1px solid #4cae4c;
+  color: #1b5e20;
+  font-weight: bold;
+}
+
+/* Explorer Body */
+.explorer-body {
+  display: flex;
+  height: 380px;
+  background-color: #ffffff;
+}
+
+.explorer-sidebar {
+  width: 170px;
+  background: linear-gradient(to bottom, #7a96df 0%, #637fd6 100%);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-right: 1px solid #4058b5;
+  color: #213567;
+}
+
+.sidebar-box {
+  background-color: #d3e5fa;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar-box-header {
+  background: linear-gradient(to right, #215dc6 0%, #3f8cf3 100%);
+  color: #ffffff;
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 11px;
+  text-shadow: 1px 1px 1px #0e3477;
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 6px 8px;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-links a {
+  color: #0c439c;
+  text-decoration: none;
   display: block;
-  font-size: 0.825rem;
-  color: var(--color-text-muted);
-  font-weight: 300;
+}
+
+.sidebar-links a:hover {
+  text-decoration: underline;
+  color: #002266;
+}
+
+.sidebar-info {
+  padding: 8px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #333;
+}
+
+.explorer-main {
+  flex: 1;
+  padding: 14px;
+  overflow-y: auto;
+  background: #ffffff;
+}
+
+/* Projects Grid (Link Tree 3D cards) */
+.projects-list-retro {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.project-card-retro {
+  background: linear-gradient(to bottom, #ffffff 0%, #f7f9fc 100%);
+  border: 1px solid #c2d4ea;
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s;
+  transform-style: preserve-3d;
+}
+
+.project-card-retro:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: #316ac5;
+  box-shadow: 0 8px 18px rgba(49, 106, 197, 0.25), inset 0 1px 0 #ffffff;
+  background: linear-gradient(to bottom, #ffffff 0%, #eef4ff 100%);
+}
+
+.project-card-retro:active {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 4px 8px rgba(49, 106, 197, 0.2);
+}
+
+.proj-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e3edf8 0%, #cfe0f5 100%);
+  border: 1px solid #a6c4e8;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 1px #fff;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+}
+
+.proj-icon-glyph {
+  font-size: 20px;
+}
+
+.proj-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.proj-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: #0b45a3;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.proj-tag {
+  display: inline-block;
+  font-size: 9px;
+  background-color: #e1ecf8;
+  color: #2b548c;
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid #bfd3eb;
+  margin-top: 3px;
+  width: fit-content;
+}
+
+.proj-desc {
+  font-size: 10px;
+  color: #555555;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Terminal Linux (bash on Aethel OS)
+   -------------------------------------------------------------------------- */
+.terminal-titlebar {
+  background: linear-gradient(to bottom, #2b2b36 0%, #1a1a24 100%);
+  border-bottom: 1px solid #3d3d4e;
+}
+
+.terminal-content {
+  background-color: #0c0d12;
+  color: #e0e0e0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 12px;
+  height: 280px;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+
+.welcome-line {
+  color: #00ffaa;
+  font-weight: bold;
+}
+
+.term-highlight {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.term-prompt {
+  white-space: nowrap;
+}
+
+.p-user { color: #50fa7b; font-weight: bold; }
+.p-host { color: #8be9fd; font-weight: bold; }
+.p-path { color: #bd93f9; }
+
+.term-input-row {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.term-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  flex: 1;
+}
+
+.term-line {
+  margin-bottom: 3px;
+  word-break: break-word;
+}
+
+.term-ascii {
+  color: #50fa7b;
+  font-size: 10px;
+  white-space: pre;
+  line-height: 1.15;
+}
+
+.terminal-statusbar {
+  background: #1e1e28;
+  color: #8888aa;
+  border-top: 1px solid #2d2d3c;
+}
+
+/* --------------------------------------------------------------------------
+   AethelAmp Media Player (Winamp / XMMS 2000s skeuomorphic style)
+   -------------------------------------------------------------------------- */
+.win-amp {
+  background: #23252e;
+  border: 2px solid #555c6d;
+}
+
+.amp-titlebar {
+  background: linear-gradient(to bottom, #4a4f5c 0%, #2f333e 100%);
+  height: 22px;
+}
+
+.amp-body {
+  background: #191b22;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.amp-display {
+  background: #090a0d;
+  border: 2px solid;
+  border-color: #000 #444 #444 #000;
+  border-radius: 3px;
+  padding: 6px;
+  color: #00ff88;
+  font-family: var(--font-mono);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+.amp-lcd-title {
+  font-size: 10px;
+  white-space: nowrap;
+  animation: scrollText 8s linear infinite;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.amp-time {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px #00ff88;
+  margin: 3px 0;
+}
+
+.amp-kbps {
+  font-size: 9px;
+  color: #00a859;
+}
+
+.amp-visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 24px;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px dashed rgba(0, 255, 136, 0.3);
+}
+
+.v-bar {
+  flex: 1;
+  background: linear-gradient(to top, #00ff88 0%, #ffff00 70%, #ff0055 100%);
+  height: 4px;
+  transition: height 0.1s ease;
+}
+
+.amp-controls {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.amp-btn {
+  background: linear-gradient(to bottom, #4f535f 0%, #2c2f37 100%);
+  border: 1px solid;
+  border-color: #6a7182 #1b1d22 #1b1d22 #6a7182;
+  color: #d1d5db;
+  font-size: 11px;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.amp-btn:hover {
+  background: linear-gradient(to bottom, #5f6473 0%, #3c404b 100%);
+  color: #00ff88;
+}
+
+.amp-btn:active {
+  border-color: #1b1d22 #6a7182 #6a7182 #1b1d22;
+  transform: translateY(1px);
+}
+
+.amp-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.amp-label {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  color: #8892a0;
+}
+
+.amp-slider {
+  flex: 1;
+  height: 4px;
+  accent-color: #00ff88;
+}
+
+/* --------------------------------------------------------------------------
+   Start Menu (XP Two-Tone Style)
+   -------------------------------------------------------------------------- */
+.start-menu {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 380px;
+  background-color: #ffffff;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid #0055ea;
+  z-index: 999;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.start-menu.hidden {
+  display: none;
+}
+
+.start-menu-header {
+  background: linear-gradient(to right, #0058ee 0%, #288eff 60%, #1565c0 100%);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: inset 0 1px 1px #fff;
+}
+
+.start-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+  background: #ffaa00;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.start-username {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px #001f5c;
+}
+
+.start-menu-columns {
+  display: flex;
+  min-height: 250px;
+  border-top: 1px solid #ffaa00;
+}
+
+.start-col-left {
+  flex: 1.2;
+  background-color: #ffffff;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.start-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.start-item:hover {
+  background-color: #316ac5;
+  color: #ffffff;
+}
+
+.start-item:hover small {
+  color: #e0e9f8;
+}
+
+.start-item-icon {
+  font-size: 22px;
+}
+
+.start-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.start-item-info strong {
+  font-size: 11px;
+}
+
+.start-item-info small {
+  font-size: 10px;
+  color: #666;
+}
+
+.start-col-right {
+  flex: 1;
+  background: #d3e5fa;
+  border-left: 1px solid #91b5e8;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.start-sub-item {
+  padding: 6px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11px;
+  color: #0b3879;
+  font-weight: 500;
+}
+
+.start-sub-item:hover {
+  background-color: #316ac5;
+  color: #ffffff;
+}
+
+.start-menu-footer {
+  background: linear-gradient(to right, #245edb 0%, #3f8cf3 100%);
+  padding: 6px 12px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #5a94e8;
+}
+
+.start-footer-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+
+.start-footer-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   Taskbar (Windows XP Luna Classic)
+   -------------------------------------------------------------------------- */
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: var(--xp-taskbar-bg);
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* XP Green Start Button */
+.start-button {
+  height: 30px;
+  background: var(--xp-start-green);
+  border: none;
+  border-radius: 0 10px 10px 0;
+  padding: 0 14px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 2px 0 5px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  outline: none;
+}
+
+.start-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+  pointer-events: none;
+}
+
+.start-button:hover {
+  background: var(--xp-start-hover);
+}
+
+.start-button:active {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.start-text {
+  color: #ffffff;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px #0a3d1b;
   letter-spacing: 0.02em;
 }
 
-/* ==========================================================================
-   Footer
-   ========================================================================== */
-.tree-footer {
-  margin-top: 3rem;
-  color: var(--color-gold);
-  font-size: 0.85rem;
-  opacity: 0.7;
+/* Taskbar Windows Tabs */
+.taskbar-tasks {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  overflow-x: auto;
 }
 
-.footer-glyph {
-  letter-spacing: 0.2em;
+.task-tab {
+  height: 24px;
+  min-width: 130px;
+  max-width: 180px;
+  background: linear-gradient(to bottom, #3b82f6 0%, #2059c5 50%, #174eb6 100%);
+  border: 1px solid;
+  border-color: #60a5fa #0e3b97 #0e3b97 #60a5fa;
+  border-radius: 3px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-tab:hover {
+  background: linear-gradient(to bottom, #60a5fa 0%, #2563eb 50%, #1d4ed8 100%);
+}
+
+.task-tab.active {
+  background: linear-gradient(to bottom, #1d4ed8 0%, #1e40af 50%, #172554 100%);
+  border-color: #0e3b97 #60a5fa #60a5fa #0e3b97;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.6);
+  font-weight: bold;
+}
+
+/* System Tray */
+.system-tray {
+  height: 30px;
+  background: var(--xp-tray-bg);
+  border-left: 1px solid #1072e2;
+  box-shadow: inset 1px 0 1px #064082;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  color: #ffffff;
+}
+
+.tray-icon {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 13px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+.tray-clock {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  text-shadow: 1px 1px 1px #063973;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive adjustments
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .window {
+    width: 95% !important;
+    left: 2.5% !important;
+    top: 10px !important;
+  }
+  .explorer-body {
+    flex-direction: column;
+    height: auto;
+  }
+  .explorer-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #4058b5;
+  }
 }

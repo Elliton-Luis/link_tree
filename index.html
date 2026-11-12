@@ -3,30 +3,419 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfólio & Links</title>
+  <title>Aethel OS - Retro Linux & XP Edition</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Tahoma&display=swap" rel="stylesheet">
   <script src="script.js" defer></script>
 </head>
 <body>
-  <main class="tree-container">
-    <header class="profile-section">
-      <div class="avatar-frame">
-        <img id="profile-img" src="avatar.jpg" alt="Foto de perfil" class="avatar-img" />
-        <div id="avatar-fallback" class="avatar-fallback" aria-hidden="true">✦</div>
+  <div id="desktop" class="desktop">
+    <!-- Desktop Background Wallpaper (Bliss meets Linux retro 3D) -->
+    <div class="wallpaper-canvas">
+      <div class="sky">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
       </div>
-      <h1 id="profile-name" class="profile-name">Aethel</h1>
-      <p id="profile-bio" class="profile-bio">Projetos, ensaios & criações</p>
-    </header>
+      <div class="hills">
+        <div class="hill hill-back"></div>
+        <div class="hill hill-mid"></div>
+        <div class="hill hill-front"></div>
+      </div>
+      <div class="retro-grid-overlay"></div>
+    </div>
 
-    <nav aria-label="Lista de projetos" class="links-nav">
-      <ul id="links-list" class="links-list">
-        <!-- Renderizado dinamicamente via script.js -->
-      </ul>
-    </nav>
+    <!-- Desktop Icons -->
+    <div class="desktop-icons" id="desktop-icons">
+      <div class="desktop-icon" tabindex="0" data-window="win-profile">
+        <div class="icon-graphic icon-computer">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <rect x="6" y="6" width="36" height="26" rx="3" fill="#3a6ea5" stroke="#1d3557" stroke-width="2"/>
+            <rect x="9" y="9" width="30" height="20" fill="#00ffff" opacity="0.8"/>
+            <polygon points="9,9 39,9 34,14 14,14" fill="#ffffff" opacity="0.4"/>
+            <rect x="20" y="32" width="8" height="6" fill="#adb5bd" stroke="#6c757d" stroke-width="1.5"/>
+            <ellipse cx="24" cy="40" rx="14" ry="3" fill="#6c757d"/>
+            <ellipse cx="24" cy="39" rx="12" ry="2.5" fill="#ced4da"/>
+          </svg>
+        </div>
+        <span class="icon-label">Sobre Aethel</span>
+      </div>
 
-    <footer class="tree-footer">
-      <span class="footer-glyph">✦</span>
+      <div class="desktop-icon" tabindex="0" data-window="win-projects">
+        <div class="icon-graphic icon-folder">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <path d="M4,10 L18,10 L22,14 L44,14 L44,38 L4,38 Z" fill="#f4a261" stroke="#e76f51" stroke-width="2"/>
+            <path d="M4,16 L44,16 L42,40 L2,40 Z" fill="#e9c46a" stroke="#d4a373" stroke-width="1.5"/>
+            <rect x="8" y="19" width="32" height="17" fill="#ffffff" opacity="0.3"/>
+            <polygon points="12,22 18,22 20,25 36,25 36,33 12,33" fill="#2a9d8f" opacity="0.7"/>
+          </svg>
+        </div>
+        <span class="icon-label">Projetos & Links</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" data-window="win-terminal">
+        <div class="icon-graphic icon-terminal">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <rect x="4" y="8" width="40" height="32" rx="3" fill="#1e1e24" stroke="#4a4e69" stroke-width="2"/>
+            <rect x="4" y="8" width="40" height="7" fill="#3a3d52"/>
+            <circle cx="8" cy="11.5" r="2" fill="#ff5f56"/>
+            <circle cx="14" cy="11.5" r="2" fill="#ffbd2e"/>
+            <circle cx="20" cy="11.5" r="2" fill="#27c93f"/>
+            <text x="8" y="27" fill="#39ff14" font-family="monospace" font-size="12" font-weight="bold">&gt;_</text>
+            <text x="24" y="27" fill="#00e5ff" font-family="monospace" font-size="11">sh</text>
+          </svg>
+        </div>
+        <span class="icon-label">Terminal Linux</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" data-window="win-player">
+        <div class="icon-graphic icon-media">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <rect x="6" y="8" width="36" height="32" rx="3" fill="#2b2d42" stroke="#8d99ae" stroke-width="2"/>
+            <rect x="9" y="11" width="30" height="12" fill="#0b090a" stroke="#495057" stroke-width="1"/>
+            <rect x="12" y="14" width="24" height="6" fill="#00f5d4" opacity="0.8"/>
+            <circle cx="15" cy="31" r="5" fill="#ef233c"/>
+            <polygon points="14,29 18,31 14,33" fill="#ffffff"/>
+            <rect x="24" y="28" width="14" height="6" fill="#495057" rx="1"/>
+          </svg>
+        </div>
+        <span class="icon-label">AethelAmp</span>
+      </div>
+
+      <div class="desktop-icon" tabindex="0" id="link-github-external">
+        <div class="icon-graphic icon-github">
+          <svg viewBox="0 0 48 48" width="42" height="42">
+            <circle cx="24" cy="24" r="20" fill="#24292e" stroke="#586069" stroke-width="2"/>
+            <path d="M24 8C15.16 8 8 15.16 8 24C8 31.07 12.58 37.07 18.96 39.2C19.76 39.34 20.06 38.85 20.06 38.43C20.06 38.04 20.04 36.73 20.04 35.37C15.6 36.33 14.66 33.23 14.66 33.23C13.94 31.39 12.89 30.9 12.89 30.9C11.44 29.91 13 29.93 13 29.93C14.6 30.04 15.45 31.57 15.45 31.57C16.87 34 19.19 33.3 20.1 32.89C20.24 31.86 20.66 31.15 21.11 30.75C17.56 30.35 13.83 28.98 13.83 22.86C13.83 21.11 14.45 19.69 15.48 18.57C15.31 18.17 14.77 16.54 15.63 14.34C15.63 14.34 16.97 13.92 20.02 15.98C21.3 15.62 22.65 15.44 24 15.44C25.35 15.44 26.7 15.62 27.98 15.98C31.03 13.92 32.36 14.34 32.36 14.34C33.23 16.54 32.69 18.17 32.52 18.57C33.55 19.69 34.16 21.11 34.16 22.86C34.16 28.99 30.42 30.34 26.86 30.74C27.4 31.21 27.9 32.13 27.9 33.54C27.9 35.56 27.88 37.94 27.88 38.43C27.88 38.86 28.17 39.36 28.99 39.2C35.36 37.06 39.95 31.07 39.95 24C39.95 15.16 32.84 8 24 8Z" fill="#ffffff"/>
+          </svg>
+        </div>
+        <span class="icon-label">GitHub</span>
+      </div>
+    </div>
+
+    <!-- Windows Container -->
+    <div class="windows-container" id="windows-container">
+
+      <!-- WINDOW 1: SOBRE AETHEL (System Properties Style) -->
+      <div class="window active-win" id="win-profile" style="top: 40px; left: 80px; width: 440px;" data-title="Propriedades do Sistema: Aethel">
+        <div class="window-titlebar">
+          <div class="titlebar-left">
+            <span class="titlebar-icon">🐧</span>
+            <span class="titlebar-title">Propriedades do Sistema: Aethel</span>
+          </div>
+          <div class="titlebar-controls">
+            <button class="win-btn win-btn-min" aria-label="Minimizar">_</button>
+            <button class="win-btn win-btn-max" aria-label="Maximizar">□</button>
+            <button class="win-btn win-btn-close" aria-label="Fechar">✕</button>
+          </div>
+        </div>
+
+        <div class="window-content xp-dialog">
+          <div class="tab-strip">
+            <button class="tab-button active" data-tab="tab-general">Geral</button>
+            <button class="tab-button" data-tab="tab-bio">Bio & Visão</button>
+            <button class="tab-button" data-tab="tab-specs">Especificações</button>
+          </div>
+
+          <div class="tab-content" id="tab-general">
+            <div class="profile-header-retro">
+              <div class="avatar-box-3d">
+                <div class="avatar-badge">
+                  <span class="avatar-glyph">✦</span>
+                </div>
+              </div>
+              <div class="profile-details-retro">
+                <h2 class="sys-name" id="profile-name">Aethel</h2>
+                <div class="sys-tag">Desenvolvedor & Criador de Sistemas</div>
+                <div class="sys-meta">
+                  <span>OS: Linux 6.8 / XP Theme Core</span><br>
+                  <span>Build: 2026.11.12-UltraRetro</span>
+                </div>
+              </div>
+            </div>
+
+            <fieldset class="retro-groupbox">
+              <legend>Informações de Perfil</legend>
+              <p class="retro-desc" id="profile-bio">Projetos, ensaios & criações focadas em interfaces autônomas, exploração cognitiva e computação artesanal.</p>
+              <div class="retro-status-row">
+                <span class="status-indicator">●</span>
+                <span class="status-text">Status: Online no ciberespaço</span>
+              </div>
+            </fieldset>
+
+            <div class="dialog-actions">
+              <button class="xp-btn" id="btn-open-projects">Ver Projetos...</button>
+              <button class="xp-btn primary" id="btn-open-terminal">Abrir Terminal</button>
+            </div>
+          </div>
+
+          <div class="tab-content hidden" id="tab-bio">
+            <fieldset class="retro-groupbox">
+              <legend>Manifesto Criativo</legend>
+              <p class="retro-desc">
+                Explorando a intersecção entre a elegância tátil do software dos anos 2000 (skeuomorfismo, relevo 3D, resposta sonora) e a potência moderna da inteligência autônoma e código enxuto.
+              </p>
+            </fieldset>
+            <fieldset class="retro-groupbox">
+              <legend>Canais de Contato</legend>
+              <ul class="retro-contact-list">
+                <li><strong>GitHub:</strong> <a href="https://github.com/chocotonilitz" target="_blank" rel="noopener">github.com/chocotonilitz</a></li>
+                <li><strong>Rede:</strong> Ciberespaço / Web Descentralizada</li>
+              </ul>
+            </fieldset>
+          </div>
+
+          <div class="tab-content hidden" id="tab-specs">
+            <fieldset class="retro-groupbox">
+              <legend>Stack Tecnológica & Interesses</legend>
+              <div class="specs-grid">
+                <div class="spec-item"><span class="spec-label">Linguagens:</span> JavaScript, TypeScript, Python, Bash, Rust</div>
+                <div class="spec-item"><span class="spec-label">Núcleo:</span> Agentes Autônomos, Web APIs, Sistemas Unix</div>
+                <div class="spec-item"><span class="spec-label">Filosofia:</span> Minimalismo funcional, interfaces táteis 3D, retrofuturismo</div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="window-statusbar">
+          <span>Pronto</span>
+          <span class="status-ram">Memória Livre: 64 MB / 128 MB</span>
+        </div>
+      </div>
+
+      <!-- WINDOW 2: PROJETOS & LINKS (File Manager / Explorer Style) -->
+      <div class="window" id="win-projects" style="top: 80px; left: 320px; width: 560px;" data-title="C:\Aethel\Projetos">
+        <div class="window-titlebar">
+          <div class="titlebar-left">
+            <span class="titlebar-icon">📂</span>
+            <span class="titlebar-title">C:\Aethel\Projetos & Links</span>
+          </div>
+          <div class="titlebar-controls">
+            <button class="win-btn win-btn-min" aria-label="Minimizar">_</button>
+            <button class="win-btn win-btn-max" aria-label="Maximizar">□</button>
+            <button class="win-btn win-btn-close" aria-label="Fechar">✕</button>
+          </div>
+        </div>
+
+        <!-- Explorer Menubar & Toolbar -->
+        <div class="explorer-menubar">
+          <span>Arquivo</span>
+          <span>Editar</span>
+          <span>Exibir</span>
+          <span>Favoritos</span>
+          <span>Ferramentas</span>
+          <span>Ajuda</span>
+        </div>
+
+        <div class="explorer-toolbar">
+          <div class="nav-arrows">
+            <button class="tool-btn" title="Voltar" disabled>◄ Voltar</button>
+            <button class="tool-btn" title="Avançar" disabled>►</button>
+            <button class="tool-btn" title="Nível Acima">▲</button>
+          </div>
+          <div class="tool-separator"></div>
+          <div class="address-bar">
+            <span class="addr-label">Endereço:</span>
+            <div class="addr-input-box">
+              <span class="addr-icon">📁</span>
+              <span class="addr-text">C:\Aethel\Projetos_Selecionados</span>
+            </div>
+            <button class="tool-btn go-btn">Ir</button>
+          </div>
+        </div>
+
+        <div class="window-content explorer-body">
+          <div class="explorer-sidebar">
+            <div class="sidebar-box">
+              <div class="sidebar-box-header">Tarefas de Pasta</div>
+              <ul class="sidebar-links">
+                <li><a href="https://github.com/chocotonilitz" target="_blank" rel="noopener">Abrir GitHub</a></li>
+                <li><a href="#" id="filter-all-btn">Exibir Todos</a></li>
+                <li><a href="#" id="btn-shuffle-fx">Efeito 3D Tilt</a></li>
+              </ul>
+            </div>
+            <div class="sidebar-box">
+              <div class="sidebar-box-header">Detalhes</div>
+              <p class="sidebar-info" id="project-hover-info">Passe o cursor sobre um projeto para inspecionar os detalhes.</p>
+            </div>
+          </div>
+
+          <div class="explorer-main">
+            <div class="projects-list-retro" id="projects-list-retro">
+              <!-- Renderizado dinamicamente via JS -->
+            </div>
+          </div>
+        </div>
+
+        <div class="window-statusbar">
+          <span id="projects-count-status">4 objetos</span>
+          <span>Link Tree Ativo</span>
+        </div>
+      </div>
+
+      <!-- WINDOW 3: TERMINAL LINUX -->
+      <div class="window" id="win-terminal" style="top: 140px; left: 160px; width: 540px;" data-title="Terminal: aethel@retro-box:~">
+        <div class="window-titlebar terminal-titlebar">
+          <div class="titlebar-left">
+            <span class="titlebar-icon">⚡</span>
+            <span class="titlebar-title">aethel@retro-box:~ (bash)</span>
+          </div>
+          <div class="titlebar-controls">
+            <button class="win-btn win-btn-min" aria-label="Minimizar">_</button>
+            <button class="win-btn win-btn-max" aria-label="Maximizar">□</button>
+            <button class="win-btn win-btn-close" aria-label="Fechar">✕</button>
+          </div>
+        </div>
+
+        <div class="window-content terminal-content" id="terminal-body">
+          <div class="term-line welcome-line">Aethel Linux Retro-Kernel 6.8.0-xp (tty1)</div>
+          <div class="term-line">Digite <span class="term-highlight">'help'</span> para listar os comandos ou <span class="term-highlight">'neofetch'</span> para infos do sistema.</div>
+          <div id="terminal-history"></div>
+          <div class="term-input-row">
+            <span class="term-prompt"><span class="p-user">aethel</span>@<span class="p-host">retro-box</span>:<span class="p-path">~</span>$&nbsp;</span>
+            <input type="text" id="terminal-input" class="term-input" autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+
+        <div class="window-statusbar terminal-statusbar">
+          <span>Modo: Interativo</span>
+          <span>UTF-8</span>
+        </div>
+      </div>
+
+      <!-- WINDOW 4: AETHEL-AMP (Retro Media Player) -->
+      <div class="window win-amp" id="win-player" style="top: 120px; left: 480px; width: 330px;" data-title="AethelAmp 2.91">
+        <div class="window-titlebar amp-titlebar">
+          <div class="titlebar-left">
+            <span class="titlebar-icon">📻</span>
+            <span class="titlebar-title">AethelAmp 2.91</span>
+          </div>
+          <div class="titlebar-controls">
+            <button class="win-btn win-btn-min" aria-label="Minimizar">_</button>
+            <button class="win-btn win-btn-close" aria-label="Fechar">✕</button>
+          </div>
+        </div>
+
+        <div class="window-content amp-body">
+          <div class="amp-display">
+            <div class="amp-lcd-title" id="amp-track-name">1. Aethel - Retro Cyber Odyssey (8-bit)</div>
+            <div class="amp-time" id="amp-timer">00:00</div>
+            <div class="amp-kbps">128 kbps 44 kHz</div>
+            <div class="amp-visualizer" id="amp-viz">
+              <span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span>
+              <span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span>
+              <span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span>
+            </div>
+          </div>
+
+          <div class="amp-controls">
+            <button class="amp-btn" id="amp-prev" title="Anterior">|◄</button>
+            <button class="amp-btn" id="amp-play" title="Tocar">►</button>
+            <button class="amp-btn" id="amp-pause" title="Pausar">❚❚</button>
+            <button class="amp-btn" id="amp-stop" title="Parar">■</button>
+            <button class="amp-btn" id="amp-next" title="Próximo">►|</button>
+          </div>
+
+          <div class="amp-slider-row">
+            <span class="amp-label">VOLUME</span>
+            <input type="range" min="0" max="100" value="70" class="amp-slider" id="amp-vol">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- START MENU (Windows XP style popup) -->
+    <div class="start-menu hidden" id="start-menu">
+      <div class="start-menu-header">
+        <div class="start-avatar">✦</div>
+        <span class="start-username">Aethel</span>
+      </div>
+
+      <div class="start-menu-columns">
+        <div class="start-col-left">
+          <div class="start-item" data-action="open-win" data-target="win-profile">
+            <span class="start-item-icon">🐧</span>
+            <div class="start-item-info">
+              <strong>Sobre Aethel</strong>
+              <small>Propriedades e biografia</small>
+            </div>
+          </div>
+          <div class="start-item" data-action="open-win" data-target="win-projects">
+            <span class="start-item-icon">📂</span>
+            <div class="start-item-info">
+              <strong>Projetos & Links</strong>
+              <small>Link tree e repositórios</small>
+            </div>
+          </div>
+          <div class="start-item" data-action="open-win" data-target="win-terminal">
+            <span class="start-item-icon">📟</span>
+            <div class="start-item-info">
+              <strong>Terminal Bash</strong>
+              <small>Linha de comando Linux</small>
+            </div>
+          </div>
+          <div class="start-item" data-action="open-win" data-target="win-player">
+            <span class="start-item-icon">🎵</span>
+            <div class="start-item-info">
+              <strong>AethelAmp</strong>
+              <small>Tocador de áudio chiptune</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="start-col-right">
+          <div class="start-sub-item" data-action="open-win" data-target="win-projects">
+            <span>Meus Projetos</span>
+          </div>
+          <div class="start-sub-item" id="start-github-link">
+            <span>Perfil GitHub ↗</span>
+          </div>
+          <div class="start-sub-item" id="toggle-sound-btn">
+            <span id="sound-status-label">Sons: Ativados</span>
+          </div>
+          <div class="start-sub-item" id="btn-compiz-wobble">
+            <span>Efeito Compiz 3D</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="start-menu-footer">
+        <button class="start-footer-btn" id="btn-restart">
+          <span class="footer-btn-icon">↺</span> Reiniciar Sessão
+        </button>
+      </div>
+    </div>
+
+    <!-- TASKBAR (Windows XP / Linux hybrid taskbar) -->
+    <footer class="taskbar" id="taskbar">
+      <!-- Start Button with XP 3D glossy style -->
+      <button class="start-button" id="start-button" aria-expanded="false">
+        <span class="start-flag">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path d="M2,4 C4,2 8,2 10,4 C12,6 16,6 18,4 L18,16 C16,18 12,18 10,16 C8,14 4,14 2,16 Z" fill="#ffffff" opacity="0.95"/>
+            <circle cx="8" cy="9" r="1.5" fill="#2d6a4f"/>
+            <path d="M6,10 Q8,13 12,10" stroke="#2d6a4f" stroke-width="1.2" fill="none"/>
+          </svg>
+        </span>
+        <span class="start-text">iniciar</span>
+      </button>
+
+      <!-- Window Tabs on Taskbar -->
+      <div class="taskbar-tasks" id="taskbar-tasks">
+        <!-- Rendered dynamically via JS for open/minimized windows -->
+      </div>
+
+      <!-- System Tray -->
+      <div class="system-tray" id="system-tray">
+        <button class="tray-icon" id="tray-sound-toggle" title="Alternar Efeitos Sonoros">🔊</button>
+        <div class="tray-icon" title="Rede Linux Conectada: 1 Gbps">📶</div>
+        <div class="tray-clock" id="tray-clock">18:30</div>
+      </div>
     </footer>
-  </main>
+
+  </div>
 </body>
 </html>
