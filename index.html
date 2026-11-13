@@ -349,7 +349,7 @@
           <div class="amp-display">
             <div class="amp-lcd-title" id="amp-track-name">♪ Aethel - 8-Bit Cyber Nostalgia (Synth) ♪</div>
             <div class="amp-time" id="amp-timer">00:00</div>
-            <div class="amp-status-chip" id="amp-status-chip">ESTADO: TOCANDO</div>
+            <div class="amp-status-chip" id="amp-status-chip">ESTADO: PAUSADO</div>
             <div class="amp-visualizer" id="amp-viz">
               <span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span>
               <span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span>
@@ -358,7 +358,7 @@
           </div>
 
           <div class="amp-controls">
-            <button class="amp-btn primary" id="amp-play-pause-btn" title="Pausar / Tocar Música">❚❚ Pausar</button>
+            <button class="amp-btn primary" id="amp-play-pause-btn" title="Iniciar / Tocar Música">► Iniciar Música</button>
             <button class="amp-btn" id="amp-stop" title="Parar Música">■ Parar</button>
             <button class="amp-btn" id="amp-next" title="Próxima Melodia">►| Nova Nota</button>
           </div>
@@ -616,11 +616,15 @@
     <div id="xp-balloon" class="xp-balloon hidden">
       <div class="balloon-header">
         <span class="balloon-icon">🎵</span>
-        <span class="balloon-title">Aethel OS Inicializado</span>
+        <span class="balloon-title">Trilha Sonora 8-bit</span>
         <button class="balloon-close" id="balloon-close">✕</button>
       </div>
       <div class="balloon-body">
-        <p>A música 8-bit está tocando no <strong>AethelAmp</strong>. Você pode pausar ou ajustar o som a qualquer momento no ícone da barra de tarefas!</p>
+        <p>A música retro 8-bit está disponível no <strong>AethelAmp</strong>. Deseja iniciar a trilha sonora nostálgica agora?</p>
+        <div style="margin-top: 8px; display: flex; gap: 6px;">
+          <button class="xp-btn primary" id="balloon-play-btn" style="min-width: 0; padding: 3px 8px; font-size: 11px;">► Iniciar Música</button>
+          <button class="xp-btn" id="balloon-dismiss-btn" style="min-width: 0; padding: 3px 8px; font-size: 11px;">Fechar</button>
+        </div>
       </div>
     </div>
 
@@ -735,10 +739,10 @@
       </div>
 
       <!-- Quick Music Controller in Taskbar (1-Click Pause/Play!) -->
-      <div class="taskbar-music-chip" id="taskbar-music-chip" title="Clique para Pausar/Tocar a música 8-bit">
+      <div class="taskbar-music-chip" id="taskbar-music-chip" title="Clique para Iniciar/Pausar a música 8-bit">
         <span class="music-note-icon">🎵</span>
-        <span class="music-label" id="music-chip-label">8-bit: Tocando</span>
-        <button class="music-chip-toggle" id="music-chip-btn">❚❚</button>
+        <span class="music-label" id="music-chip-label">8-bit: Desligado</span>
+        <button class="music-chip-toggle" id="music-chip-btn">►</button>
       </div>
 
       <!-- System Tray -->

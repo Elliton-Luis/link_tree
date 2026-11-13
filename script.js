@@ -395,9 +395,9 @@ function updateMusicUI(playing) {
     if (chipLabel) chipLabel.textContent = "8-bit: Tocando";
     if (ampChip) ampChip.textContent = "ESTADO: TOCANDO";
   } else {
-    if (ampPlayBtn) ampPlayBtn.textContent = "► Tocar";
+    if (ampPlayBtn) ampPlayBtn.textContent = "► Iniciar Música";
     if (chipBtn) chipBtn.textContent = "►";
-    if (chipLabel) chipLabel.textContent = "8-bit: Pausado";
+    if (chipLabel) chipLabel.textContent = "8-bit: Desligado";
     if (ampChip) ampChip.textContent = "ESTADO: PAUSADO";
   }
 }
@@ -481,47 +481,44 @@ document.addEventListener("DOMContentLoaded", () => {
   initCalendarPopup();
   initPageVisibility();
 
-  // "Ao entrar toque uma musiquinha 8 bits"
-  // Os navegadores modernos exigem interação do usuário antes de liberar som.
-  // Tentamos iniciar imediatamente, e registramos um listener para a primeira interação caso bloqueado.
-  setupAutoPlayMusic();
+  // A música não toca mais ao iniciar; fica disponível na tela para o usuário tocar se quiser
+  setupMusicInterface();
 });
 
-function setupAutoPlayMusic() {
-  // Tentativa inicial
-  try {
-    start8BitMusic();
-  } catch (e) {
-    console.debug("Autoplay pending user click");
-  }
+function setupMusicInterface() {
+  // Garante estado desligado/pausado inicial
+  SystemState.music.isPlaying = false;
+  updateMusicUI(false);
 
-  // Desperta na primeira interação com a página (clique, toque ou tecla)
-  function handleFirstUserGesture() {
-    if (!SystemState.music.isPlaying) {
-      start8BitMusic();
-      showBalloonNotification();
-    }
-    window.removeEventListener("click", handleFirstUserGesture);
-    window.removeEventListener("keydown", handleFirstUserGesture);
-    window.removeEventListener("touchstart", handleFirstUserGesture);
-  }
-
-  window.addEventListener("click", handleFirstUserGesture, { once: true });
-  window.addEventListener("keydown", handleFirstUserGesture, { once: true });
-  window.addEventListener("touchstart", handleFirstUserGesture, { once: true });
-
-  // Exibe balão de boas-vindas após 1.5s
-  setTimeout(showBalloonNotification, 1500);
+  // Exibe balão estilo XP convidando a tocar a música se o usuário desejar
+  setTimeout(showBalloonNotification, 1200);
 }
 
 function showBalloonNotification() {
   const balloon = document.getElementById("xp-balloon");
   if (!balloon) return;
   balloon.classList.remove("hidden");
-  document.getElementById("balloon-close")?.addEventListener("click", () => {
-    balloon.classList.add("hidden");
-  });
-  setTimeout(() => balloon.classList.add("hidden"), 10000);
+
+  const closeBtn = document.getElementById("balloon-close");
+  const dismissBtn = document.getElementById("balloon-dismiss-btn");
+  const playBtn = document.getElementById("balloon-play-btn");
+
+  const hideBalloon = () => balloon.classList.add("hidden");
+
+  closeBtn?.addEventListener("click", hideBalloon, { once: true });
+  dismissBtn?.addEventListener("click", hideBalloon, { once: true });
+
+  playBtn?.addEventListener("click", () => {
+    playRetroSound("click");
+    start8BitMusic();
+    hideBalloon();
+  }, { once: true });
+
+  setTimeout(() => {
+    if (balloon && !balloon.classList.contains("hidden")) {
+      balloon.classList.add("hidden");
+    }
+  }, 12000);
 }
 
 // --------------------------------------------------------------------------
