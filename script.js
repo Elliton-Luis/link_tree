@@ -209,7 +209,8 @@ const SystemState = {
     interval: null,
     volume: 0.035,
     seconds: 0,
-    noteIndex: 0
+    noteIndex: 0,
+    pausedByVisibility: false
   }
 };
 
@@ -402,6 +403,62 @@ function updateMusicUI(playing) {
 }
 
 // --------------------------------------------------------------------------
+// 3.1 Page Visibility API - Pausa a sessão e o áudio ao sair da aba
+// --------------------------------------------------------------------------
+function initPageVisibility() {
+  function handleVisibilityChange() {
+    if (document.hidden) {
+      // Usuário saiu da aba ou minimizou o navegador
+      if (SystemState.music.isPlaying) {
+        SystemState.music.pausedByVisibility = true;
+        pause8BitMusic();
+      }
+
+      // Suspende AudioContext para zerar consumo de CPU e evitar ruídos
+      if (SystemState.audioCtx && SystemState.audioCtx.state === "running") {
+        try {
+          SystemState.audioCtx.suspend();
+        } catch (e) {
+          console.debug("AudioContext suspend suppressed", e);
+        }
+      }
+    } else {
+      // Usuário retornou à aba ativa
+      if (SystemState.audioCtx && SystemState.audioCtx.state === "suspended") {
+        try {
+          SystemState.audioCtx.resume();
+        } catch (e) {
+          console.debug("AudioContext resume suppressed", e);
+        }
+      }
+
+      // Retoma automaticamente apenas se estava tocando antes de mudar de aba
+      if (SystemState.music.pausedByVisibility) {
+        SystemState.music.pausedByVisibility = false;
+        start8BitMusic();
+      }
+    }
+  }
+
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  // Fallbacks de ciclo de vida de página
+  window.addEventListener("pagehide", () => {
+    if (SystemState.music.isPlaying) {
+      SystemState.music.pausedByVisibility = true;
+      pause8BitMusic();
+    }
+  });
+
+  window.addEventListener("pageshow", () => {
+    if (SystemState.music.pausedByVisibility && !document.hidden) {
+      SystemState.music.pausedByVisibility = false;
+      start8BitMusic();
+    }
+  });
+}
+
+// --------------------------------------------------------------------------
 // 4. Inicialização Principal do Sistema
 // --------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
@@ -422,6 +479,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initDesktopSelection();
   initContextMenu();
   initCalendarPopup();
+  initPageVisibility();
 
   // "Ao entrar toque uma musiquinha 8 bits"
   // Os navegadores modernos exigem interação do usuário antes de liberar som.
