@@ -74,6 +74,7 @@ html, body {
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1485,15 +1486,40 @@ html, body {
 }
 
 .launcher-url-row {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background: #ffffff;
+  border: 1px solid #7f9db9;
+  border-radius: 2px;
   font-size: 11px;
-  color: #444;
-  word-break: break-all;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  max-width: 100%;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.06);
+  box-sizing: border-box;
+}
+
+.launcher-url-label {
+  font-size: 10px;
+  font-weight: bold;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .launcher-url-link {
   color: #0055ea;
   text-decoration: underline;
-  margin-left: 4px;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+  white-space: normal;
+  display: block;
+  font-size: 11px;
+  line-height: 1.4;
+  margin-left: 0;
 }
 
 .launcher-choice-box {
@@ -2232,44 +2258,473 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   Responsive Design
+   Responsive Design & Mobile-First Usability
    -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
+  /* Desktop Background e Ícones */
+  .desktop-watermark {
+    display: none;
+  }
+
   .desktop-icons {
     position: static;
     overflow-y: auto;
-    max-height: calc(100vh - 40px);
-    padding: 8px;
+    max-height: calc(100vh - 44px);
+    padding: 8px 6px;
     flex-wrap: wrap;
     pointer-events: auto;
+    gap: 8px;
   }
-  .desktop-icon-group, .desktop-apps-container {
+
+  .desktop-icon-group,
+  .desktop-apps-container {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 8px;
   }
+
+  .desktop-icon {
+    width: 68px;
+    padding: 4px 2px;
+    min-height: 64px;
+  }
+
+  .desktop-icon .icon-label {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  /* Janelas em Tela Mobile */
   .window {
-    width: 96% !important;
-    left: 2% !important;
-    top: 5px !important;
+    width: calc(100vw - 12px) !important;
+    left: 6px !important;
+    top: 6px !important;
+    max-height: calc(100vh - 46px) !important;
+    max-height: calc(100dvh - 46px) !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
   }
+
+  .window.maximized {
+    width: 100vw !important;
+    height: calc(100vh - 38px) !important;
+    height: calc(100dvh - 38px) !important;
+    max-height: calc(100vh - 38px) !important;
+    max-height: calc(100dvh - 38px) !important;
+    left: 0 !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  /* Desativa resize handles no mobile para não capturar toques acidentais */
+  .resize-handle,
+  .statusbar-grip {
+    display: none !important;
+  }
+
+  /* Barra de Título e Botões de Janela */
+  .window-titlebar {
+    min-height: 36px;
+    padding: 4px 8px;
+  }
+
+  .titlebar-title {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .titlebar-controls {
+    gap: 3px;
+  }
+
+  .win-btn {
+    min-width: 32px;
+    min-height: 28px;
+    font-size: 13px;
+  }
+
+  /* Conteúdo com rolagem táctil suave */
+  .window-content {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    flex: 1 1 auto;
+    max-height: calc(100vh - 120px) !important;
+  }
+
+  /* Propriedades do Sistema: Sobre Aethel */
+  .profile-header-retro {
+    gap: 10px;
+    align-items: center;
+  }
+
+  .avatar-box-3d {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+
+  .sys-name {
+    font-size: 17px;
+  }
+
+  .tab-strip {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .tab-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-button {
+    padding: 7px 12px;
+    font-size: 11px;
+    min-height: 34px;
+    flex-shrink: 0;
+  }
+
+  .profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .profile-actions .xp-btn,
+  .profile-actions a {
+    width: 100%;
+    min-height: 44px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .profile-actions .main-cta-btn {
+    background: linear-gradient(to bottom, #39b54a 0%, #2e963c 50%, #237830 100%) !important;
+    color: #ffffff !important;
+    border-color: #1a5c24 !important;
+    font-size: 13px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  /* Explorer: Meus Programas */
+  .explorer-menubar {
+    display: none !important;
+  }
+
+  .explorer-toolbar {
+    padding: 4px 6px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tool-separator {
+    display: none;
+  }
+
+  .address-bar {
+    width: 100%;
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
+  .addr-label {
+    display: none;
+  }
+
+  .addr-input-box {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .addr-text {
+    font-size: 10px;
+  }
+
+  .go-btn {
+    display: none;
+  }
+
   .explorer-body {
     flex-direction: column;
     height: auto;
+    padding: 0;
   }
+
   .explorer-sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid #4058b5;
+    display: none !important;
   }
+
+  .explorer-main {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .projects-list-retro {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .project-card-retro {
+    padding: 10px 12px;
+    box-sizing: border-box;
+  }
+
+  .card-main-content {
+    gap: 10px;
+  }
+
+  .proj-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .proj-title {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .proj-slogan {
+    font-size: 11px;
+  }
+
+  .proj-pitch {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .card-footer-cta {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+
+  .card-link-btn,
+  .card-cta-btn {
+    flex: 1;
+    min-height: 42px;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+  }
+
+  /* Caixinha e Emulador de Aplicativo */
+  .app-launcher-dialog {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .launcher-header-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .launcher-icon-badge {
+    width: 46px;
+    height: 46px;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+
+  .launcher-app-name {
+    font-size: 16px;
+  }
+
+  .launcher-badges {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .launcher-choice-box {
+    padding: 10px;
+    margin-top: 8px;
+  }
+
+  .launcher-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .launcher-actions-row .xp-btn,
+  .launcher-actions-row a {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  /* Emulador tela cheia no mobile */
+  .embedded-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 8px;
+    background: #ded9c3;
+  }
+
+  .embedded-banner-btns {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .embedded-banner-btns .tool-btn,
+  .embedded-banner-btns a {
+    flex: 1;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid #7f9db9;
+    background: #ece9d8;
+    box-sizing: border-box;
+  }
+
+  .embedded-iframe-container {
+    height: calc(100vh - 145px) !important;
+    max-height: calc(100vh - 145px) !important;
+    width: 100%;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+  }
+
+  /* Taskbar e Sistema */
+  .taskbar {
+    height: 38px;
+    padding: 0 4px;
+    z-index: 1001;
+  }
+
+  .start-button {
+    padding: 0 8px;
+    height: 100%;
+  }
+
+  .start-flag svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .start-text {
+    font-size: 12px;
+  }
+
+  .taskbar-tasks {
+    overflow-x: auto;
+    flex: 1;
+    display: flex;
+    gap: 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .taskbar-tasks::-webkit-scrollbar {
+    display: none;
+  }
+
+  .task-tab {
+    min-width: 90px;
+    max-width: 130px;
+    font-size: 10px;
+    padding: 0 6px;
+    height: 30px;
+    align-self: center;
+    flex-shrink: 0;
+  }
+
+  .taskbar-music-chip {
+    padding: 2px 6px;
+    height: 28px;
+    align-self: center;
+  }
+
+  .taskbar-music-chip .music-label {
+    display: none;
+  }
+
+  .system-tray {
+    padding: 0 4px;
+    gap: 4px;
+  }
+
+  .system-tray .tray-icon:not(#tray-sound-toggle):not(#tray-music-toggle) {
+    display: none;
+  }
+
+  .tray-clock {
+    font-size: 10px;
+    padding: 0 2px;
+  }
+
+  .start-menu {
+    width: calc(100vw - 8px) !important;
+    left: 4px !important;
+    bottom: 42px !important;
+    max-height: calc(100vh - 50px);
+  }
+
+  .start-menu-body {
+    flex-direction: column;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+
+  .start-col-left,
+  .start-col-right {
+    width: 100%;
+  }
+
   .all-programs-menu {
     left: 0;
     bottom: 100%;
     width: 100%;
   }
-  .desktop-watermark {
-    display: none;
+
+  .xp-balloon {
+    bottom: 44px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+    max-width: 340px;
+    margin: 0 auto;
   }
-  .taskbar-music-chip .music-label {
-    display: none;
+
+  .win-amp {
+    width: calc(100vw - 12px) !important;
+    left: 6px !important;
+    max-width: 360px !important;
   }
 }

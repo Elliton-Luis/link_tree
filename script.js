@@ -202,7 +202,7 @@ const SystemState = {
   highestZIndex: 100,
   soundEffectsEnabled: true,
   audioCtx: null,
-  activeWindowId: "win-projects",
+  activeWindowId: "win-profile",
   isCompiz3d: true,
   music: {
     isPlaying: false,
@@ -481,9 +481,35 @@ document.addEventListener("DOMContentLoaded", () => {
   initCalendarPopup();
   initPageVisibility();
 
+  // Define o estado inicial das janelas (No celular e desktop: foco em "Sobre o que é o Aethel")
+  setupInitialWindowsState();
+
   // A música não toca mais ao iniciar; fica disponível na tela para o usuário tocar se quiser
   setupMusicInterface();
 });
+
+function setupInitialWindowsState() {
+  const profileWin = document.getElementById("win-profile");
+  const projectsWin = document.getElementById("win-projects");
+  const playerWin = document.getElementById("win-player");
+
+  if (window.innerWidth <= 768) {
+    // No celular: Foca estritamente em explicar "Sobre o que é o Aethel"
+    // Minimiza o player e projetos para não poluir a tela compacta
+    if (playerWin) playerWin.classList.add("minimized");
+    if (projectsWin) projectsWin.classList.add("minimized");
+    if (profileWin) {
+      profileWin.classList.remove("minimized");
+      window.focusWindow(profileWin);
+    }
+  } else {
+    // No Desktop: Mantém Sobre o Aethel em destaque na frente e projetos/player abertos
+    if (profileWin) {
+      profileWin.classList.remove("minimized");
+      window.focusWindow(profileWin);
+    }
+  }
+}
 
 function setupMusicInterface() {
   // Garante estado desligado/pausado inicial
@@ -549,6 +575,9 @@ function renderDesktopApps() {
       document.querySelectorAll(".desktop-icon").forEach(i => i.classList.remove("selected"));
       iconEl.classList.add("selected");
       playRetroSound("click");
+      if (window.innerWidth <= 768) {
+        launchApp(app);
+      }
     });
 
     iconEl.addEventListener("dblclick", () => launchApp(app));
@@ -737,9 +766,20 @@ function launchApp(app) {
   // Garante que a janela abre na visão da Caixinha (não carrega o iframe direto!)
   if (boxView) boxView.classList.remove("hidden");
   if (embeddedView) embeddedView.classList.add("hidden");
-  if (iframe) iframe.src = "about:blank"; // Não captura eventos de mouse em background
-  win.style.width = "520px";
-  win.style.height = "auto";
+  if (iframe) iframe.src = "about:blank"; // Não captura eventos de mouse/touch em background
+
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    win.style.width = "";
+    win.style.height = "";
+    win.style.left = "";
+    win.style.top = "";
+    win.classList.remove("maximized");
+  } else {
+    win.style.width = "540px";
+    win.style.height = "auto";
+  }
 
   // Botão 2: Testar agora (embutido)
   if (btnTest) {
@@ -750,8 +790,13 @@ function launchApp(app) {
       if (iframe) iframe.src = app.url;
       if (bannerName) bannerName.textContent = `Visualizando: ${app.title}`;
       if (bannerExt) bannerExt.href = app.url;
-      win.style.width = "720px";
-      win.style.height = "520px";
+
+      if (window.innerWidth <= 768) {
+        win.classList.add("maximized");
+      } else {
+        win.style.width = "720px";
+        win.style.height = "520px";
+      }
     };
   }
 
@@ -762,8 +807,13 @@ function launchApp(app) {
       if (boxView) boxView.classList.remove("hidden");
       if (embeddedView) embeddedView.classList.add("hidden");
       if (iframe) iframe.src = "about:blank";
-      win.style.width = "520px";
-      win.style.height = "auto";
+
+      if (window.innerWidth <= 768) {
+        win.classList.remove("maximized");
+      } else {
+        win.style.width = "540px";
+        win.style.height = "auto";
+      }
     };
   }
 
@@ -772,6 +822,9 @@ function launchApp(app) {
     btnCancel.onclick = () => {
       playRetroSound("close");
       win.classList.add("minimized");
+      if (window.innerWidth <= 768) {
+        win.classList.remove("maximized");
+      }
     };
   }
 
@@ -1042,6 +1095,10 @@ function initDesktopIcons() {
       document.querySelectorAll(".desktop-icon").forEach(i => i.classList.remove("selected"));
       icon.classList.add("selected");
       playRetroSound("click");
+      if (window.innerWidth <= 768) {
+        const targetWin = icon.dataset.window;
+        if (targetWin) window.openWindow(targetWin);
+      }
     });
 
     icon.addEventListener("dblclick", () => {
@@ -1059,6 +1116,11 @@ function initDesktopIcons() {
 
   const ghIcon = document.getElementById("link-github-external");
   if (ghIcon) {
+    ghIcon.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        window.open(PROFILE.github, "_blank");
+      }
+    });
     ghIcon.addEventListener("dblclick", () => {
       window.open(PROFILE.github, "_blank");
     });

@@ -175,7 +175,7 @@
     <div class="windows-container" id="windows-container">
 
       <!-- WINDOW: SOBRE AETHEL (Propriedades do Sistema) -->
-      <div class="window" id="win-profile" style="top: 30px; left: 320px; width: 440px;" data-title="Propriedades do Sistema: Aethel">
+      <div class="window active active-win" id="win-profile" style="top: 30px; left: 240px; width: 480px;" data-title="Propriedades do Sistema: Aethel">
         <div class="window-titlebar">
           <div class="titlebar-left">
             <span class="titlebar-icon">🐧</span>
@@ -190,7 +190,7 @@
 
         <div class="window-content xp-dialog">
           <div class="tab-strip">
-            <button class="tab-button active" data-tab="tab-general">Geral</button>
+            <button class="tab-button active" data-tab="tab-general">Sobre o Aethel</button>
             <button class="tab-button" data-tab="tab-bio">Bio & Visão</button>
             <button class="tab-button" data-tab="tab-specs">Especificações</button>
           </div>
@@ -209,23 +209,26 @@
                 <div class="sys-tag">Elliton Luis - Criador de Sistemas</div>
                 <div class="sys-meta">
                   <span>SO: Aethel Minimalist XP/Linux Core</span><br>
-                  <span>Build: 2026.11.12-FinalRelease</span>
+                  <span>Build: 2026.11.14-MobileEnhanced</span>
                 </div>
               </div>
             </div>
 
             <fieldset class="retro-groupbox">
-              <legend>Informações do Sistema</legend>
-              <p class="retro-desc" id="profile-bio">Projetos, ensaios & criações focadas em interfaces autônomas, exploração cognitiva e computação artesanal.</p>
+              <legend>O que é o Aethel OS?</legend>
+              <p class="retro-desc" id="profile-bio">
+                <strong>Aethel OS</strong> é um sistema operacional retro e vitrine interativa artesanal criada por <strong>Elliton Luis</strong>. Unindo a estética nostálgica do Windows XP Luna e Linux Compiz 3D à leveza da web moderna, reúne um ecossistema com <strong>14 aplicações completas e ativas</strong>: jogos de grande estratégia (Rex Mundi, Eclesia RPG), ensaios filosóficos (Blog Aletheia), teologia patrística (Cátedra Sacra), acervos de literatura clássica e ferramentas autônomas.
+              </p>
               <div class="retro-status-row">
                 <span class="status-indicator">●</span>
-                <span class="status-text">Status: 14 Aplicativos Ativos | Som 8-bit Pronto</span>
+                <span class="status-text">Status: 14 Aplicativos Ativos | Som 8-bit Opcional | 100% Web</span>
               </div>
             </fieldset>
 
-            <div class="dialog-actions">
-              <button class="xp-btn" id="btn-open-projects">Ver Programas...</button>
-              <button class="xp-btn primary" id="btn-open-terminal">Abrir Terminal</button>
+            <div class="dialog-actions profile-actions">
+              <button class="xp-btn primary main-cta-btn" id="btn-open-projects" style="font-weight: bold; padding: 6px 14px;">🚀 Explorar os 14 Aplicativos (Vitrine)</button>
+              <button class="xp-btn" id="btn-open-terminal">⚡ Abrir Terminal</button>
+              <a href="https://github.com/Elliton-Luis" target="_blank" rel="noopener" class="xp-btn" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">🌐 GitHub</a>
             </div>
           </div>
 
@@ -264,7 +267,7 @@
       </div>
 
       <!-- WINDOW: MEUS PROGRAMAS (Explorer) -->
-      <div class="window active-win" id="win-projects" style="top: 45px; left: 360px; width: 620px;" data-title="C:\Arquivos de Programas\Aethel">
+      <div class="window" id="win-projects" style="top: 60px; left: 360px; width: 640px;" data-title="C:\Arquivos de Programas\Aethel">
         <div class="window-titlebar">
           <div class="titlebar-left">
             <span class="titlebar-icon">📂</span>
@@ -509,14 +512,14 @@
                 Um jogo de grande estratégia e conquista geopolítica onde cada decisão diplomática e militar decide o destino de impérios inteiros.
               </p>
               <div class="launcher-url-row">
-                <strong>Endereço Web:</strong>
+                <span class="launcher-url-label">Endereço Web:</span>
                 <a href="#" target="_blank" rel="noopener" id="launcher-url-link" class="launcher-url-link">https://rex-mundi.vercel.app/</a>
               </div>
             </fieldset>
 
             <div class="launcher-choice-box">
               <p class="launcher-tip-note">
-                💡 <em>Dica: Para jogos e apps que usam o mouse livremente (como <strong>Rex Mundi</strong>), clique em <strong>"Abrir o Link"</strong> para jogar em tela cheia com mouse 100% liberado!</em>
+                💡 <em>Dica: Para jogos e aplicações interativas (como <strong>Rex Mundi</strong>), clique em <strong>"Abrir o Link"</strong> para jogar em tela cheia com controles, mouse e toque 100% liberados!</em>
               </p>
 
               <div class="launcher-actions-row">
@@ -527,7 +530,7 @@
 
                 <!-- Botão 2: Testar agora (embutido) -->
                 <button type="button" id="btn-test-embedded" class="xp-btn launcher-test-btn">
-                  👁️ Testar Agora (Embutido)
+                  👁️ Testar no Emulador (Embutido)
                 </button>
 
                 <button type="button" class="xp-btn" id="btn-launcher-cancel">Cancelar</button>
