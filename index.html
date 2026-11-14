@@ -335,12 +335,12 @@
         </div>
       </div>
 
-      <!-- WINDOW: AETHEL-AMP (Tocador de Música 8-bit com Pause/Play) -->
-      <div class="window win-amp" id="win-player" style="top: 140px; left: 490px; width: 340px;" data-title="AethelAmp 2.91 - Música 8-bit">
+      <!-- WINDOW: AETHEL-AMP (Tocador de Música 16-bit com 5 Faixas de 30s) -->
+      <div class="window win-amp" id="win-player" style="top: 140px; left: 490px; width: 340px;" data-title="AethelAmp 2.91 - Músicas 16-bit">
         <div class="window-titlebar amp-titlebar">
           <div class="titlebar-left">
             <span class="titlebar-icon">📻</span>
-            <span class="titlebar-title">AethelAmp 2.91 [Música 8-bit]</span>
+            <span class="titlebar-title">AethelAmp 2.91 [Som 16-bit]</span>
           </div>
           <div class="titlebar-controls">
             <button class="win-btn win-btn-min" aria-label="Minimizar">_</button>
@@ -350,20 +350,36 @@
 
         <div class="window-content amp-body">
           <div class="amp-display">
-            <div class="amp-lcd-title" id="amp-track-name">♪ Aethel - 8-Bit Cyber Nostalgia (Synth) ♪</div>
-            <div class="amp-time" id="amp-timer">00:00</div>
-            <div class="amp-status-chip" id="amp-status-chip">ESTADO: PAUSADO</div>
+            <div class="amp-lcd-title" id="amp-track-name">♪ [1/5] Aethel Odyssey (16-bit RPG) [C Maj] ♪</div>
+            <div class="amp-time-row">
+              <span class="amp-time" id="amp-timer">00:00 / 00:30</span>
+              <span class="amp-status-chip" id="amp-status-chip">ESTADO: PAUSADO</span>
+            </div>
             <div class="amp-visualizer" id="amp-viz">
+              <span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span>
               <span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span>
               <span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span>
               <span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span><span class="v-bar"></span>
             </div>
           </div>
 
+          <!-- Seletor de Faixas (5 Músicas de 16-bit em Tons Diferentes) -->
+          <div class="amp-playlist-row">
+            <label for="amp-track-select" class="amp-label">FAIXA:</label>
+            <select class="amp-track-select" id="amp-track-select" title="Escolha uma das 5 músicas de 16-bit">
+              <option value="0">1. Aethel Odyssey (RPG Épico) - Dó Maior [30s]</option>
+              <option value="1">2. Cyber Sanctuary (Neon City) - Ré Menor [30s]</option>
+              <option value="2">3. Castle of Shadows (Gothic Boss) - Mi Menor [30s]</option>
+              <option value="3">4. Celestial Highlands (Fantasia) - Sol Maior [30s]</option>
+              <option value="4">5. Midnight Reverie (Synthwave) - Si Menor [30s]</option>
+            </select>
+          </div>
+
           <div class="amp-controls">
-            <button class="amp-btn primary" id="amp-play-pause-btn" title="Iniciar / Tocar Música">► Iniciar Música</button>
+            <button class="amp-btn" id="amp-prev" title="Faixa Anterior">|◄</button>
+            <button class="amp-btn primary" id="amp-play-pause-btn" title="Iniciar / Pausar Música">► Iniciar</button>
+            <button class="amp-btn" id="amp-next" title="Próxima Faixa">►|</button>
             <button class="amp-btn" id="amp-stop" title="Parar Música">■ Parar</button>
-            <button class="amp-btn" id="amp-next" title="Próxima Melodia">►| Nova Nota</button>
           </div>
 
           <div class="amp-slider-row">
@@ -619,14 +635,14 @@
     <div id="xp-balloon" class="xp-balloon hidden">
       <div class="balloon-header">
         <span class="balloon-icon">🎵</span>
-        <span class="balloon-title">Trilha Sonora 8-bit</span>
+        <span class="balloon-title">Trilhas Sonoras 16-bit (5 Músicas)</span>
         <button class="balloon-close" id="balloon-close">✕</button>
       </div>
       <div class="balloon-body">
-        <p>A música retro 8-bit está disponível no <strong>AethelAmp</strong>. Deseja iniciar a trilha sonora nostálgica agora?</p>
+        <p>5 músicas 16-bit (30s cada) em diferentes tons estão disponíveis no <strong>AethelAmp</strong>. Deseja iniciar a reprodução?</p>
         <div style="margin-top: 8px; display: flex; gap: 6px;">
-          <button class="xp-btn primary" id="balloon-play-btn" style="min-width: 0; padding: 3px 8px; font-size: 11px;">► Iniciar Música</button>
-          <button class="xp-btn" id="balloon-dismiss-btn" style="min-width: 0; padding: 3px 8px; font-size: 11px;">Fechar</button>
+          <button class="xp-btn primary" id="balloon-play-btn" style="min-width: 0; padding: 3px 8px; font-size: 11px;">► Iniciar 16-bit</button>
+          <button class="xp-btn" id="balloon-dismiss-btn" style="min-width: 0; padding: 3px 8px; font-size: 11px;">Depois</button>
         </div>
       </div>
     </div>
@@ -742,9 +758,9 @@
       </div>
 
       <!-- Quick Music Controller in Taskbar (1-Click Pause/Play!) -->
-      <div class="taskbar-music-chip" id="taskbar-music-chip" title="Clique para Iniciar/Pausar a música 8-bit">
+      <div class="taskbar-music-chip" id="taskbar-music-chip" title="Clique para Iniciar/Pausar a música 16-bit">
         <span class="music-note-icon">🎵</span>
-        <span class="music-label" id="music-chip-label">8-bit: Desligado</span>
+        <span class="music-label" id="music-chip-label">16-bit: Desligado</span>
         <button class="music-chip-toggle" id="music-chip-btn">►</button>
       </div>
 

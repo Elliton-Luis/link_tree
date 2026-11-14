@@ -210,6 +210,7 @@ const SystemState = {
     volume: 0.035,
     seconds: 0,
     noteIndex: 0,
+    currentTrackIndex: 0,
     pausedByVisibility: false
   }
 };
@@ -274,97 +275,418 @@ function playRetroSound(type) {
 }
 
 // --------------------------------------------------------------------------
-// 3. Sintetizador de Música 8-Bit (Melodia Nostálgica Autêntica)
+// 3. Sintetizador de Música 16-Bit (5 Faixas de 30s em Tons Diferentes)
 // --------------------------------------------------------------------------
-// Progressão chiptune melódica harmoniosa
-const CHIPTUNE_MELODY = [
-  { note: 261.63, len: 0.18, bass: 130.81 }, // C4
-  { note: 329.63, len: 0.18, bass: 130.81 }, // E4
-  { note: 392.00, len: 0.18, bass: 130.81 }, // G4
-  { note: 523.25, len: 0.36, bass: 130.81 }, // C5
-  { note: 440.00, len: 0.18, bass: 110.00 }, // A4
-  { note: 349.23, len: 0.18, bass: 110.00 }, // F4
-  { note: 392.00, len: 0.36, bass: 110.00 }, // G4
-  { note: 329.63, len: 0.18, bass: 98.00  }, // E4
-  { note: 293.66, len: 0.18, bass: 98.00  }, // D4
-  { note: 261.63, len: 0.36, bass: 98.00  }, // C4
-  { note: 293.66, len: 0.18, bass: 123.47 }, // D4
-  { note: 349.23, len: 0.18, bass: 123.47 }, // F4
-  { note: 392.00, len: 0.18, bass: 123.47 }, // G4
-  { note: 440.00, len: 0.18, bass: 123.47 }, // A4
-  { note: 493.88, len: 0.36, bass: 123.47 }, // B4
-  { note: 523.25, len: 0.54, bass: 130.81 }  // C5
-];
+const N = {
+  _: 0,
+  C1: 32.70, D1: 36.71, E1: 41.20, F1: 43.65, G1: 49.00, A1: 55.00, B1: 61.74,
+  C2: 65.41, Cs2: 69.30, D2: 73.42, Ds2: 77.78, E2: 82.41, F2: 87.31, Fs2: 92.50, G2: 98.00, Gs2: 103.83, A2: 110.00, As2: 116.54, B2: 123.47,
+  C3: 130.81, Cs3: 138.59, D3: 146.83, Ds3: 155.56, E3: 164.81, F3: 174.61, Fs3: 185.00, G3: 196.00, Gs3: 207.65, A3: 220.00, As3: 233.08, B3: 246.94,
+  C4: 261.63, Cs4: 277.18, D4: 293.66, Ds4: 311.13, E4: 329.63, F4: 349.23, Fs4: 369.99, G4: 392.00, Gs4: 415.30, A4: 440.00, As4: 466.16, B4: 493.88,
+  C5: 523.25, Cs5: 554.37, D5: 587.33, Ds5: 622.25, E5: 659.25, F5: 698.46, Fs5: 739.99, G5: 783.99, Gs5: 830.61, A5: 880.00, As5: 932.33, B5: 987.77,
+  C6: 1046.50, Cs6: 1108.73, D6: 1174.66, Ds6: 1244.51, E6: 1318.51, F6: 1396.91, Fs6: 1479.98, G6: 1567.98, Gs6: 1661.22, A6: 1760.00, As6: 1864.66, B6: 1975.53
+};
 
-function play8BitNote(step) {
+function build16BitTracks() {
+  function makeTrack(id, title, keyName, genre, tempoMs, totalSteps, composer) {
+    const pattern = [];
+    for (let s = 0; s < totalSteps; s++) {
+      pattern.push(composer(s, Math.floor(s / 8), s % 8));
+    }
+    return { id, title, keyName, genre, tempoMs, durationSec: (totalSteps * tempoMs) / 1000, pattern };
+  }
+
+  // 1. Aethel Odyssey (RPG Épico - Dó Maior / Lá Menor, 30.08s)
+  const track1 = makeTrack("aethel-odyssey", "Aethel Odyssey (RPG Épico)", "Dó Maior / Lá Menor", "Heroic JRPG Overworld", 235, 128, (s, bar, bStep) => {
+    let bass = N.C2, harm = N.G3;
+    if (bar === 0 || bar === 4) { bass = N.C2; harm = bStep % 2 === 0 ? N.G3 : N.E4; }
+    else if (bar === 1) { bass = N.G2; harm = bStep % 2 === 0 ? N.D4 : N.B3; }
+    else if (bar === 2 || bar === 8 || bar === 14) { bass = N.A2; harm = bStep % 2 === 0 ? N.E4 : N.C4; }
+    else if (bar === 3 || bar === 6 || bar === 9 || bar === 12) { bass = N.F2; harm = bStep % 2 === 0 ? N.C4 : N.A3; }
+    else if (bar === 5 || bar === 11) { bass = N.E2; harm = bStep % 2 === 0 ? N.B3 : N.G3; }
+    else if (bar === 7 || bar === 10 || bar === 13) { bass = N.G2; harm = bStep % 2 === 0 ? N.D4 : N.B3; }
+    else if (bar === 15) { bass = N.C2; harm = bStep % 2 === 0 ? N.C4 : N.G4; }
+
+    const leadSeq = [
+      N.C5, N.E5, N.G5, N.C6,  N.B5, N.G5, N.E5, N.G5,
+      N.D5, N.G5, N.B5, N.D6,  N.C6, N.B5, N.A5, N.G5,
+      N.A5, N.C6, N.E6, N.C6,  N.B5, N.A5, N.G5, N.E5,
+      N.F5, N.A5, N.C6, N.D6,  N.C6, N._,  N.G5, N._,
+      N.C5, N.G5, N.C6, N.D6,  N.E6, N.D6, N.C6, N.G5,
+      N.E5, N.G5, N.B5, N.E6,  N.D6, N.C6, N.B5, N.A5,
+      N.A5, N.C6, N.F6, N.E6,  N.D6, N.C6, N.D6, N.E6,
+      N.D6, N.B5, N.G5, N.D5,  N.G5, N.A5, N.B5, N.D6,
+      N.E6, N.C6, N.A5, N.E5,  N.A5, N.B5, N.C6, N.E6,
+      N.F6, N.E6, N.D6, N.C6,  N.A5, N.F5, N.A5, N.C6,
+      N.D6, N.C6, N.B5, N.G5,  N.B5, N.D6, N.F6, N.E6,
+      N.E6, N.B5, N.G5, N.E5,  N.G5, N.B5, N.D6, N.B5,
+      N.C6, N.A5, N.F5, N.A5,  N.C6, N.D6, N.E6, N.F6,
+      N.G6, N.F6, N.E6, N.D6,  N.B5, N.G5, N.B5, N.D6,
+      N.E6, N.D6, N.C6, N.A5,  N.C6, N.D6, N.E6, N.G6,
+      N.C6, N._,  N.G5, N._,   N.E5, N._,  N.C5, N._
+    ];
+    let perc = (bStep === 0 || bStep === 4) ? "kick" : (bStep === 2 || bStep === 6) ? "snare" : "hihat";
+    return { lead: leadSeq[s % leadSeq.length], harm, bass, perc };
+  });
+
+  // 2. Cyber Sanctuary (Neon City - Ré Menor / Fá Maior, 30.00s)
+  const track2 = makeTrack("cyber-sanctuary", "Cyber Sanctuary (Neon City)", "Ré Menor / Fá Maior", "16-bit Cyberpunk / Synthwave", 250, 120, (s, bar, bStep) => {
+    let bass = N.D2, harm = N.A3;
+    if (bar < 2 || (bar >= 6 && bar < 8) || bar === 14) {
+      bass = bStep % 4 === 0 ? N.D2 : N.D3; harm = bStep % 2 === 0 ? N.F4 : N.A4;
+    } else if (bar >= 2 && bar < 4) {
+      bass = bStep % 4 === 0 ? N.As2 : N.As3; harm = bStep % 2 === 0 ? N.D4 : N.F4;
+    } else if (bar >= 4 && bar < 6) {
+      bass = bStep % 4 === 0 ? N.C2 : N.C3; harm = bStep % 2 === 0 ? N.E4 : N.G4;
+    } else if (bar >= 8 && bar < 10) {
+      bass = bStep % 4 === 0 ? N.F2 : N.F3; harm = bStep % 2 === 0 ? N.A4 : N.C5;
+    } else if (bar >= 10 && bar < 12) {
+      bass = bStep % 4 === 0 ? N.G2 : N.G3; harm = bStep % 2 === 0 ? N.As4 : N.D5;
+    } else {
+      bass = bStep < 4 ? N.As2 : N.C3; harm = bStep % 2 === 0 ? N.F4 : N.E4;
+    }
+
+    const leadSeq = [
+      N.D5, N._,  N.F5, N.G5,  N.A5, N.D6, N.C6, N.A5,
+      N.F5, N.D5, N.F5, N.G5,  N.A5, N.G5, N.F5, N.D5,
+      N.D5, N.F5, N.As5, N.C6, N.D6, N.C6, N.As5, N.A5,
+      N.G5, N.A5, N.As5, N.C6, N.As5, N.A5, N.G5, N.F5,
+      N.E5, N.G5, N.C6, N.D6,  N.E6, N.D6, N.C6, N.G5,
+      N.A5, N.Gs5, N.G5, N.F5, N.D5, N.F5, N.A5, N.C6,
+      N.D6, N.A5, N.F5, N.D5,  N.F5, N.G5, N.A5, N.C6,
+      N.D6, N.E6, N.F6, N.E6,  N.D6, N.C6, N.A5, N.G5,
+      N.A5, N.C6, N.F6, N.E6,  N.C6, N.A5, N.C6, N.E6,
+      N.F6, N.E6, N.C6, N.A5,  N.F5, N.A5, N.C6, N.D6,
+      N.D6, N.As5, N.G5, N.D5, N.G5, N.As5, N.D6, N.F6,
+      N.G6, N.F6, N.D6, N.As5, N.G5, N.F5, N.G5, N.A5,
+      N.As5, N.C6, N.D6, N.F6, N.E6, N.D6, N.C6, N.A5,
+      N.G5, N.A5, N.C6, N.E6,  N.D6, N._,  N.A5, N._,
+      N.D5, N.F5, N.A5, N.D6,  N._,  N._,  N._,  N._
+    ];
+    let perc = (bStep === 0 || bStep === 3) ? "kick" : (bStep === 2 || bStep === 6) ? "snare" : "hihat";
+    return { lead: leadSeq[s % leadSeq.length], harm, bass, perc };
+  });
+
+  // 3. Castle of Shadows (Gothic Boss - Mi Menor, 29.92s)
+  const track3 = makeTrack("castle-shadows", "Castle of Shadows (Gothic Boss)", "Mi Menor", "16-bit Gothic Action / Castlevania", 220, 136, (s, bar, bStep) => {
+    let bass = N.E2, harm = N.B3;
+    if (bar === 0 || bar === 3 || bar === 4 || bar === 10 || bar === 15 || bar === 16) {
+      bass = bStep % 2 === 0 ? N.E2 : N.E3; harm = bStep % 2 === 0 ? N.G4 : N.B4;
+    } else if (bar === 1 || bar === 6 || bar === 12) {
+      bass = bStep % 2 === 0 ? N.C2 : N.C3; harm = bStep % 2 === 0 ? N.E4 : N.G4;
+    } else if (bar === 2 || bar === 7 || bar === 9 || bar === 13) {
+      bass = bStep % 2 === 0 ? N.D2 : N.D3; harm = bStep % 2 === 0 ? N.Fs4 : N.A4;
+    } else if (bar === 5) {
+      bass = bStep % 2 === 0 ? N.B1 : N.B2; harm = bStep % 2 === 0 ? N.D4 : N.Fs4;
+    } else if (bar === 8) {
+      bass = bStep % 2 === 0 ? N.G2 : N.G3; harm = bStep % 2 === 0 ? N.B4 : N.D5;
+    } else if (bar === 11 || bar === 14) {
+      bass = bStep % 2 === 0 ? N.B1 : N.B2; harm = bStep % 2 === 0 ? N.Ds4 : N.A4;
+    }
+
+    const leadSeq = [
+      N.E5, N.G5, N.B5, N.E6,  N.D6, N.B5, N.G5, N.E5,
+      N.C6, N.B5, N.A5, N.G5,  N.Fs5, N.G5, N.A5, N.C6,
+      N.D6, N.C6, N.B5, N.A5,  N.G5, N.A5, N.B5, N.D6,
+      N.E6, N.D6, N.B5, N.G5,  N.E5, N.G5, N.B5, N.D6,
+      N.E6, N.Fs6, N.G6, N.Fs6, N.E6, N.D6, N.C6, N.B5,
+      N.B5, N.D6, N.Fs6, N.D6,  N.B5, N.A5, N.G5, N.Fs5,
+      N.G5, N.A5, N.B5, N.C6,   N.D6, N.C6, N.B5, N.A5,
+      N.A5, N.B5, N.C6, N.D6,   N.E6, N.Fs6, N.G6, N.A6,
+      N.B6, N.G6, N.D6, N.B5,  N.D6, N.G6, N.B6, N.A6,
+      N.A6, N.Fs6, N.D6, N.A5, N.D6, N.Fs6, N.A6, N.G6,
+      N.G6, N.E6, N.B5, N.G5,  N.B5, N.E6, N.G6, N.Fs6,
+      N.Fs6, N.Ds6, N.B5, N.A5, N.B5, N.Ds6, N.Fs6, N.A6,
+      N.G6, N.E6, N.C6, N.G5,  N.C6, N.E6, N.G6, N.Fs6,
+      N.Fs6, N.D6, N.A5, N.Fs5, N.A5, N.D6, N.Fs6, N.E6,
+      N.Ds6, N.B5, N.A5, N.Fs5, N.Ds5, N.Fs5, N.A5, N.B5,
+      N.E6, N.B5, N.G5, N.E5,  N.G5, N.B5, N.E6, N.G6,
+      N.E6, N._,  N.B5, N._,   N.G5, N._,  N.E5, N._
+    ];
+    let perc = (bStep === 0 || bStep === 4) ? "kick" : (bStep === 2 || bStep === 6) ? "snare" : "hihat";
+    return { lead: leadSeq[s % leadSeq.length], harm, bass, perc };
+  });
+
+  // 4. Celestial Highlands (Fantasia - Sol Maior, 30.00s)
+  const track4 = makeTrack("celestial-highlands", "Celestial Highlands (Fantasia)", "Sol Maior", "Pastoral Fantasy Meadow / Zelda ALttP", 250, 120, (s, bar, bStep) => {
+    let bass = N.G2, harm = N.D4;
+    if (bar === 0 || bar === 4 || bar === 10 || bar === 14) {
+      bass = N.G2; harm = bStep % 2 === 0 ? N.B3 : N.D4;
+    } else if (bar === 1 || bar === 7 || bar === 11 || bar === 13) {
+      bass = N.D2; harm = bStep % 2 === 0 ? N.A3 : N.Fs4;
+    } else if (bar === 2 || bar === 8) {
+      bass = N.E2; harm = bStep % 2 === 0 ? N.G3 : N.B3;
+    } else if (bar === 3 || bar === 6 || bar === 9 || bar === 12) {
+      bass = N.C2; harm = bStep % 2 === 0 ? N.E4 : N.G4;
+    } else if (bar === 5) {
+      bass = N.B1; harm = bStep % 2 === 0 ? N.D4 : N.Fs4;
+    }
+
+    const leadSeq = [
+      N.G5, N.A5, N.B5, N.D6,  N.B5, N.G5, N.A5, N.B5,
+      N.A5, N.Fs5, N.D5, N.Fs5, N.A5, N.B5, N.C6, N.A5,
+      N.G5, N.E5, N.G5, N.B5,  N.G5, N.E5, N.G5, N.A5,
+      N.E5, N.G5, N.C6, N.E6,  N.D6, N.C6, N.B5, N.A5,
+      N.G5, N.B5, N.D6, N.G6,  N.Fs6, N.E6, N.D6, N.B5,
+      N.D6, N.B5, N.Fs5, N.D5, N.Fs5, N.A5, N.B5, N.D6,
+      N.E6, N.D6, N.C6, N.B5,  N.A5, N.G5, N.A5, N.B5,
+      N.A5, N.D5, N.Fs5, N.A5, N.D6, N.E6, N.Fs6, N.A6,
+      N.G6, N.E6, N.D6, N.B5,  N.G5, N.B5, N.D6, N.E6,
+      N.E6, N.C6, N.A5, N.G5,  N.E5, N.G5, N.A5, N.C6,
+      N.B5, N.G5, N.D5, N.G5,  N.B5, N.D6, N.G6, N.Fs6,
+      N.Fs6, N.D6, N.A5, N.Fs5, N.D5, N.Fs5, N.A5, N.C6,
+      N.B5, N.C6, N.D6, N.E6,  N.G6, N.Fs6, N.E6, N.D6,
+      N.D6, N.B5, N.A5, N.G5,  N.A5, N.B5, N.C6, N.D6,
+      N.G5, N._,  N.D5, N._,   N.B4, N._,  N.G4, N._
+    ];
+    let perc = bStep === 0 ? "kick" : bStep === 4 ? "snare" : (bStep % 2 === 0 ? "hihat" : null);
+    return { lead: leadSeq[s % leadSeq.length], harm, bass, perc };
+  });
+
+  // 5. Midnight Reverie (Synthwave - Si Menor / Ré Maior, 30.00s)
+  const track5 = makeTrack("midnight-reverie", "Midnight Reverie (Synthwave)", "Si Menor / Ré Maior", "16-bit Dreamy Chill / Aquatic Ambiance", 300, 100, (s, bar, bStep) => {
+    let bass = N.B1, harm = N.Fs3;
+    const barFloat = s / 8;
+    if (barFloat < 2) { bass = N.B1; harm = bStep % 2 === 0 ? N.D4 : N.Fs4; }
+    else if (barFloat < 4) { bass = N.G1; harm = bStep % 2 === 0 ? N.B3 : N.D4; }
+    else if (barFloat < 6) { bass = N.D2; harm = bStep % 2 === 0 ? N.Fs4 : N.A4; }
+    else if (barFloat < 8) { bass = N.A1; harm = bStep % 2 === 0 ? N.Cs4 : N.E4; }
+    else if (barFloat < 10) { bass = N.B1; harm = bStep % 2 === 0 ? N.D4 : N.Fs4; }
+    else if (barFloat < 11.5) { bass = N.G1; harm = bStep % 2 === 0 ? N.B3 : N.E4; }
+    else { bass = N.A1; harm = bStep % 2 === 0 ? N.Cs4 : N.Fs4; }
+
+    const leadSeq = [
+      N.Fs5, N.B5, N.D6, N.Fs6, N.E6, N.D6, N.B5, N.A5,
+      N.B5, N.D6, N.Fs5, N.A5,  N.G5, N.Fs5, N.D5, N.B4,
+      N.D5, N.Fs5, N.A5, N.D6,  N.Cs6, N.B5, N.A5, N.Fs5,
+      N.E5, N.Fs5, N.A5, N.Cs6, N.B5, N.A5, N.Fs5, N.E5,
+      N.D5, N.Fs5, N.B5, N.D6,  N.Fs6, N.E6, N.D6, N.B5,
+      N.E5, N.G5, N.B5, N.E6,   N.D6, N.B5, N.G5, N.E5,
+      N.Fs5, N.A5, N.Cs6, N.Fs6, N.E6, N.Cs6, N.A5, N.Fs5,
+      N.G5, N.B5, N.D6, N.G6,   N.Fs6, N.D6, N.B5, N.A5,
+      N.A5, N.D6, N.Fs6, N.A6,  N.G6, N.Fs6, N.E6, N.D6,
+      N.Cs6, N.A5, N.E5, N.Cs5, N.E5, N.A5, N.Cs6, N.E6,
+      N.D6, N.B5, N.Fs5, N.D5,  N.Fs5, N.B5, N.D6, N.Fs6,
+      N.G6, N.Fs6, N.D6, N.B5,  N.G5, N.A5, N.B5, N.Cs6,
+      N.B5, N._,  N.Fs5, N._,   N.D5, N._,  N.B4, N._
+    ];
+    let perc = bStep === 0 ? "kick" : bStep === 4 ? "snare" : (bStep === 2 || bStep === 6 ? "hihat" : null);
+    return { lead: leadSeq[s % leadSeq.length], harm, bass, perc };
+  });
+
+  return [track1, track2, track3, track4, track5];
+}
+
+const TRACKS_16BIT = build16BitTracks();
+
+function getCurrentTrack() {
+  const idx = SystemState.music.currentTrackIndex || 0;
+  return TRACKS_16BIT[(idx % TRACKS_16BIT.length + TRACKS_16BIT.length) % TRACKS_16BIT.length];
+}
+
+// Bateria 16-Bit Estilo Console (Kick, Snare com ruído, Hi-hat)
+function play16BitDrum(ctx, type, now, masterVol, dest) {
+  try {
+    if (type === "kick") {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(140, now);
+      osc.frequency.exponentialRampToValueAtTime(36, now + 0.08);
+
+      gain.gain.setValueAtTime(masterVol * 1.5, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+
+      osc.connect(gain);
+      gain.connect(dest);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else if (type === "snare") {
+      const bufferSize = Math.floor(ctx.sampleRate * 0.07);
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = "highpass";
+      noiseFilter.frequency.setValueAtTime(1000, now);
+
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(masterVol * 0.75, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
+
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(dest);
+      noise.start(now);
+    } else if (type === "hihat") {
+      const bufferSize = Math.floor(ctx.sampleRate * 0.03);
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = "highpass";
+      filter.frequency.setValueAtTime(6500, now);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(masterVol * 0.4, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(dest);
+      noise.start(now);
+    }
+  } catch (e) {
+    console.debug("Drum error suppressed", e);
+  }
+}
+
+// Reprodução polifônica 16-bit por passo (Lead + Harmonia + Baixo + Percussão)
+function play16BitStep(track, stepIndex) {
   try {
     const ctx = getAudioContext();
     if (!ctx) return;
 
+    const step = track.pattern[stepIndex % track.pattern.length];
+    if (!step) return;
+
     const now = ctx.currentTime;
-    const item = CHIPTUNE_MELODY[step % CHIPTUNE_MELODY.length];
+    const dur = (track.tempoMs / 1000) * 0.95;
+    const masterVol = SystemState.music.volume || 0.035;
 
-    // Lead Square Wave (Onda Quadrada 8-Bit)
-    const oscLead = ctx.createOscillator();
-    const gainLead = ctx.createGain();
-    oscLead.type = "square";
-    oscLead.frequency.setValueAtTime(item.note, now);
+    // Filtro DAC que simula a saída analógica clássica dos chips de 16 bits (SNES SPC700 / Genesis)
+    const dacFilter = ctx.createBiquadFilter();
+    dacFilter.type = "lowpass";
+    dacFilter.frequency.setValueAtTime(3400, now);
+    dacFilter.Q.setValueAtTime(1.1, now);
+    dacFilter.connect(ctx.destination);
 
-    gainLead.gain.setValueAtTime(SystemState.music.volume, now);
-    gainLead.gain.exponentialRampToValueAtTime(0.0001, now + item.len);
+    // 1. LEAD VOICE (Melodia Principal: Onda Quadrada com brilho Sawtooth e chorus de +5 cents)
+    if (step.lead && step.lead > 0) {
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const leadGain = ctx.createGain();
 
-    oscLead.connect(gainLead);
-    gainLead.connect(ctx.destination);
-    oscLead.start(now);
-    oscLead.stop(now + item.len);
+      osc1.type = "square";
+      osc2.type = "sawtooth";
+      osc1.frequency.setValueAtTime(step.lead, now);
+      osc2.frequency.setValueAtTime(step.lead, now);
+      osc2.detune.setValueAtTime(5, now);
 
-    // Bassline (Triangle wave dos anos 80/90)
-    if (step % 2 === 0) {
-      const oscBass = ctx.createOscillator();
-      const gainBass = ctx.createGain();
-      oscBass.type = "triangle";
-      oscBass.frequency.setValueAtTime(item.bass, now);
-      gainBass.gain.setValueAtTime(SystemState.music.volume * 0.9, now);
-      gainBass.gain.exponentialRampToValueAtTime(0.0001, now + (item.len * 1.5));
-      oscBass.connect(gainBass);
-      gainBass.connect(ctx.destination);
-      oscBass.start(now);
-      oscBass.stop(now + (item.len * 1.5));
+      leadGain.gain.setValueAtTime(0.0001, now);
+      leadGain.gain.linearRampToValueAtTime(masterVol * 0.95, now + 0.012);
+      leadGain.gain.exponentialRampToValueAtTime(masterVol * 0.65, now + dur * 0.35);
+      leadGain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
+      osc1.connect(leadGain);
+      osc2.connect(leadGain);
+      leadGain.connect(dacFilter);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + dur);
+      osc2.stop(now + dur);
+    }
+
+    // 2. HARMONY VOICE (Contra-canto / Acordes)
+    if (step.harm && step.harm > 0) {
+      const harmOsc = ctx.createOscillator();
+      const harmGain = ctx.createGain();
+      harmOsc.type = "triangle";
+      harmOsc.frequency.setValueAtTime(step.harm, now);
+
+      harmGain.gain.setValueAtTime(0.0001, now);
+      harmGain.gain.linearRampToValueAtTime(masterVol * 0.55, now + 0.02);
+      harmGain.gain.exponentialRampToValueAtTime(0.0001, now + dur * 0.85);
+
+      harmOsc.connect(harmGain);
+      harmGain.connect(dacFilter);
+
+      harmOsc.start(now);
+      harmOsc.stop(now + dur * 0.85);
+    }
+
+    // 3. BASSLINE VOICE (Sub-grave com presença analógica)
+    if (step.bass && step.bass > 0) {
+      const bassOsc = ctx.createOscillator();
+      const bassGain = ctx.createGain();
+      bassOsc.type = "triangle";
+      bassOsc.frequency.setValueAtTime(step.bass, now);
+
+      bassGain.gain.setValueAtTime(masterVol * 1.15, now);
+      bassGain.gain.exponentialRampToValueAtTime(masterVol * 0.55, now + 0.05);
+      bassGain.gain.exponentialRampToValueAtTime(0.0001, now + dur * 1.1);
+
+      bassOsc.connect(bassGain);
+      bassGain.connect(dacFilter);
+
+      bassOsc.start(now);
+      bassOsc.stop(now + dur * 1.1);
+    }
+
+    // 4. PERCUSSÃO 16-BIT
+    if (step.perc) {
+      play16BitDrum(ctx, step.perc, now, masterVol, dacFilter);
     }
   } catch (e) {
-    console.debug("8-bit note suppressed", e);
+    console.debug("16-bit step error suppressed", e);
   }
 }
 
-function start8BitMusic() {
+function start16BitMusic() {
   if (SystemState.music.isPlaying) return;
   getAudioContext();
   SystemState.music.isPlaying = true;
   updateMusicUI(true);
 
-  SystemState.music.interval = setInterval(() => {
-    if (!SystemState.music.isPlaying) return;
+  if (SystemState.music.interval) {
+    clearInterval(SystemState.music.interval);
+    SystemState.music.interval = null;
+  }
 
-    play8BitNote(SystemState.music.noteIndex);
-    SystemState.music.noteIndex = (SystemState.music.noteIndex + 1) % CHIPTUNE_MELODY.length;
+  const runLoop = () => {
+    const currentTrack = getCurrentTrack();
+    SystemState.music.interval = setInterval(() => {
+      if (!SystemState.music.isPlaying) return;
 
-    // Atualiza visualizador AethelAmp
-    const vizBars = document.querySelectorAll(".v-bar");
-    vizBars.forEach(bar => {
-      const h = Math.floor(Math.random() * 18) + 4;
-      bar.style.height = `${h}px`;
-    });
+      const track = getCurrentTrack();
+      play16BitStep(track, SystemState.music.noteIndex);
+      SystemState.music.noteIndex = (SystemState.music.noteIndex + 1) % track.pattern.length;
 
-    SystemState.music.seconds += 0.22;
-    const totalSec = Math.floor(SystemState.music.seconds);
-    const m = String(Math.floor(totalSec / 60)).padStart(2, "0");
-    const s = String(totalSec % 60).padStart(2, "0");
-    const timerEl = document.getElementById("amp-timer");
-    if (timerEl) timerEl.textContent = `${m}:${s}`;
-  }, 220);
+      // Visualizador AethelAmp com barras responsivas
+      const vizBars = document.querySelectorAll(".v-bar");
+      vizBars.forEach(bar => {
+        const h = Math.floor(Math.random() * 18) + 4;
+        bar.style.height = `${h}px`;
+      });
+
+      SystemState.music.seconds += track.tempoMs / 1000;
+      if (SystemState.music.seconds >= track.durationSec) {
+        SystemState.music.seconds = 0;
+      }
+
+      const totalSec = Math.floor(SystemState.music.seconds);
+      const m = String(Math.floor(totalSec / 60)).padStart(2, "0");
+      const s = String(totalSec % 60).padStart(2, "0");
+      const timerEl = document.getElementById("amp-timer");
+      if (timerEl) timerEl.textContent = `${m}:${s} / 00:30`;
+    }, currentTrack.tempoMs);
+  };
+
+  runLoop();
 }
 
-function pause8BitMusic() {
+function pause16BitMusic() {
   SystemState.music.isPlaying = false;
   if (SystemState.music.interval) {
     clearInterval(SystemState.music.interval);
@@ -375,29 +697,84 @@ function pause8BitMusic() {
   updateMusicUI(false);
 }
 
-function toggle8BitMusic() {
+function toggle16BitMusic() {
   if (SystemState.music.isPlaying) {
-    pause8BitMusic();
+    pause16BitMusic();
   } else {
-    start8BitMusic();
+    start16BitMusic();
   }
 }
+
+function change16BitTrack(index, autoPlay = null) {
+  const wasPlaying = autoPlay !== null ? autoPlay : SystemState.music.isPlaying;
+  pause16BitMusic();
+
+  SystemState.music.currentTrackIndex = ((index % TRACKS_16BIT.length) + TRACKS_16BIT.length) % TRACKS_16BIT.length;
+  SystemState.music.noteIndex = 0;
+  SystemState.music.seconds = 0;
+
+  const currentTrack = getCurrentTrack();
+  const trackNameEl = document.getElementById("amp-track-name");
+  const trackSelect = document.getElementById("amp-track-select");
+  const timerEl = document.getElementById("amp-timer");
+
+  if (trackNameEl) {
+    trackNameEl.textContent = `♪ [${SystemState.music.currentTrackIndex + 1}/5] ${currentTrack.title} [${currentTrack.keyName}] ♪`;
+  }
+  if (trackSelect) {
+    trackSelect.value = String(SystemState.music.currentTrackIndex);
+  }
+  if (timerEl) {
+    timerEl.textContent = "00:00 / 00:30";
+  }
+
+  updateMusicUI(wasPlaying);
+
+  if (wasPlaying) {
+    start16BitMusic();
+  }
+}
+
+function next16BitTrack() {
+  playRetroSound("click");
+  change16BitTrack(SystemState.music.currentTrackIndex + 1);
+}
+
+function prev16BitTrack() {
+  playRetroSound("click");
+  change16BitTrack(SystemState.music.currentTrackIndex - 1);
+}
+
+// Aliases para compatibilidade total com o restante da interface
+const start8BitMusic = start16BitMusic;
+const pause8BitMusic = pause16BitMusic;
+const toggle8BitMusic = toggle16BitMusic;
 
 function updateMusicUI(playing) {
   const ampPlayBtn = document.getElementById("amp-play-pause-btn");
   const chipBtn = document.getElementById("music-chip-btn");
   const chipLabel = document.getElementById("music-chip-label");
   const ampChip = document.getElementById("amp-status-chip");
+  const trackSelect = document.getElementById("amp-track-select");
+  const trackNameEl = document.getElementById("amp-track-name");
+  const currentTrack = getCurrentTrack();
+
+  if (trackSelect) {
+    trackSelect.value = String(SystemState.music.currentTrackIndex);
+  }
+  if (trackNameEl) {
+    trackNameEl.textContent = `♪ [${SystemState.music.currentTrackIndex + 1}/5] ${currentTrack.title} [${currentTrack.keyName}] ♪`;
+  }
 
   if (playing) {
     if (ampPlayBtn) ampPlayBtn.textContent = "❚❚ Pausar";
     if (chipBtn) chipBtn.textContent = "❚❚";
-    if (chipLabel) chipLabel.textContent = "8-bit: Tocando";
+    if (chipLabel) chipLabel.textContent = `16-bit: [${SystemState.music.currentTrackIndex + 1}/5] Tocando`;
     if (ampChip) ampChip.textContent = "ESTADO: TOCANDO";
   } else {
-    if (ampPlayBtn) ampPlayBtn.textContent = "► Iniciar Música";
+    if (ampPlayBtn) ampPlayBtn.textContent = "► Iniciar";
     if (chipBtn) chipBtn.textContent = "►";
-    if (chipLabel) chipLabel.textContent = "8-bit: Desligado";
+    if (chipLabel) chipLabel.textContent = "16-bit: Desligado";
     if (ampChip) ampChip.textContent = "ESTADO: PAUSADO";
   }
 }
@@ -1235,7 +1612,9 @@ function initSystemClock() {
 function initAethelAmpControls() {
   const ampPlayPause = document.getElementById("amp-play-pause-btn");
   const ampStop = document.getElementById("amp-stop");
+  const ampPrev = document.getElementById("amp-prev");
   const ampNext = document.getElementById("amp-next");
+  const ampTrackSelect = document.getElementById("amp-track-select");
   const ampVol = document.getElementById("amp-vol");
   const chip = document.getElementById("taskbar-music-chip");
   const chipBtn = document.getElementById("music-chip-btn");
@@ -1243,14 +1622,14 @@ function initAethelAmpControls() {
   if (ampPlayPause) {
     ampPlayPause.addEventListener("click", () => {
       playRetroSound("click");
-      toggle8BitMusic();
+      toggle16BitMusic();
     });
   }
 
   if (chip) {
     chip.addEventListener("click", () => {
       playRetroSound("click");
-      toggle8BitMusic();
+      toggle16BitMusic();
     });
   }
 
@@ -1258,33 +1637,47 @@ function initAethelAmpControls() {
     chipBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       playRetroSound("click");
-      toggle8BitMusic();
+      toggle16BitMusic();
     });
   }
 
   if (ampStop) {
     ampStop.addEventListener("click", () => {
       playRetroSound("click");
-      pause8BitMusic();
+      pause16BitMusic();
       SystemState.music.seconds = 0;
       SystemState.music.noteIndex = 0;
       const timerEl = document.getElementById("amp-timer");
-      if (timerEl) timerEl.textContent = "00:00";
+      if (timerEl) timerEl.textContent = "00:00 / 00:30";
+    });
+  }
+
+  if (ampPrev) {
+    ampPrev.addEventListener("click", () => {
+      prev16BitTrack();
     });
   }
 
   if (ampNext) {
     ampNext.addEventListener("click", () => {
-      playRetroSound("click");
-      SystemState.music.noteIndex = (SystemState.music.noteIndex + 4) % CHIPTUNE_MELODY.length;
-      if (!SystemState.music.isPlaying) start8BitMusic();
+      next16BitTrack();
+    });
+  }
+
+  if (ampTrackSelect) {
+    ampTrackSelect.addEventListener("change", (e) => {
+      const selectedIndex = parseInt(e.target.value, 10);
+      if (!isNaN(selectedIndex)) {
+        playRetroSound("click");
+        change16BitTrack(selectedIndex);
+      }
     });
   }
 
   if (ampVol) {
     ampVol.addEventListener("input", (e) => {
       const pct = parseInt(e.target.value, 10) / 100;
-      SystemState.music.volume = pct * 0.06;
+      SystemState.music.volume = pct * 0.05;
     });
   }
 }
@@ -1739,14 +2132,25 @@ function initTerminal() {
         history.innerHTML = "";
       } else if (cmd === "music") {
         if (arg === "pause") {
-          pause8BitMusic();
-          output = "Música 8-bit pausada.";
+          pause16BitMusic();
+          output = "Música 16-bit pausada.";
         } else if (arg === "play") {
-          start8BitMusic();
-          output = "Música 8-bit tocando.";
+          start16BitMusic();
+          const tr = getCurrentTrack();
+          output = `Música 16-bit tocando: ${tr.title} [${tr.keyName}].`;
+        } else if (arg === "next") {
+          next16BitTrack();
+          output = `Faixa seguinte: ${getCurrentTrack().title}.`;
+        } else if (arg === "prev") {
+          prev16BitTrack();
+          output = `Faixa anterior: ${getCurrentTrack().title}.`;
+        } else if (arg >= "1" && arg <= "5") {
+          const tIdx = parseInt(arg, 10) - 1;
+          change16BitTrack(tIdx, true);
+          output = `Reproduzindo faixa ${arg}: ${getCurrentTrack().title} [${getCurrentTrack().keyName}].`;
         } else {
-          toggle8BitMusic();
-          output = `Música 8-bit: ${SystemState.music.isPlaying ? "Tocando" : "Pausada"}`;
+          toggle16BitMusic();
+          output = `Música 16-bit: ${SystemState.music.isPlaying ? "Tocando (" + getCurrentTrack().title + ")" : "Pausada"}`;
         }
       } else if (cmd === "open") {
         const num = parseInt(arg, 10);

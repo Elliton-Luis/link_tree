@@ -1091,18 +1091,48 @@ html, body {
   100% { transform: translateX(-100%); }
 }
 
-.amp-time {
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  text-shadow: 0 0 6px #00ff88;
+.amp-time-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   margin: 2px 0;
+}
+
+.amp-time {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 0 6px #00ff88;
 }
 
 .amp-status-chip {
   font-size: 9px;
   color: #00e5ff;
   letter-spacing: 0.05em;
+}
+
+.amp-playlist-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+}
+
+.amp-track-select {
+  flex: 1;
+  background: #090a0d;
+  color: #00ff88;
+  border: 1px solid #333a46;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 3px 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.amp-track-select:focus {
+  border-color: #00ff88;
 }
 
 .amp-visualizer {
